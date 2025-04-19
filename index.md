@@ -4,8 +4,7 @@ layout: home
 
 hero:
   name: "Statamic Livewire Filters"
-  text: "Supercharge your Statamic Collections using Livewire."
-  tagline: My great project tagline
+  tagline: Supercharge your Statamic Collections using Livewire.
   actions:
     - theme: brand
       text: Markdown Examples

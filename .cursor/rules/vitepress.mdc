@@ -1,0 +1,18 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+I have some docs in statamic that I want you to help me create to vite press. I will give you parts in Statamic md files and I want you to create the revelant pages
+
+don't include any images I will do it myself later
+
+convert Statamic's bard to md code.
+
+use ```antlers for code unless you can understand it to be something else.
+
+the docs location is on the project root and not ./docs
+
+correct any huge grammar errors you find but otherwise don't change the text at all
+
+add an h1 title in each page same with the page's title
