@@ -7,12 +7,13 @@ const antlersDef = JSON.parse(readFileSync(path.resolve(__dirname, './languages/
 
 
 export default defineConfig({
-  title: "Statamic Livewire Filters",
+  title: "Livewire Filters",
   cleanUrls: true,
   sitemap: {
     hostname: 'https://livewirefilters.com/'
   },
   description: "Supercharge your Statamic Collections using Livewire.",
+  
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
@@ -67,10 +68,18 @@ export default defineConfig({
       { text: 'Common Issues', link: '/common-issues' },
       { text: 'Examples', link: '/examples' },
     ],
-
+    footer: {
+      copyright: 'Copyright © 2025 Reach Web Agency'
+    },
+    siteTitle: false,
     socialLinks: [
       { icon: 'github', link: 'https://github.com/reachweb/statamic-livewire-filters' }
-    ],    
+    ],
+    logo: { 
+      light: '/logo-light.svg', 
+      dark: '/logo-dark.svg', 
+      alt: 'Statamic Livewire Filters' 
+    }, 
   },
   markdown: {
     shikiSetup: async (highlighter) => {

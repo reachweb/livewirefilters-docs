@@ -1,0 +1,140 @@
+:root {
+    --vp-home-hero-name-color: transparent;
+    --vp-home-hero-name-background: linear-gradient(to right, #0c4a6e, #0284c7);
+
+    --vp-c-indigo-1: oklch(29.3% 0.066 243.157);
+    --vp-c-indigo-2: oklch(39.1% 0.09 240.876);
+    --vp-c-indigo-3: oklch(50% 0.134 242.749);
+
+    --vp-button-alt-bg: #FF269E;
+    --vp-button-alt-text: var(--vp-c-white);
+    --vp-button-brand-hover-bg: var(--vp-c-indigo-2);
+    --vp-button-brand-hover-text: var(--vp-c-white);
+}
+
+.dark {
+    --vp-c-indigo-1: oklch(82.8% 0.111 230.318);
+    --vp-c-indigo-2: oklch(90.1% 0.058 230.902);
+    --vp-c-indigo-3: oklch(29.3% 0.066 243.157);
+
+    --vp-button-alt-bg: #D4FF4C;
+    --vp-button-alt-text: var(--vp-c-black);
+    --vp-button-brand-hover-text: var(--vp-c-black);
+}
+
+.name span, .main .text {
+    font-size: 48px !important;
+    line-height: 54px !important;
+}
+
+.VPNavBarTitle .logo {
+    height: 36px;
+  }
+
+@media (max-width: 640px) {
+    .name span, .main .text {
+        font-size: 28px !important;
+        line-height: 34px !important;
+    }
+}
+
+@media (max-width: 960px) {
+    .name span, .main .text {
+        font-size: 32px !important;
+        line-height: 38px !important;
+    }
+}
+
+html.dark .VPFeatures .VPFeature img {
+    filter: invert(1) brightness(2); 
+}
+
+.partner-section {
+    display: flex;
+    justify-content: space-between;
+    margin: 4rem 0;
+    padding: 2rem;
+    background-color: var(--vp-c-bg-soft);
+    border-radius: 8px;
+  }
+  
+  
+  .build-for, .built-by {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .build-for h3, .built-by h3 {
+    font-size: 0.80rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    margin-top: 0;
+    letter-spacing: 0.05em;
+  }
+  
+  
+  .logo-container {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .statamic-logo {
+    margin-top: 4px;
+    color: var(--vp-button-alt-bg) !important;
+  }
+  
+  .statamic-logo svg {
+    max-height: 40px;
+    height: 64px;
+    max-height: none;
+  }
+  
+  .livewire-logo svg {
+    max-height: 40px;
+    height: 32px;
+    width: auto;
+  }
+
+  .fill-livewire {
+    fill: var(--vp-c-black);
+  }
+  
+  .reach-logo svg {
+    max-height: 40px;
+    height: 32px;
+    width: auto;
+  }
+  
+  @media (max-width: 768px) {
+    .partner-section {
+      flex-direction: column;
+      gap: 2rem;
+      align-items: flex-start;
+    }
+    
+    .built-by {
+      align-self: flex-end;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .partner-section {
+      padding: 1.5rem;
+    }
+    
+    .logo-container {
+      gap: 1rem;
+    }
+    
+    .statamic-logo img,
+    .livewire-logo img,
+    .reach-logo img {
+      max-height: 30px;
+    }
+  }
+
+/* Add dark mode color for statamic logo */
+html.dark .fill-livewire {
+  fill: var(--vp-c-white);
+}
