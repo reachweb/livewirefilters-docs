@@ -40,7 +40,7 @@ To enable this feature, simply set `enable_query_string` to `true` in the addon'
 
 Although this method works well, all parameters are saved inside a `params` array due to the dynamic nature of your filters. As a result, the generated URLs look something like:
 
-```htmlmixed
+```url
 ?params[taxonomy:car_brand:any]=citroen|fiat|vw&params[fuel_type:is]=superUnl&params[sort]=seats:asc
 ```
 
@@ -80,7 +80,7 @@ Would generate a URL like so:
 
 Much cleaner, right? The replacement string for each original parameter key can be anything you like.
 
-## A Couple of Caveats:
+## A Couple of Caveats
 
 - **Query scopes require special handling.** You'll need to include `query_scope:` before the parameter's value. For example: `'categories' => 'query_scope:multiselect:car_categories'`.
 - **Unset filter parameters are ignored.** Your filters will still work, but any parameter not defined in the configuration won't be parsed on page load or generated during user interaction.

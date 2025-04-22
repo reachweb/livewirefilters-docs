@@ -3,43 +3,27 @@ title: Tags Component
 description: How to use Statamic Livewire Filters' LfTags component.
 ---
 
-# Tags Component
+# Tags
 
 ## Overview
 
-The `LfTags` component is a handy way to display all active filters and provides users with a quick way to remove them.
+In websites that feature filtering, it is common to have a "tags" or "pills" area displaying all currently active filters along with their values and an option to remove any of them. In keeping with the modular design of Livewire Filters, we include the `LfTags` component, which enables you to display such tags easily. 
 
-Here's an example of how to use the component:
-
-```antlers
-<div v-pre>
-{{ livewire:lf-tags blueprint="cars.car" fields="title|car_brand|transmission" }}
-</div>
-```
-
-## Options
+## Usage
 
 | Option | Description |
 |--------|-------------|
-| `blueprint` | The blueprint handle of the collection you're filtering. Format is `collection.blueprint`. |
-| `fields` | A pipe-separated list of fields to display. The component will only show tags for these fields when they are active. |
-| `wrapper_class` | Additional classes for the wrapper div. |
+| `blueprint` | The blueprint handle of the collection you're filtering. As usual, format is `collection.blueprint`. |
+| `fields` | A pipe-separated list of fields to display. This is required in order to get the field options values from Statamic beforehand and improve performance. |
 
-## Customization
+## Syntax
 
-To personalize the look of the `LfTags` component, publish the vendor views:
-
-```bash
-php artisan vendor:publish --tag=statamic-livewire-filters-views
+```antlers
+{{ livewire:lf-tags blueprint="cars.car" fields="title|car_brand|transmission" }}
 ```
 
-Then modify the view located at `resources/views/vendor/statamic-livewire-filters/components/lf-tags.blade.php`.
+## Templating
 
-## Default Behavior
+When you publish your views, you can edit the template of the tags in the `vendor/statamic-livewire-filters/livewire/ui/tags.blade.php` file.
 
-By default, the component:
-
-1. Displays all active filters as tags
-2. Shows a clear text for each tag (e.g., "Brand: Toyota")
-3. Provides a "✕" button to remove individual filters
-4. Includes a "Clear all" button when multiple filters are active 
+As with all Livewire Filters' components you can also pass a `view` property to the component in order to override the tags filename and use different templates for different parts of your site.

@@ -11,9 +11,9 @@ Ever faced the conundrum of meticulously filtering your entries, only to have th
 
 ## Usage
 
-To enable sorting you can use the `Sort` component. The component takes two options:
+To enable sorting you can use the `LfSort` component. The component takes two options:
 
-- **blueprint**: Specify the collection and the blueprint containing the fields you want to sort by in the format `collection.blueprint`. For instance, if you have a collection with the handle `pages` and a blueprint with the same handle, set the property as `blueprint="pages.pages"`.
+- **blueprint**: Specify the collection and the blueprint containing the fields you want to sort by in the format `collection.blueprint`. For instance, if you have a collection with the handle `pages` and a blueprint with the handle `page`, set the property as `blueprint="pages.page"`.
 - **fields**: Provide a pipe-separated string of the field handles you want to use for sorting.
 
 The `Sort` component employs a `select` HTML field, which displays all the specified fields in both ascending and descending order options.

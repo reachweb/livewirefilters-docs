@@ -9,7 +9,11 @@ description: Support and pricing information for Statamic Livewire Filters.
 
 Hello! I'm Iosif, a web developer and designer hailing from Kos, Greece. I founded Reach Web agency in 2012 and I've worked with many coders & designers since. With 20 years in the industry, I've journeyed through various technologies, from Wordpress & Joomla to discovering the rad path of web creation. Yes, I'm talking about Statamic!
 
-My expertise extends to Laravel and Vue, while I enjoy designing things using Figma, Photoshop & Illustrator.
+I'm an official Statamic partner since 2023. My expertise extends to Laravel and Vue.js, while I enjoy designing things using Figma, Photoshop & Illustrator.
+
+<a href="https://statamic.com/partners/iosif-chatzimichail" target="_blank">
+    <img src="./partner.svg" alt="Statamic Partner" style="max-width: 200px">
+</a>
 
 ## Support
 

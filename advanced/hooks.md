@@ -36,6 +36,6 @@ public function boot()
 
 ## When is this useful
 
-The concept of hooks can be hard to grasp at first, but the general idea is that you can use them to modify each Entry's data. A simple example can be seen in one of our other add-ons, [Statamic Resrv](https://resrv.dev/availability-search-multiple#accessing-availability-data).
+The concept of hooks can be hard to grasp at first, but the general idea is that you can use them to modify each Entry's data. An example can be seen in one of our other add-ons, [Statamic Resrv](https://resrv.dev/availability-search-multiple#accessing-availability-data).
 
 The hook is being used here to load the availability information, like days, price, discounts and more into each `Entry` for display in the list of the items. 

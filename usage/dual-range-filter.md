@@ -15,7 +15,7 @@ Any situation that you want to let the user select a range of values, for exampl
 
 ## Javascript
 
-This field uses the `noUiSlider` Javascript range slider so you need to include it in order for this field to work. Visit the [installation page](../installation.md) to learn more.
+This field uses the `noUiSlider` Javascript range slider so you need to include it in order for this field to work. Visit the [installation page](../installation) to learn more.
 
 ## Options
 
@@ -28,41 +28,38 @@ You can set the following options:
 - **format**: By default the range slider uses integer values. You can set this to **float** to enable more accuracy if needed.
 - **modifier**: This filter uses by default the `gte` and `lte` [conditions](https://statamic.dev/conditions) for numbers and the `is_after` and `is_before` conditions for date fields. You can pass a pipe separated modifier in order to change that, for example `gt|lt`.
 
+## Syntax example
+
+```antlers
+{{ livewire:lf-dual-range 
+    blueprint="cars.car" 
+    field="price" 
+    min="0" 
+    max="60000" 
+    step="1000" 
+}}
+```
+
 ## Preset values / Custom URL string
 
 This plugin sets two parameters, one for the minimum value and one for the maximum value. You can preset one or both of those values in the `LivewireCollection` component by using the original conditions:
 
 ```antlers
-<div v-pre>
 {{ livewire-collection:cars max_passengers:gte="4" max_passengers:lte="7" }}
-</div>
 ```
 
-Similarly, you need to set both those conditions in the config file for the [custom URL query string](../installation.md) to work correctly.
+Similarly, you need to set both those conditions in the config file for the [custom URL query string](../advanced/url-query-string#using-the-custom-url-query-string) to work correctly.
 
 ## Usage with Date fields
 
-As you can see in the [example page](../examples.md), this slider can also tackle date fields. When the date field is detected, the conditions automatically change to `is_after` and `is_before`. A typical use case is to let the user select a range of years to filter out the entries based on a date field.
+As you can see in the [example page](../examples), this slider can also tackle date fields. When the date field is detected, the conditions automatically change to `is_after` and `is_before`. A typical use case is to let the user select a range of years to filter out the entries based on a date field.
 
 Note that the minimum date is set to the start of the year selected and the ending date to the end of the year selected.
 
-## Syntax example
-
-You can check the [advanced example](../examples.md) to see it in action.
-
-## Basic Usage
-
-This filter allows you to filter your entries based on a range between two values.
-
-```antlers
-<div v-pre>
-{{ livewire:lf-dual-range blueprint="cars.car" field="price" name="Price" min="0" max="60000" step="1000" }}
-</div>
-```
 
 ## Styling
 
-We have modified the original CSS file of noUiSlider to better fit with the rest of the filters. If you are using our Javascript bundle as mentioned in the [installation page](../installation.md), you can use CSS variables to modify the appearance of the slider. The following variables can be overridden in your CSS file (use !important):
+We have modified the original CSS file of noUiSlider to better fit with the rest of the filters. If you are using our Javascript bundle as mentioned in the [installation page](../installation), you can use CSS variables to modify the appearance of the slider. The following variables can be overridden in your CSS file (use !important):
 
 ```css
 :root {

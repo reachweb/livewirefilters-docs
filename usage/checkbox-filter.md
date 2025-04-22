@@ -25,6 +25,6 @@ It is particularly well-suited for fields that present multiple selectable optio
 }}
 ```
 
-::: bug Be careful
+::: warning Be careful
 When filtering Statamic fields that are saved like an array like `checkboxes` or a `select` field that allows multiple options you might think that a simple `is` condition will work. Unfortunately it will not. You can only use it in fields that have a single value. As a workaround use **Taxonomy terms** for fields that you need multiple values or check out our `query_scope` method.
 ::: 

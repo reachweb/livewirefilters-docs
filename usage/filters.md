@@ -13,9 +13,13 @@ This addon includes several prebuilt but easily modifiable filters. Each filter 
 
 To function properly, each filter requires a few properties:
 
-- **blueprint**: Specify the collection and the blueprint containing the field in the format `collection.blueprint`. For instance, if you have a collection with the handle `pages` and a blueprint with the same handle, set the property as `blueprint="pages.pages"`.
+- **blueprint**: Specify the collection and the blueprint containing the field in the format `collection.blueprint`. For instance, if you have a collection with the handle `pages` and a blueprint with the handle `page`, set the property as `blueprint="pages.page"`.
 - **field**: The handle of the field you wish to filter by. For example, `field="title"`.
 - **condition**: The condition for filtering. For instance `condition="contains"`. A comprehensive list of conditions can be found in [Statamic's documentation](https://statamic.dev/conditions). Use `condition="taxonomy"` for filtering by a taxonomy, and `condition="query_scope"` for filtering entries using a query scope.
+
+::: warning Double check your conditions!
+If your conditions are not applicable, it may result in unexpected behavior. While the addon is designed to alert you to obvious errors, such as incorrect field handles, it's crucial to be aware that using unsuitable conditions for a field or making typographical errors can lead to misleading outcomes. In such cases, the addon might appear to function correctly, but the results and filters could be incorrect or inconsistent.
+:::
 
 #### Additional Properties for Specific Filters
 

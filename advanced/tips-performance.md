@@ -16,15 +16,12 @@ Quite often, you'll need to display the total number of entries after filtering 
 Livewire Filters include a helper component called `LfCount` that you can use to display the count of entries:
 
 ```antlers
-<div v-pre>
 {{ livewire:lf-count }}
-</div>
 ```
 
 Alternatively, you can use AlpineJS to listen to that event and update these numbers like so:
 
 ```antlers
-<div v-pre>
 <div 
      x-data="{ count: 0 }"
      x-on:entries-updated.window="count = $event.detail?.count ?? 0"
@@ -32,7 +29,6 @@ Alternatively, you can use AlpineJS to listen to that event and update these num
   <span x-show="count > 0">
     <span class="font-bold" x-text="count"></span> items found
   </span>
-</div>
 </div>
 ```
 
@@ -49,10 +45,8 @@ Sometimes it's helpful to let the user clear all the enabled filters. The [LfTag
 - If you want to add the button anywhere else on your page, use a little bit of AlpineJS:
 
 ```antlers
-<div v-pre>
 <div x-data="{ collectionComponent: Livewire.getByName('livewire-collection')[0] }">
     <button x-show="collectionComponent.$get('activeFilters') > 0" x-on:click="collectionComponent.$call('clearAll')">Clear all filters</button>
-</div>
 </div>
 ```
 
@@ -69,7 +63,7 @@ Livewire Filters use the native Statamic queries as they are used in the native 
 Some best practices to speed things up are:
 
 - Use pagination: showing fewer entries per page improves performance significantly.
-- Set up [Stache indexes](https://statamic.dev/stache#indexes): don't let your users wait for the Stache to rebuild in real-time.
+- Set up [Stache indexes](https://statamic.dev/stache#indexes) and warm the Stache beforehand, don't let your users wait for it to rebuild in real-time.
 - Optimize your template: more often than not, the real culprit is a slow rendering template for each entry. Make sure you use the Glide cache and try to optimize any slow-loading content by leveraging [computed values](https://statamic.dev/computed-values).
 
 ## Presetting Filters Using Statamic Fields
@@ -81,9 +75,7 @@ For example, imagine a **Cars** collection with a main landing page displaying a
 To solve this, you can use **Antler's** `void` **keyword** to apply a filter only if it exists on the page:
 
 ```antlers
-<div v-pre>
 {{ livewire-collection:cars taxonomy:car_brand:any="{ current_brand ? current_brand: void }" paginate="8" }}
-</div>
 ```
 
 This approach presets the `car_brand` taxonomy filter with the value of `current_brand` if it is set; otherwise, the parameter is removed. 

@@ -34,8 +34,13 @@ export default defineConfig({
     ],
 
     sidebar: [
-      { text: 'Overview', link: '/overview' },
-      { text: 'Installation', link: '/installation' },
+      {
+        text: 'Getting Started',
+        items: [
+          { text: 'Overview', link: '/overview' },
+          { text: 'Installation', link: '/installation' },
+        ]
+      },
       {
         text: 'Usage',
         items: [
@@ -51,8 +56,13 @@ export default defineConfig({
           { text: 'DualRangeFilter', link: '/usage/dual-range-filter' },
         ]
       },
-      { text: 'Sorting', link: '/sorting' },
-      { text: 'Tags', link: '/tags' },
+      {
+        text: 'Additional Components',
+        items: [
+          { text: 'Sorting', link: '/sorting' },
+          { text: 'Tags', link: '/tags' },
+        ]
+      },
       {
         text: 'Advanced',
         items: [
@@ -64,9 +74,14 @@ export default defineConfig({
           { text: 'Tips & Performance', link: '/advanced/tips-performance' },
         ]
       },
-      { text: 'Support & Pricing', link: '/support' },
-      { text: 'Common Issues', link: '/common-issues' },
-      { text: 'Examples', link: '/examples' },
+      {
+        text: 'Support',
+        items: [
+          { text: 'Support & Pricing', link: '/support' },
+          { text: 'Common Issues', link: '/common-issues' },
+          { text: 'Examples', link: '/examples' },
+        ]
+      },
     ],
     footer: {
       copyright: 'Copyright © 2025 Reach Web Agency'
