@@ -3,7 +3,9 @@ title: DualRangeFilter
 description: How to use the DualRangeFilter in Statamic Livewire Filters.
 ---
 
-### Overview
+# DualRangeFilter
+
+## Overview
 
 The **DualRangeFilter** allows you to filter the collection by a range of min and max values using a custom [noUiSlider](https://refreshless.com/nouislider/) range slider.
 
@@ -11,11 +13,11 @@ The **DualRangeFilter** allows you to filter the collection by a range of min an
 Any situation that you want to let the user select a range of values, for example an integer field, pricing fields or even dates.
 :::
 
-### Javascript
+## Javascript
 
 This field uses the `noUiSlider` Javascript range slider so you need to include it in order for this field to work. Visit the [installation page](../installation.md) to learn more.
 
-### Options
+## Options
 
 You can set the following options:
 
@@ -26,7 +28,7 @@ You can set the following options:
 - **format**: By default the range slider uses integer values. You can set this to **float** to enable more accuracy if needed.
 - **modifier**: This filter uses by default the `gte` and `lte` [conditions](https://statamic.dev/conditions) for numbers and the `is_after` and `is_before` conditions for date fields. You can pass a pipe separated modifier in order to change that, for example `gt|lt`.
 
-### Preset values / Custom URL string
+## Preset values / Custom URL string
 
 This plugin sets two parameters, one for the minimum value and one for the maximum value. You can preset one or both of those values in the `LivewireCollection` component by using the original conditions:
 
@@ -36,13 +38,13 @@ This plugin sets two parameters, one for the minimum value and one for the maxim
 
 Similarly, you need to set both those conditions in the config file for the [custom URL query string](../installation.md) to work correctly.
 
-### Usage with Date fields
+## Usage with Date fields
 
 As you can see in the [example page](../examples.md), this slider can also tackle date fields. When the date field is detected, the conditions automatically change to `is_after` and `is_before`. A typical use case is to let the user select a range of years to filter out the entries based on a date field.
 
 Note that the minimum date is set to the start of the year selected and the ending date to the end of the year selected.
 
-### Syntax example
+## Syntax example
 
 You can check the [advanced example](../examples.md) to see it in action.
 
@@ -55,7 +57,7 @@ You can check the [advanced example](../examples.md) to see it in action.
 }}
 ```
 
-### Styling
+## Styling
 
 We have modified the original CSS file of noUiSlider to better fit with the rest of the filters. If you are using our Javascript bundle as mentioned in the [installation page](../installation.md), you can use CSS variables to modify the appearance of the slider. The following variables can be overridden in your CSS file (use !important):
 

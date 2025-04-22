@@ -3,6 +3,8 @@ title: Usage overview
 description: Step-by-step guide to using Statamic Livewire Filters.
 ---
 
+# Usage overview
+
 Utilizing Statamic Livewire Filters is straightforward. Here's a simple step-by-step guide:
 
 1. **Replace Collection Tags:** Substitute your `{{ collection }}` tag pairs with the `{{ livewire-collection }}` tag.

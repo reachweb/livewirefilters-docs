@@ -3,7 +3,9 @@ title: Installation
 description: How to install Statamic Livewire Filters and configure it for your project.
 ---
 
-### Installing the addon
+# Installation
+
+## Installing the addon
 
 You can install Statamic Livewire Filters using Composer:
 
@@ -11,7 +13,7 @@ You can install Statamic Livewire Filters using Composer:
 composer require reachweb/statamic-livewire-filters
 ```
 
-### Configuration
+## Configuration
 
 There are a few configuration options. If you wish to change them, publish the config file using:
 
@@ -28,7 +30,7 @@ The available config options at the time are:
 - `enable_filter_values_count`: When enabled, Livewire Filters calculates and displays counts for each option in checkboxes, radio, and select fields next to their labels. This feature is resource-intensive, as it performs a query for each filter option on the page and repeats these queries after each user action to update the counts. Therefore, it should be used cautiously, especially with large data sets. By default, this setting is `false`.
 - `custom_query_string` & `custom_query_string_aliases`: These are used to control the custom URL query string feature.
 
-### Publish the views
+## Publish the views
 
 To publish the views use the `vendor:publish` command:
 
@@ -36,7 +38,7 @@ To publish the views use the `vendor:publish` command:
 php artisan vendor:publish --tag statamic-livewire-filters-views
 ```
 
-### Publish the language file
+## Publish the language file
 
 Livewire Filters includes a few translation strings for the UI. You can publish the language file using the `vendor:publish` command:
 
@@ -46,11 +48,11 @@ php artisan vendor:publish --tag=statamic-livewire-filters-translations
 
 The remaining strings are located within the views, which you will likely edit as needed.
 
-### Livewire assets
+## Livewire assets
 
-We are using the `jonassiewertsen/statamic-livewire` package under the hood, which injects Livewire styles and scripts automatically into the page. If you are using static caching, please check the [common issues page](/common-issues) in order to configure everything correctly.
+We are using the `marcorieser/statamic-livewire` package under the hood, which injects Livewire styles and scripts automatically into the page. If you are using static caching, please check the [common issues page](/common-issues) in order to configure everything correctly.
 
-### Assets handling with TailwindCSS
+## Assets handling with TailwindCSS
 
 If you're using TailwindCSS, publish the views and you should be all set: your build tool should pick up the classes from the views and include them in your CSS bundle.
 
@@ -71,7 +73,7 @@ plugins: [
 ],
 ```
 
-### Javascript
+## Javascript
 
 Right now, Statamic Livewire Filters does not *need* Javascript unless you are using either the **DateFilter** or the **DualRangeFilter** components. If you are, you need to import **Flatpickr and / or noUiSlider** in your project. We provide a prebuilt bundle that you can import using the Vite tag:
 
@@ -81,7 +83,7 @@ Right now, Statamic Livewire Filters does not *need* Javascript unless you are u
 
 Or you can manually add them, either by CDN or in your build process.
 
-### Add the assets at your project (if not using TailwindCSS)
+## Add the assets at your project (if not using TailwindCSS)
 
 Post-installation, the assets will be available at `vendor/reachweb/statamic-livewire-filters/resources/build`. If **not** using TailwindCSS, you could add the assets in your layout file:
 

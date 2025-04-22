@@ -3,11 +3,13 @@ title: Sorting
 description: How to use sorting with Statamic Livewire Filters.
 ---
 
-### Overview
+# Sorting
+
+## Overview
 
 Ever faced the conundrum of meticulously filtering your entries, only to have them whimsically reorganize themselves like a deck of cards shuffled by a magician? Worry no more! Statamic Livewire Filters comes to the rescue, offering support for sorting your entries by any field. With this feature, you can ensure that your entries stay orderly and behave just the way you want them to.
 
-### Usage
+## Usage
 
 To enable sorting you can use the `Sort` component. The component takes two options:
 
@@ -16,7 +18,7 @@ To enable sorting you can use the `Sort` component. The component takes two opti
 
 The `Sort` component employs a `select` HTML field, which displays all the specified fields in both ascending and descending order options.
 
-### Syntax
+## Syntax
 
 ```antlers
 {{ livewire:lf-sort

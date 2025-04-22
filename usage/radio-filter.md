@@ -3,7 +3,9 @@ title: RadioFilter
 description: How to use the RadioFilter in Statamic Livewire Filters.
 ---
 
-### Overview
+# RadioFilter
+
+## Overview
 
 The **RadioFilter** utilizes HTML radio inputs to filter the collection based on one of the available options.
 
@@ -13,7 +15,7 @@ This filter will automatically load the available options of the field you are u
 Fields that have options, like a `radio` or `select` field as well as `taxonomy` terms.
 :::
 
-### Syntax example
+## Syntax example
 
 ```antlers
 {{ livewire:lf-radio-filter

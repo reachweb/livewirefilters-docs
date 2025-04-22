@@ -3,11 +3,13 @@ title: Filters
 description: Overview of the available filters in Statamic Livewire Filters.
 ---
 
-### General
+# Filters
+
+## General
 
 This addon includes several prebuilt but easily modifiable filters. Each filter is a Livewire component that can be placed anywhere on your page. They are minimally styled using TailwindCSS. To avoid conflicts with other Livewire components, all components in this addon are prefixed with `lf-`.
 
-### Properties
+## Properties
 
 To function properly, each filter requires a few properties:
 
@@ -22,7 +24,7 @@ To function properly, each filter requires a few properties:
 - **Range Filter:** This filter uses the `max` and `min` properties to define the range of available values.
 - **Dual Range Filter:** This filter supports the `min` and `max` properties as well as the `step` property that sets the step between values as well as a `minRange` property that sets the minimum range between min and max. The `condition` is not needed here as it's predefined but you can pass it along as a `modifier`.
 
-### Sorting filter values
+## Sorting filter values
 
 You can sort the values of `taxonomy`, `select`, `radio`, and `checkbox` filters. This is especially useful for taxonomy terms, as Statamic doesn't offer a way to order them, while the options for the other filters can be ordered in the Blueprint editor.
 
@@ -43,7 +45,7 @@ The available options for sorting are as follows:
 - `label` or `title` will sort by the array label or the term title field, respectively.
 - For taxonomies, you can use any field from its blueprint to sort. For example, `sort="order:asc"` will sort the options by an `order` field. This allows you to create a custom order for your taxonomy terms or sort them by any additional value.
 
-### Available filters
+## Available filters
 
 - [TextFilter](./text-filter.md)
 - [RadioFilter](./radio-filter.md)

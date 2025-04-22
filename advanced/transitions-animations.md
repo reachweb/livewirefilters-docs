@@ -3,11 +3,13 @@ title: Transitions & animations
 description: How to add transitions and animations to Statamic Livewire Filters.
 ---
 
-### Overview
+# Transitions & animations
+
+## Overview
 
 When users interact with filters, especially in large collections where updating entries may take more than just a few microseconds, it's usually a good idea to show some indication of activity. This becomes even more important in design-focused websites, where animating entries as they enter the viewport can enhance the user experience. Let's explore some examples.
 
-### Using wire:loading
+## Using wire:loading
 
 A straightforward method to signal that an update is in progress is by using Livewire's `wire:loading` feature. This feature can add or remove a class to show activity. For instance, in the [examples on this website](../examples.md), we implement a simple yet effective approach:
 
@@ -21,7 +23,7 @@ A straightforward method to signal that an update is in progress is by using Liv
 
 This will create a very subtle effect, lowering the opacity of the current entries while fetching the new ones.
 
-### Loading indicators
+## Loading indicators
 
 Also using the `wire:loading` feature, you can easily display a loading indicator like we've rather rudely done in [this example](../examples.md). Something like this should work if put into a `relative` div that displays your entries:
 
@@ -37,7 +39,7 @@ Also using the `wire:loading` feature, you can easily display a loading indicato
 </div>
 ```
 
-### Animations
+## Animations
 
 To create more advanced animations, like an entry animation for your entries, you should probably use Alpine.js. There are a few events you can hook up to in order to do it:
 

@@ -3,7 +3,9 @@ title: TextFilter
 description: How to use the TextFilter in Statamic Livewire Filters.
 ---
 
-### Overview
+# TextFilter
+
+## Overview
 
 **TextFilter** is a simple text input that you can use in order to "live search" your collection.
 
@@ -11,7 +13,7 @@ description: How to use the TextFilter in Statamic Livewire Filters.
 This filter is perfect for any field where you need to perform a text search, typically using conditions like `contains` or `doesn't contain`. It allows for quick and efficient searching through text-based data.
 :::
 
-### Syntax example
+## Syntax example
 
 ```antlers
 {{ livewire:lf-text-filter

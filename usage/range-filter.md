@@ -3,7 +3,9 @@ title: RangeFilter
 description: How to use the RangeFilter in Statamic Livewire Filters.
 ---
 
-### Overview
+# RangeFilter
+
+## Overview
 
 The **RangeFilter** allows you to filter the collection by using an HTML range field.
 
@@ -11,7 +13,7 @@ The **RangeFilter** allows you to filter the collection by using an HTML range f
 This filter is especially useful for entries that contain numeric values, such as those in an `integer` field.
 :::
 
-### Options
+## Options
 
 You can set the `min`, `max` and `step` values as well as a `default` value that sets the default value of the range slider.
 
@@ -19,7 +21,7 @@ You can set the `min`, `max` and `step` values as well as a `default` value that
 If there is a preset condition specified in the `livewire-collection` tag, it will override the default value set using the filter's `default` property.
 :::
 
-### Syntax example
+## Syntax example
 
 ```antlers
 {{ livewire:lf-range-filter

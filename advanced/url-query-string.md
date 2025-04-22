@@ -3,7 +3,9 @@ title: URL Query String
 description: How to use URL query strings with Statamic Livewire Filters.
 ---
 
-### Overview
+# URL Query String
+
+## Overview
 
 Storing selected filter parameters in the URL is often a good idea, as it allows users to share their search results and retain their selections when navigating away and returning to the page.
 
@@ -18,7 +20,7 @@ There are two methods to preset filter values on a page:
 In cases where both methods are used for a filter, the URL query string takes precedence.
 :::
 
-### Before you start
+## Before you start
 
 In case you haven't already done so during installation, publish the add-on's configuration file:
 
@@ -26,7 +28,7 @@ In case you haven't already done so during installation, publish the add-on's co
 php artisan vendor:publish --tag statamic-livewire-filters-config
 ```
 
-### Using Livewire's URL Query Parameters
+## Using Livewire's URL Query Parameters
 
 [Livewire's URL Query Parameters](https://livewire.laravel.com/docs/url) feature allows you to store your component's parameters (filter conditions and sort options) in the URL. This functionality can be activated through the addon's configuration file.
 
@@ -44,7 +46,7 @@ Although this method works well, all parameters are saved inside a `params` arra
 
 Not so pretty, right? Don't worry—we've created a custom URL query string that generates a much more readable URL.
 
-### Using the Custom URL Query String
+## Using the Custom URL Query String
 
 To enable this feature, configure two additional keys in your config file: `custom_query_string` and `custom_query_string_aliases`. Also make sure `enable_query_string` is set to `false`.
 
@@ -78,7 +80,7 @@ Would generate a URL like so:
 
 Much cleaner, right? The replacement string for each original parameter key can be anything you like.
 
-### A Couple of Caveats:
+## A Couple of Caveats:
 
 - **Query scopes require special handling.** You'll need to include `query_scope:` before the parameter's value. For example: `'categories' => 'query_scope:multiselect:car_categories'`.
 - **Unset filter parameters are ignored.** Your filters will still work, but any parameter not defined in the configuration won't be parsed on page load or generated during user interaction.

@@ -3,11 +3,13 @@ title: Tips & Performance
 description: Tips and performance advice for Statamic Livewire Filters.
 ---
 
-### Overview
+# Tips & Performance
+
+## Overview
 
 On this page, you can find some useful tips for better utilizing Livewire Filters, along with some performance tips.
 
-### Displaying Total Entries / Active Filters
+## Displaying Total Entries / Active Filters
 
 Quite often, you'll need to display the total number of entries after filtering (e.g., X items available) or show how many filters are active. The `LivewireCollection` component fires the `entries-updated` event after filtering is done. This event contains the `count` and `active` variables, which contain the number of entries and active filters, respectively.
 
@@ -34,7 +36,7 @@ Alternatively, you can use AlpineJS to listen to that event and update these num
 You might be wondering why you don't just count the entries variable. You could, however, the entries array only contains the current entries that will be displayed, so if you use pagination, the number will be wrong. Also, you can only use it within LivewireCollection's template, while the solution above works anywhere on your site.
 :::
 
-### Clearing All Filters
+## Clearing All Filters
 
 Sometimes it's helpful to let the user clear all the enabled filters. The [LfTags](../tags.md) component has a "Clear all" button by default that lets the user do just that. If you need to display only the "Clear all" button, you have the following options:
 
@@ -64,7 +66,7 @@ Some best practices to speed things up are:
 - Set up [Stache indexes](https://statamic.dev/stache#indexes): don't let your users wait for the Stache to rebuild in real-time.
 - Optimize your template: more often than not, the real culprit is a slow rendering template for each entry. Make sure you use the Glide cache and try to optimize any slow-loading content by leveraging [computed values](https://statamic.dev/computed-values).
 
-### Presetting Filters Using Statamic Fields
+## Presetting Filters Using Statamic Fields
 
 In some cases, you may need to control which filters are preset based on a field in your Statamic entry.
 

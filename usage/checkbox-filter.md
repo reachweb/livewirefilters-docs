@@ -3,7 +3,9 @@ title: CheckboxFilter
 description: How to use the CheckboxFilter in Statamic Livewire Filters.
 ---
 
-### Overview
+# CheckboxFilter
+
+## Overview
 
 The **Checkbox** filter utilizes HTML checkboxes in order to filter the collection based on the selected options.
 
@@ -13,7 +15,7 @@ This filter will automatically load the available options of the field you are u
 It is particularly well-suited for fields that present multiple selectable options, such as `radio` or `select` fields, as well as `taxonomy` terms. The **Checkbox** filter is the optimal choice in scenarios where users would probably need to select more than one option.
 :::
 
-### Syntax example
+## Syntax example
 
 ```antlers
 {{ livewire:lf-checkbox-filter
