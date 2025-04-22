@@ -86,7 +86,7 @@ html.dark .VPFeatures .VPFeature img {
   
   .statamic-logo svg {
     max-height: 40px;
-    height: 64px;
+    height: 32px;
     max-height: none;
   }
   
@@ -134,7 +134,7 @@ html.dark .VPFeatures .VPFeature img {
     }
   }
 
-/* Add dark mode color for statamic logo */
+
 html.dark .fill-livewire {
   fill: var(--vp-c-white);
 }
