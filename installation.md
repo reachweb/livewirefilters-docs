@@ -23,18 +23,18 @@ php artisan vendor:publish --tag statamic-livewire-filters-config
 
 The available config options at the time are:
 
-- `enable_query_string`: enables Livewire's query string feature. Defaults to `false`.
+- `enable_query_string`: enables Livewire's [query string feature](./advanced/url-query-string). Defaults to `false`.
 - `validate_filter_values`: when using fields that have predefined options, the addon will validate that the value the user wants to filter by actually exists in the options array. Defaults to `true`.
-- `enable_term_routes`: when enabled, the addon will preset the value of any Taxonomy filters when in term routes.
-- `use_origin_id_for_entries_field`: set to false to use the IDs of the localized entries when using multi-site. Read more [here](/docs/v1/tips-and-performance#content-filtering-entries-field-in-multi-site-setups).
-- `enable_filter_values_count`: When enabled, Livewire Filters calculates and displays counts for each option in checkboxes, radio, and select fields next to their labels. This feature is resource-intensive, as it performs a query for each filter option on the page and repeats these queries after each user action to update the counts. Therefore, it should be used cautiously, especially with large data sets. By default, this setting is `false`.
-- `custom_query_string` & `custom_query_string_aliases`: These are used to control the custom URL query string feature.
+- `enable_term_routes`: when enabled, the addon will preset the value of any Taxonomy filters when in [term routes](./advanced/taxonomy-term-routes).
+- `use_origin_id_for_entries_field`: set to false to use the IDs of the localized entries when using multi-site. Read more [here](./advanced/tips-performance#filtering-entries-field-in-multi-site-setups).
+- `enable_filter_values_count`: When enabled, Livewire Filters calculates and displays counts for each option in checkboxes, radio, and select fields next to their labels. This feature is resource-intensive, as it performs a query for each filter option on the page and repeats these queries after each user action to update the counts. Therefore, it should be used cautiously, especially with very large data sets. By default, this setting is `false`.
+- `custom_query_string` & `custom_query_string_aliases`: These are used to control the [custom URL query string feature](./advanced/url-query-string#using-the-custom-url-query-string).
 
 ## Publish the views
 
 To publish the views use the `vendor:publish` command:
 
-```antlers
+```shell
 php artisan vendor:publish --tag statamic-livewire-filters-views
 ```
 
@@ -78,7 +78,7 @@ plugins: [
 Right now, Statamic Livewire Filters does not *need* Javascript unless you are using either the **DateFilter** or the **DualRangeFilter** components. If you are, you need to import **Flatpickr and / or noUiSlider** in your project. We provide a prebuilt bundle that you can import using the Vite tag:
 
 ```antlers
-{{ vite src="resources/js/app.js" directory="vendor/statamic-livewire-filters/build" }}
+<code v-pre>{{ vite src="resources/js/app.js" directory="vendor/statamic-livewire-filters/build" }}</code>
 ```
 
 Or you can manually add them, either by CDN or in your build process.
@@ -88,11 +88,11 @@ Or you can manually add them, either by CDN or in your build process.
 Post-installation, the assets will be available at `vendor/reachweb/statamic-livewire-filters/resources/build`. If **not** using TailwindCSS, you could add the assets in your layout file:
 
 ```antlers
-{{ vite src="resources/css/app.css|resources/js/app.js" directory="vendor/statamic-livewire-filters/build" }}
+<code v-pre>{{ vite src="resources/css/app.css|resources/js/app.js" directory="vendor/statamic-livewire-filters/build" }}</code>
 ```
 
 ::: warning This might mess up your site
 As you might know, TailwindCSS ships with some global CSS resets and styling. Adding our CSS file in your project might cause other things to break. This is provided mainly as a means to test things before you commit to using Statamic Livewire Filters, you should alter the filter views and add your own styling for production.
 :::
 
-Omit the Javascript file if not using the default **DateFilter** component, as previously mentioned. 
+Omit the Javascript file if not using the **DateFilter** or **DualRangeFilter** components, as previously mentioned. 

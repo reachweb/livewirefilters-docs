@@ -14,7 +14,7 @@ In Statamic Livewire Filters, there are two ways to enable this functionality: u
 ::: info Preset value precedence
 There are two methods to preset filter values on a page:
 
-1. Setting conditions or sort options in the `{{ livewire-collection }}` tag.
+1. Setting conditions or sort options in the <code v-pre>{{ livewire-collection }}</code> tag.
 2. Using the URL query string (when enabled).
 
 In cases where both methods are used for a filter, the URL query string takes precedence.

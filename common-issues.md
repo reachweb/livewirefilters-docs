@@ -53,7 +53,7 @@ And edit the config file to disable auto-injection of the frontend assets:
 'inject_assets' => false,
 ```
 
-Finally you need to add the `{{ livewire:scripts }}` and `{{ livewire:styles }}` tags in your layout file. Read more [here](https://github.com/jonassiewertsen/statamic-livewire?tab=readme-ov-file#livewire-scripts-and-styles).
+Finally you need to add the <code v-pre>{{ livewire:scripts }}</code> and <code v-pre>{{ livewire:styles }}</code> tags in your layout file. Read more [here](https://github.com/jonassiewertsen/statamic-livewire?tab=readme-ov-file#livewire-scripts-and-styles).
 
 ## Globals do not persist between Livewire Filters updates
 

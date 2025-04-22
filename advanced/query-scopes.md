@@ -14,12 +14,14 @@ If you don't know what query scopes are, you can check [Statamic's docs](https:/
 Utilizing a query scope is straightforward. Simply set the `condition` property of any filter to `query_scope` and the `modifier` to the name of the scope you wish to use. For example:
 
 ```antlers
+<div v-pre>
 {{ livewire:lf-checkbox-filter
     blueprint="rooms.rooms"
     field="room_amenities"
     condition="query_scope"
     modifier="you_query_scope_name"
 }}
+</div>
 ```
 
 ## Presetting Multiple Query Scopes
@@ -29,7 +31,9 @@ In some cases, you may need to use multiple query scopes and preset values from 
 To do this, use a **pipe-separated list** of query scopes, like so:
 
 ```antlers
+<div v-pre>
 {{ livewire-collection:cars multiselect:brand="toyota" other_scope="SUV" query_scope="multiselect|other_scope" }}
+</div>
 ```
 
 ## Multiselect query scope
@@ -39,10 +43,12 @@ As emphasized in various sections of these documents, filtering entries using St
 In order to help you filter those entries, we ship the `multiselect` query scope with this addon that magically works using `whereJsonContains`. You're welcome.
 
 ```antlers
+<div v-pre>
 {{ livewire:lf-checkbox-filter
     blueprint="cars.cars"
     field="car_brand"
     condition="query_scope"
     modifier="multiselect"
 }}
+</div>
 ``` 

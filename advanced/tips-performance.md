@@ -16,12 +16,15 @@ Quite often, you'll need to display the total number of entries after filtering 
 Livewire Filters include a helper component called `LfCount` that you can use to display the count of entries:
 
 ```antlers
+<div v-pre>
 {{ livewire:lf-count }}
+</div>
 ```
 
 Alternatively, you can use AlpineJS to listen to that event and update these numbers like so:
 
 ```antlers
+<div v-pre>
 <div 
      x-data="{ count: 0 }"
      x-on:entries-updated.window="count = $event.detail?.count ?? 0"
@@ -30,9 +33,10 @@ Alternatively, you can use AlpineJS to listen to that event and update these num
     <span class="font-bold" x-text="count"></span> items found
   </span>
 </div>
+</div>
 ```
 
-::: info Why not only use {{ entries | count }} ?
+::: info Why not only use <code v-pre>{{ entries | count }}</code> ?
 You might be wondering why you don't just count the entries variable. You could, however, the entries array only contains the current entries that will be displayed, so if you use pagination, the number will be wrong. Also, you can only use it within LivewireCollection's template, while the solution above works anywhere on your site.
 :::
 
@@ -45,8 +49,10 @@ Sometimes it's helpful to let the user clear all the enabled filters. The [LfTag
 - If you want to add the button anywhere else on your page, use a little bit of AlpineJS:
 
 ```antlers
+<div v-pre>
 <div x-data="{ collectionComponent: Livewire.getByName('livewire-collection')[0] }">
     <button x-show="collectionComponent.$get('activeFilters') > 0" x-on:click="collectionComponent.$call('clearAll')">Clear all filters</button>
+</div>
 </div>
 ```
 
@@ -75,7 +81,9 @@ For example, imagine a **Cars** collection with a main landing page displaying a
 To solve this, you can use **Antler's** `void` **keyword** to apply a filter only if it exists on the page:
 
 ```antlers
+<div v-pre>
 {{ livewire-collection:cars taxonomy:car_brand:any="{ current_brand ? current_brand: void }" paginate="8" }}
+</div>
 ```
 
 This approach presets the `car_brand` taxonomy filter with the value of `current_brand` if it is set; otherwise, the parameter is removed. 

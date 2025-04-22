@@ -7,7 +7,7 @@ description: How to use Statamic Livewire Filters in taxonomy term routes.
 
 ## Overview
 
-Statamic [automatically handles taxonomy routing](https://statamic.dev/taxonomies#routing), allowing for the use of an `{{ entries }}` pair to iterate over and display entries. However, you might prefer to use Livewire Filters to take advantage of additional functionality while maintaining the use of the same view file.
+Statamic [automatically handles taxonomy routing](https://statamic.dev/taxonomies#routing), allowing for the use of an <code v-pre>{{ entries }}</code> pair to iterate over and display entries. However, you might prefer to use Livewire Filters to take advantage of additional functionality while maintaining the use of the same view file.
 
 ## Enabling Taxonomy Routes Handling
 
@@ -17,15 +17,15 @@ The `livewire-collection` tag is designed to automatically recognize when it's p
 'enable_term_routes' => true,
 ```
 
-Then, in your taxonomy term view, simply replace the `{{ entries }}` pair with `{{ livewire-collection }}`, just as you would under normal circumstances. There's no need to manually preset the taxonomy term - it's automatically handled for you.
+Then, in your taxonomy term view, simply replace the <code v-pre>{{ entries }}</code> pair with <code v-pre>{{ livewire-collection }}</code>, just as you would under normal circumstances. There's no need to manually preset the taxonomy term - it's automatically handled for you.
 
 ## Example
 
 Consider a scenario where you have a `clothes` Collection linked to a `colors` taxonomy, featuring various colors like `red` as terms.
 
-In the default Statamic setup, navigating to the `/clothes/colors/red` route would load the `views/clothes/colors/show.antlers.html` view. Typically, in this view you would employ an `{{ entries }}` pair to showcase your entries.
+In the default Statamic setup, navigating to the `/clothes/colors/red` route would load the `views/clothes/colors/show.antlers.html` view. Typically, in this view you would employ an <code v-pre>{{ entries }}</code> pair to showcase your entries.
 
-To incorporate Livewire Filters, simply replace the `{{ entries }}` pair with the tag:
+To incorporate Livewire Filters, simply replace the <code v-pre>{{ entries }}</code> pair with the tag:
 
 ```antlers
 {{ livewire-collection:clothes }}

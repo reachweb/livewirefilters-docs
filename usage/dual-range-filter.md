@@ -33,7 +33,9 @@ You can set the following options:
 This plugin sets two parameters, one for the minimum value and one for the maximum value. You can preset one or both of those values in the `LivewireCollection` component by using the original conditions:
 
 ```antlers
+<div v-pre>
 {{ livewire-collection:cars max_passengers:gte="4" max_passengers:lte="7" }}
+</div>
 ```
 
 Similarly, you need to set both those conditions in the config file for the [custom URL query string](../installation.md) to work correctly.
@@ -48,13 +50,14 @@ Note that the minimum date is set to the start of the year selected and the endi
 
 You can check the [advanced example](../examples.md) to see it in action.
 
+## Basic Usage
+
+This filter allows you to filter your entries based on a range between two values.
+
 ```antlers
-{{ livewire:lf-dual-range-filter
-    blueprint="cars.car"
-    field="seats"
-    min="2"
-    max="9"
-}}
+<div v-pre>
+{{ livewire:lf-dual-range blueprint="cars.car" field="price" name="Price" min="0" max="60000" step="1000" }}
+</div>
 ```
 
 ## Styling
