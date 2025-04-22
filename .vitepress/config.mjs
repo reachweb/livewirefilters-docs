@@ -13,7 +13,23 @@ export default defineConfig({
     hostname: 'https://livewirefilters.com/'
   },
   description: "Supercharge your Statamic Collections using Livewire.",
-  
+  head: [
+    ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
+    ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }],
+    ['link', { rel: 'manifest', href: '/site.webmanifest' }],
+    ['meta', { name: 'theme-color', content: '#082F49' }],
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:site', content: '@afonic' }],
+    ['meta', { name: 'twitter:creator', content: '@afonic' }],
+    ['meta', { name: 'twitter:title', content: 'Livewire Filters - Supercharge your Statamic collections' }],
+    ['meta', { name: 'twitter:description', content: 'Livewire Filters is an add-on for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections' }],
+    ['meta', { name: 'twitter:image', content: 'https://livewirefilters.com/facebook.png' }],
+    ['meta', { property: 'og:title', content: 'Livewire Filters is an add-on for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections' }],
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:url', content: 'https://livewirefilters.com' }],
+    ['meta', { property: 'og:image', content: 'https://livewirefilters.com/twitter.png' }],
+    ['meta', { property: 'og:description', content: 'Livewire Filters is an add-on for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections' }],
+  ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [
