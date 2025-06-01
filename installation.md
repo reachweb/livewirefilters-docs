@@ -79,20 +79,39 @@ plugins: [
 
 ## Javascript
 
-Right now, Statamic Livewire Filters does not *need* Javascript unless you are using either the **DateFilter** or the **DualRangeFilter** components. If you are, you need to import **Flatpickr and / or noUiSlider** in your project. We provide a prebuilt bundle that you can import using the Vite tag:
+Right now, Statamic Livewire Filters does not *need* Javascript unless you are using either the **DateFilter** or the **DualRangeFilter** components. If you are, you need to import **Flatpickr and / or noUiSlider** in your project. We provide a prebuilt bundle that you can use :
 
-```antlers
-{{ vite src="resources/js/app.js" directory="vendor/statamic-livewire-filters/build" }}
+```antlers{11,17}
+<!-- resources/views/layout.antlers.html -->
+<!doctype html>
+<html lang="{{ site:short_locale }}">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>{{ title ?? site:name }}</title>
+        {{ vite src="resources/js/site.js|resources/css/site.css" }}        
+        {{ livewire:styles }}
+        <link rel="stylesheet" href="/vendor/statamic-livewire-filters/frontend/css/livewire-filters.css">
+    </head>
+    <body class="bg-gray-100 font-sans leading-normal text-gray-800">
+        <div class="mx-auto px-2 lg:min-h-screen flex flex-col items-center justify-center">
+            {{ template_content }}
+        </div>
+        <script src="/vendor/statamic-livewire-filters/frontend/js/livewire-filters.js"></script>
+        {{ livewire:scripts }}    
+    </body>
+</html>
 ```
 
 Or you can manually add them, either by CDN or in your build process.
 
 ## Add the assets at your project (if not using TailwindCSS)
 
-Post-installation, the assets will be available at `vendor/reachweb/statamic-livewire-filters/resources/build`. If **not** using TailwindCSS, you could add the assets in your layout file:
+Post-installation, the assets will be available at `vendor/reachweb/statamic-livewire-filters/resources/frontend`. If **not** using TailwindCSS, you could also add the styles in your layout file:
 
 ```antlers
-{{ vite src="resources/css/app.css|resources/js/app.js" directory="vendor/statamic-livewire-filters/build" }}
+<link rel="stylesheet" href="/vendor/statamic-livewire-filters/frontend/css/livewire-filters-tailwind.css">
 ```
 
 ::: warning This might mess up your site
