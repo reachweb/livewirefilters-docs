@@ -104,11 +104,11 @@ Right now, Statamic Livewire Filters does not *need* Javascript unless you are u
 </html>
 ```
 
-Or you can manually add them, either by CDN or in your build process.
+Or you can manually add them, by installing what you need and adding them to your build process.
 
 ## Add the assets at your project (if not using TailwindCSS)
 
-Post-installation, the assets will be available at `vendor/reachweb/statamic-livewire-filters/resources/frontend`. If **not** using TailwindCSS, you could also add the styles in your layout file:
+Post-installation, all assets will be available at `vendor/reachweb/statamic-livewire-filters/resources/frontend`. It's not recommended but if **not** using TailwindCSS, you could also add the styles in your layout file:
 
 ```antlers
 <link rel="stylesheet" href="/vendor/statamic-livewire-filters/frontend/css/livewire-filters-tailwind.css">
@@ -117,5 +117,3 @@ Post-installation, the assets will be available at `vendor/reachweb/statamic-liv
 ::: warning This might mess up your site
 As you might know, TailwindCSS ships with some global CSS resets and styling. Adding our CSS file in your project might cause other things to break. This is provided mainly as a means to test things before you commit to using Statamic Livewire Filters, you should publish the views and add your own styling for production.
 :::
-
-Omit the Javascript file if not using the **DateFilter** or **DualRangeFilter** components, as previously mentioned. 
