@@ -12,7 +12,7 @@ Hello! I'm Iosif, a web developer and designer hailing from Kos, Greece. I found
 I'm an official Statamic partner since 2023. My expertise extends to Laravel and Vue.js, while I enjoy designing things using Figma, Photoshop & Illustrator.
 
 <a href="https://statamic.com/partners/iosif-chatzimichail" target="_blank">
-    <img src="./partner.svg" alt="Statamic Partner" style="max-width: 200px">
+    <img src="/partner.svg" alt="Statamic Partner" style="max-width: 200px">
 </a>
 
 ## Support
