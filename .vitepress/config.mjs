@@ -7,12 +7,12 @@ const antlersDef = JSON.parse(readFileSync(path.resolve(__dirname, './languages/
 
 
 export default defineConfig({
-  title: "Livewire Filters",
+  title: "Statamic Livewire Filters - Supercharge your Statamic Collections",
   cleanUrls: true,
   sitemap: {
     hostname: 'https://livewirefilters.com/'
   },
-  description: "Supercharge your Statamic Collections using Livewire.",
+  description: "Livewire Filters is an add-on for Statamic that enables you to use Livewire to create filters for your Statamic entries.",
   head: [
     ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
     ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }],
