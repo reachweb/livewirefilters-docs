@@ -1,5 +1,27 @@
 # Changelog
 
+## v3.0.0
+
+We're excited to announce a new major release for Livewire Filters! This update is accompanied by a brand new documentation website (you're on it!) and a new live [demo page](https://demo.livewirefilters.com) where you can see all the features in action.
+
+## ✨ What's New
+
+* **Upgraded to Tailwind v4**
+    This makes customizing the theme—especially for minor color changes—much easier. If you're updating from a `v2.x` version, please check the [installation guide](./installation) for the required changes.
+
+* **New Advanced Filters with Alpine.js**
+    We've added new "advanced" **select** and **checkbox** filters! They are ideal for horizontal layouts, offer consistent styling across different platforms, and can be made searchable. See them in action on the [horizontal demo page](https://demo.livewirefilters.com/horizontal).
+
+* **New Toggle Filter**
+    The new **[Toggle Filter](./usage/toggle-filter)** allows you to create filters with preset values that your users can simply turn on or off.
+
+## 🚀 Improvements & Fixes
+
+* Added a `placeholder` property to all applicable filters.
+* Upgraded the core dependency to `marcorieser/statamic-livewire` v5.0.0.
+* Made several accessibility improvements.
+* Fixed various minor bugs.
+
 ## v2.7.0
 
 - Added support for entries field. You can use an entries relationship field as a filter. The published entries from all associated collections will appear as options.

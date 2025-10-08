@@ -22,6 +22,10 @@ In websites that feature filtering, it is common to have a "tags" or "pills" are
 {{ livewire:lf-tags blueprint="cars.car" fields="title|car_brand|transmission" }}
 ```
 
+
+<Image src="/demo/tags.webp" alt="The Tags component." fullWidth />
+
+
 ## Templating
 
 When you publish your views, you can edit the template of the tags in the `vendor/statamic-livewire-filters/livewire/ui/tags.blade.php` file.

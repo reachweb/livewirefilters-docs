@@ -1,13 +1,13 @@
 ---
-title: DualRangeFilter
-description: How to use the DualRangeFilter in Statamic Livewire Filters.
+title: Dual Range Filter
+description: How to use the Dual Range Filter in Statamic Livewire Filters.
 ---
 
 # DualRangeFilter
 
 ## Overview
 
-The **DualRangeFilter** allows you to filter the collection by a range of min and max values using a custom [noUiSlider](https://refreshless.com/nouislider/) range slider.
+The **Dual Range Filter** allows you to filter the collection by a range of min and max values using a custom [noUiSlider](https://refreshless.com/nouislider/) range slider.
 
 ::: info Ideal for
 Any situation that you want to let the user select a range of values, for example an integer field, pricing fields or even dates.
@@ -28,17 +28,18 @@ You can set the following options:
 - **format**: By default the range slider uses integer values. You can set this to **float** to enable more accuracy if needed.
 - **modifier**: This filter uses by default the `gte` and `lte` [conditions](https://statamic.dev/conditions) for numbers and the `is_after` and `is_before` conditions for date fields. You can pass a pipe separated modifier in order to change that, for example `gt|lt`.
 
-## Syntax example
+## Syntax
 
 ```antlers
-{{ livewire:lf-dual-range 
-    blueprint="cars.car" 
-    field="price" 
-    min="0" 
-    max="60000" 
-    step="1000" 
+{{ livewire:lf-dual-range-filter
+    blueprint="cars.car"
+    field="date_of_registration"
+    min="2019"
+    max="2025"
 }}
 ```
+
+<Image src="/demo/dualrangefilter.webp" alt="The Dual Range Filter example." />
 
 ## Preset values / Custom URL string
 
@@ -52,7 +53,7 @@ Similarly, you need to set both those conditions in the config file for the [cus
 
 ## Usage with Date fields
 
-As you can see in the [example page](../examples), this slider can also tackle date fields. When the date field is detected, the conditions automatically change to `is_after` and `is_before`. A typical use case is to let the user select a range of years to filter out the entries based on a date field.
+As you can see in the [example page](https://demo.livewirefilters.com/advanced), this slider can also tackle date fields. When the date field is detected, the conditions automatically change to `is_after` and `is_before`. A typical use case is to let the user select a range of years to filter out the entries based on a date field.
 
 Note that the minimum date is set to the start of the year selected and the ending date to the end of the year selected.
 

@@ -1,13 +1,13 @@
 ---
-title: RangeFilter
-description: How to use the RangeFilter in Statamic Livewire Filters.
+title: Range Filter
+description: How to use the Range Filter in Statamic Livewire Filters.
 ---
 
-# RangeFilter
+# Range Filter
 
 ## Overview
 
-The **RangeFilter** allows you to filter the collection by using an HTML range field.
+The **Range Filter** allows you to filter the collection by using an HTML range field.
 
 ::: info Ideal for
 This filter is especially useful for entries that contain numeric values, such as those in an `integer` field.
@@ -21,15 +21,17 @@ You can set the `min`, `max` and `step` values as well as a `default` value that
 If there is a preset condition specified in the `livewire-collection` tag, it will override the default value set using the filter's `default` property.
 :::
 
-## Syntax example
+## Syntax
 
 ```antlers
 {{ livewire:lf-range-filter
     blueprint="cars.car"
-    field="max_passengers"
-    condition="is"
+    field="seats"
+    condition="gte"
     min="2"
-    max="8"
-    default="5"
+    max="9"
+    default="2"
 }}
 ``` 
+
+<Image src="/demo/rangefilter.webp" alt="The Range Filter example." />

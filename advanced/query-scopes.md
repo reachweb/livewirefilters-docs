@@ -34,6 +34,10 @@ To do this, use a **pipe-separated list** of query scopes, like so:
 
 ## Multiselect query scope
 
+::: warning Deprecated
+Starting with Statamic **v5.64.0** you can use the `overlaps` condition instead of this query scope. It will be removed from the addon in the future so you should avoid using it for new projects and opt for upgrading Statamic and using the `overlaps` condition instead.
+::: 
+
 As emphasized in various sections of these documents, filtering entries using Statamic fields that support multiple values and are stored as arrays (such as `checkboxes` or `select` fields) doesn't work with the stock conditions, like `is`.
 
 In order to help you filter those entries, we ship the `multiselect` query scope with this addon that magically works using `whereJsonContains`. You're welcome.

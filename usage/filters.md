@@ -27,6 +27,7 @@ If your conditions are not applicable, it may result in unexpected behavior. Whi
 - **Query scope filters:** You need to use the `modifier` property to set the query scope to use.
 - **Range Filter:** This filter uses the `max` and `min` properties to define the range of available values.
 - **Dual Range Filter:** This filter supports the `min` and `max` properties as well as the `step` property that sets the step between values as well as a `minRange` property that sets the minimum range between min and max. The `condition` is not needed here as it's predefined but you can pass it along as a `modifier`.
+- **Toggle Filter:** This filter needs a `preset_value` variable that sets the value to apply and a `label` filter that is the text for the toggle field label.
 
 ## Sorting filter values
 
@@ -58,3 +59,4 @@ The available options for sorting are as follows:
 - [DateFilter](./date-filter.md)
 - [RangeFilter](./range-filter.md)
 - [DualRangeFilter](./dual-range-filter.md) 
+- [ToggleFilter](./toggle-filter.md) 

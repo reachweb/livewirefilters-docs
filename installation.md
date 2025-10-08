@@ -56,26 +56,48 @@ The remaining strings are located within the views, which you will likely edit a
 
 We are using the `marcorieser/statamic-livewire` package under the hood, which injects Livewire styles and scripts automatically into the page. If you are using static caching, please check the [common issues page](/common-issues) in order to configure everything correctly.
 
-## Assets handling with TailwindCSS
+## Styling with TailwindCSS
 
-If you're using TailwindCSS, publish the views and you should be all set: your build tool should pick up the classes from the views and include them in your CSS bundle.
+Livewire Filters is built using TailwindCSS **v4** in order to be extemely easy to customize to blend with your project's design. After [publishing the views](#publish-the-views) and you should also publish the theme file:
 
-If you plan on building on the default filter templates, it's a good idea to add the `@tailwindcss/forms` plugin as well and add it in your plugins array.
+```shell
+php artisan vendor:publish --tag=statamic-livewire-filters-theme
+```
+
+This will create a `livewire-filters-theme.css` file in your `resources/css` folder that you need to incude in your main CSS file (by default `site.css`):
+
+```css{6}
+/* resources/css/site.css */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "../views";
+@source "../../content";
+@import "./livewire-filters-theme.css";
+```
+
+You can adjust the main styling of Livewire Filters in the theme CSS file. To adjust the design further you can just edit the views themselves.
+
+In order the get some better form defaults you should also install `@tailwindcss/forms` plugin as well and add it in your `site.css` file as well.
 
 ```shell
 npm install @tailwindcss/forms
 ```
 
-Plugins array in your `tailwind.config.js`:
+Then in your `site.css` file:
 
-```js
-plugins: [
-  require('@tailwindcss/typography'),
-  require("@tailwindcss/forms")({
-    strategy: 'class'
-  }),
-],
+```css{4-6}
+/* resources/css/site.css */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@plugin "@tailwindcss/forms" {
+    strategy: class
+}
+@source "../views";
+@source "../../content";
+@import "./livewire-filters-theme.css";
 ```
+
+Vite should now pick up your views and theme file and correctly add the required CSS to style Livewire Filters.
 
 ## Javascript
 

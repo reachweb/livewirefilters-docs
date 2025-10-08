@@ -7,6 +7,10 @@ const props = defineProps({
   alt: {
     type: String,
     default: ''
+  },
+  fullWidth: {
+    type: Boolean,
+    default: false
   }
 })
 </script>
@@ -14,7 +18,7 @@ const props = defineProps({
 <template>
     <figure class="code-image-container">
         <a :href="src" target="_blank" rel="noopener noreferrer">
-            <img :src="src" :alt="alt" class="code-image" />
+            <img :src="src" :alt="alt" :class="['code-image', { 'full-width': fullWidth }]" />
         </a>
         <figcaption v-if="alt" class="code-image-caption">{{ alt }}</figcaption>
     </figure>
@@ -25,14 +29,23 @@ const props = defineProps({
   background-color: var(--vp-c-bg-soft);
   padding: 1.5rem;
   border-radius: 0.5rem;
-  margin: 1rem 0;
+  margin: 2rem 0;
 }
 
 .code-image {
-  width: 100%;
+  max-width: 100%;
+  height: auto;
   border: 1px solid var(--vp-c-divider);
   border-radius: 0.25rem;
   box-shadow: var(--vp-shadow-2);
+  display: block;
+  margin: 0 auto;
+}
+
+@media (min-width: 1280px) {
+  .code-image:not(.full-width) {
+    width: 70%;
+  }
 }
 
 .code-image-caption {

@@ -2,3 +2,5 @@
 .vscode
 .vitepress/cache
 .vitepress/cache/deps
+node_modules
+.vitepress/dist

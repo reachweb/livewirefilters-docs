@@ -36,7 +36,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Documentation', link: '/overview' },
       {
-        text: 'v2.8.0',
+        text: '3.0.0',
         items: [
           {
             items: [
@@ -46,7 +46,8 @@ export default defineConfig({
           }
         ]
       },
-      { text: 'Purchase', link: 'https://statamic.com/addons/reach/statamic-livewire-filters' }
+      { text: 'Purchase', link: 'https://statamic.com/addons/reach/statamic-livewire-filters' },
+      { text: 'Demo', link: 'https://demo.livewirefilters.com' }      
     ],
 
     sidebar: [
@@ -63,13 +64,14 @@ export default defineConfig({
           { text: 'Usage overview', link: '/usage/overview' },
           { text: 'Livewire Collection tag', link: '/usage/livewire-collection-tag' },
           { text: 'Filters', link: '/usage/filters' },
-          { text: 'TextFilter', link: '/usage/text-filter' },
-          { text: 'RadioFilter', link: '/usage/radio-filter' },
-          { text: 'SelectFilter', link: '/usage/select-filter' },
-          { text: 'CheckboxFilter', link: '/usage/checkbox-filter' },
-          { text: 'DateFilter', link: '/usage/date-filter' },
-          { text: 'RangeFilter', link: '/usage/range-filter' },
-          { text: 'DualRangeFilter', link: '/usage/dual-range-filter' },
+          { text: 'Text Filter', link: '/usage/text-filter' },
+          { text: 'Radio Filter', link: '/usage/radio-filter' },
+          { text: 'Select Filter', link: '/usage/select-filter' },
+          { text: 'Checkbox Filter', link: '/usage/checkbox-filter' },
+          { text: 'Date Filter', link: '/usage/date-filter' },
+          { text: 'Range Filter', link: '/usage/range-filter' },
+          { text: 'Dual Range Filter', link: '/usage/dual-range-filter' },
+          { text: 'Toggle Filter 🆕', link: '/usage/toggle-filter' },
         ]
       },
       {

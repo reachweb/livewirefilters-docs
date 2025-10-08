@@ -13,6 +13,9 @@ hero:
     - theme: brand
       text: Getting Started
       link: /installation
+    - theme: brand
+      text: Demo
+      link: https://demo.livewirefilters.com
     - theme: alt
       text: Get it at the Statamic Marketplace
       link: https://statamic.com/addons/reach/statamic-livewire-filters
