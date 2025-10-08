@@ -97,7 +97,7 @@ export default defineConfig({
         items: [
           { text: 'Support & Pricing', link: '/support' },
           { text: 'Common Issues', link: '/common-issues' },
-          { text: 'Examples', link: '/examples' },
+          { text: 'Examples', link: 'https://demo.livewirefilters.com' },
         ]
       },
     ],
