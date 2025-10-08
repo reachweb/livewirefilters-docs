@@ -5,7 +5,7 @@ description: Common issues and troubleshooting for Statamic Livewire Filters.
 
 # Common Issues
 
-Sometimes things don't work as expected. If you're unsure whether something is a bug, please feel free to [reach out](./support-pricing.md) - I'm more than happy to help.
+Sometimes things don't work as expected. If you're unsure whether something is a bug, please feel free to [reach out](./support) - I'm more than happy to help.
 
 Below, you'll find some of the most common issues you might encounter while using Livewire Filters.
 
@@ -19,7 +19,7 @@ Similarly, this error likely indicates a typo in the field handle or an incorrec
 
 ## Exception: `strtolower(): Argument #1 ($string) must be of type string, array given`
 
-This usually occurs when a filter option is selected that isn't compatible with the chosen condition. The most common cause is a field saved as an array being used with an `is` or `contains` filter. To resolve this, refer to the [query scope documentation](./advanced/query-scopes.md) on using the `multiselect` scope.
+This usually occurs when a filter option is selected that isn't compatible with the chosen condition. The most common cause is a field saved as an array being used with an `is` or `contains` filter. To resolve this, refer to the [query scope documentation](./advanced/query-scopes) on using the `multiselect` scope.
 
 ## Selecting an option of a taxonomy filter returns no results
 
