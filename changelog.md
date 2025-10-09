@@ -1,10 +1,10 @@
 # Changelog
 
-## v3.0.0
+## v3.0.0 (Oct 8th, 2025)
 
 We're excited to announce a new major release for Livewire Filters! This update is accompanied by a brand new documentation website (you're on it!) and a new live [demo page](https://demo.livewirefilters.com) where you can see all the features in action.
 
-## ✨ What's New
+### ✨ What's New
 
 * **Upgraded to Tailwind v4**
     This makes customizing the theme—especially for minor color changes—much easier. If you're updating from a `v2.x` version, please check the [installation guide](./installation) for the required changes.
@@ -15,20 +15,20 @@ We're excited to announce a new major release for Livewire Filters! This update 
 * **New Toggle Filter**
     The new **[Toggle Filter](./usage/toggle-filter)** allows you to create filters with preset values that your users can simply turn on or off.
 
-## 🚀 Improvements & Fixes
+### 🚀 Improvements & Fixes
 
 * Added a `placeholder` property to all applicable filters.
 * Upgraded the core dependency to `marcorieser/statamic-livewire` v5.0.0.
 * Made several accessibility improvements.
 * Fixed various minor bugs.
 
-## v2.7.0
+## v2.7.0 (Mar 29th, 2025)
 
 - Added support for entries field. You can use an entries relationship field as a filter. The published entries from all associated collections will appear as options.
 - When using multi-site and a Statamic entries field to filter your entries, Livewire Filters defaults to using each entry's origin ID. This aligns with Statamic's behavior, where the origin acts as the source of truth unless the field has been localized. This preserves relationships while allowing the associated entry to be translated.
 - If you are localizing the entries field itself and want to change this behavior, set the `use_origin_id_for_entries_field` option to `false` in the config file. This will make Livewire Filters use the entry ID from the current site for filtering instead.
 
-## v2.6.0
+## v2.6.0 (Mar 28th, 2025)
 
 - Added a `scrollTo` property to LivewireCollection to disable or control the target of the scroll after using the paginator. (#41)
 - Added a `placeholder` property to LfTextFilter that allows you to set a placeholder for the input element. (#42)
