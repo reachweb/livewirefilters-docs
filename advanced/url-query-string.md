@@ -35,7 +35,7 @@ php artisan vendor:publish --tag statamic-livewire-filters-config
 To enable this feature, simply set `enable_query_string` to `true` in the addon's config file located at `config/statamic-livewire-filters.php`.
 
 ```php
-'enable_query_string' => false
+'enable_query_string' => true
 ```
 
 Although this method works well, all parameters are saved inside a `params` array due to the dynamic nature of your filters. As a result, the generated URLs look something like:
@@ -85,4 +85,4 @@ Much cleaner, right? The replacement string for each original parameter key can 
 - **Query scopes require special handling.** You'll need to include `query_scope:` before the parameter's value. For example: `'categories' => 'query_scope:multiselect:car_categories'`.
 - **Unset filter parameters are ignored.** Your filters will still work, but any parameter not defined in the configuration won't be parsed on page load or generated during user interaction.
 
-All the demos on this site use the custom URL query string, so feel free to explore them to get a better understanding of how this feature works. 
+The [demo site](https://demo.livewirefilters.com) uses the custom URL query string, so feel free to explore them to get a better understanding of how this feature works. 
