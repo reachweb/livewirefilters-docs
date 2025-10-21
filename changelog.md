@@ -1,5 +1,14 @@
 # Changelog
 
+## v3.1.0 (Oct 22nd, 2025)
+
+- Added support for the dictionary field. You can now use the built-in or any custom Dictionaries in any filter.
+- Fixed ordering for the entries fieldtype so that you can order the field options by title.
+
+## v3.0.1 (Oct 20th, 2025)
+
+- Fixed: Display the key of a select field when the label is not set.
+
 ## v3.0.0 (Oct 8th, 2025)
 
 We're excited to announce a new major release for Livewire Filters! This update is accompanied by a brand new documentation website (you're on it!) and a new live [demo page](https://demo.livewirefilters.com) where you can see all the features in action.
