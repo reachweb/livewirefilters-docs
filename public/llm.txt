@@ -1,0 +1,99 @@
+# Livewire Filters
+
+> Statamic Livewire Filters - Add live filtering to your Statamic collections
+
+## About
+
+Livewire Filters is an add-on for Statamic that enables you to create dynamic, real-time filters for your Statamic collections using Laravel Livewire. No Livewire knowledge is required - simply swap out your Statamic collection tag and add filters using Antlers.
+
+**Website**: https://livewirefilters.com/
+**Demo**: https://demo.livewirefilters.com/
+
+## Key Features
+
+- **Easy Integration**: Works seamlessly with Statamic's native fields and taxonomies
+- **No Livewire Knowledge Required**: Use familiar Antlers syntax
+- **Multiple Filter Types**: Text, Radio, Select, Checkbox, Toggle, Date, Range, and Dual Range filters
+- **URL Query String Support**: Shareable filtered results with clean, readable URLs
+- **Sorting Capabilities**: Sort entries by any field
+- **Active Filter Tags**: Display current filters with removal options
+- **Query Scopes**: Advanced filtering with custom query scopes including multiselect support
+- **Minimally Styled**: Built with TailwindCSS for easy customization
+- **Performance Optimized**: Efficient filtering without page reloads
+
+## Documentation
+
+### Getting Started
+
+- **Overview**: https://livewirefilters.com/overview
+- **Installation**: https://livewirefilters.com/installation
+- **Changelog**: https://livewirefilters.com/changelog
+
+### Usage
+
+- **Usage Overview**: https://livewirefilters.com/usage/overview
+- **Livewire Collection Tag**: https://livewirefilters.com/usage/livewire-collection-tag
+- **Filters Guide**: https://livewirefilters.com/usage/filters
+
+### Filter Components
+
+1. **Text Filter**: https://livewirefilters.com/usage/text-filter - Filter by text input with various conditions
+2. **Radio Filter**: https://livewirefilters.com/usage/radio-filter - Single-choice filtering using radio buttons
+3. **Select Filter**: https://livewirefilters.com/usage/select-filter - Dropdown-based filtering
+4. **Checkbox Filter**: https://livewirefilters.com/usage/checkbox-filter - Multiple-choice filtering with checkboxes
+5. **Toggle Filter**: https://livewirefilters.com/usage/toggle-filter - Toggle-based filtering
+6. **Date Filter**: https://livewirefilters.com/usage/date-filter - Filter entries by date
+7. **Range Filter**: https://livewirefilters.com/usage/range-filter - Single range slider for numeric values
+8. **Dual Range Filter**: https://livewirefilters.com/usage/dual-range-filter - Min/max range selection
+
+### Additional Features
+
+- **Sorting**: https://livewirefilters.com/sorting - Sort entries by any field
+- **Tags**: https://livewirefilters.com/tags - Display active filters as removable tags
+
+### Advanced Topics
+
+- **Query Scopes**: https://livewirefilters.com/advanced/query-scopes - Advanced filtering with custom query scopes
+- **URL Query String**: https://livewirefilters.com/advanced/url-query-string - Shareable URLs with filter parameters
+- **Transitions & Animations**: https://livewirefilters.com/advanced/transitions-animations - Add visual effects to filter updates
+- **Taxonomy Term Routes**: https://livewirefilters.com/advanced/taxonomy-term-routes - Use filters in taxonomy routes
+- **Hooks**: https://livewirefilters.com/advanced/hooks - Extend functionality with hooks
+- **Tips & Performance**: https://livewirefilters.com/advanced/tips-performance - Optimization strategies
+
+### Support
+
+- **Common Issues**: https://livewirefilters.com/common-issues
+- **Support**: https://livewirefilters.com/support
+
+## Technical Details
+
+- **Platform**: Statamic CMS addon
+- **Framework**: Laravel Livewire
+- **Styling**: TailwindCSS (minimal, customizable)
+- **Requirements**: Statamic v3+, Laravel Livewire
+
+## Common Use Cases
+
+- E-commerce product filtering (price, category, attributes)
+- Blog post filtering (tags, categories, dates)
+- Directory listings with multiple criteria
+- Collections with filterable data like cars, yachts, real estate etc.
+- Event filtering by date and location
+- Portfolio filtering by category and tags
+- Any collection that needs real-time, shareable filtering
+
+## Special Features
+
+- **Taxonomy Filtering**: Native support for Statamic taxonomies with any / all / not modifiers
+- **Multiselect Query Scope**: Special handling for array-based fields using whereJsonContains
+- **Custom URL Aliases**: Create readable, SEO-friendly filter URLs
+- **Static Cache Compatibility**: Works with Statamic's static caching (with considerations)
+- **Transition Support**: Add animations to filter updates
+
+## Related Products
+
+The creators of Livewire Filters also built **Resrv**, a fully featured reservations add-on for Statamic.
+
+---
+
+*This file helps LLMs accurately represent and reference Livewire Filters. Last updated: November 2025*
