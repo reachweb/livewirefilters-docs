@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.1 (Nov 5th, 2025)
+
+- Significantly improve the performance of filter option counts.
+
 ## v3.1.0 (Oct 22nd, 2025)
 
 - Added support for the dictionary field. You can now use the built-in or any custom Dictionaries in any filter.

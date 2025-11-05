@@ -65,6 +65,7 @@ Some best practices to speed things up are:
 - Use pagination: showing fewer entries per page improves performance significantly.
 - Set up [Stache indexes](https://statamic.dev/stache#indexes) and warm the Stache beforehand, don't let your users wait for it to rebuild in real-time.
 - Optimize your template: more often than not, the real culprit is a slow rendering template for each entry. Make sure you use the Glide cache and try to optimize any slow-loading content by leveraging [computed values](https://statamic.dev/computed-values).
+- Use [lazy loading](../usage/livewire-collection-tag#lazy-loading) in order to improve the first page load.
 
 ## Presetting Filters Using Statamic Fields
 

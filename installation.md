@@ -30,7 +30,7 @@ The available config options at the time are:
 | `validate_filter_values` | When using fields that have predefined options, the addon will validate that the value the user wants to filter by actually exists in the options array. | `true` |
 | `enable_term_routes` | When enabled, the addon will preset the value of any Taxonomy filters when in [term routes](./advanced/taxonomy-term-routes). | `false` |
 | `use_origin_id_for_entries_field` | Set to false to use the IDs of the localized entries when using multi-site. Read more [here](./advanced/tips-performance#filtering-entries-field-in-multi-site-setups). | `true` |
-| `enable_filter_values_count` | When enabled, Livewire Filters calculates and displays counts for each option in checkboxes, radio, and select fields next to their labels. This feature is resource-intensive, as it performs a query for each filter option on the page and repeats these queries after each user action to update the counts. Therefore, it should be used cautiously, especially with very large data sets. | `false` |
+| `enable_filter_values_count` | When enabled, Livewire Filters calculates and displays counts for each option in checkboxes, radio, and select fields next to their labels. This feature is resource-intensive, as it performs a query for each filter on the page and repeats these queries after each user action to update the counts. Therefore, it should be used cautiously, especially with very large data sets (1000+ entries). | `false` |
 | `custom_query_string` & `custom_query_string_aliases` | These are used to control the [custom URL query string feature](./advanced/url-query-string#using-the-custom-url-query-string). | - |
 
 
