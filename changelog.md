@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.2 (Nov 8th, 2025)
+
+- Fixed: Pagination was not reset when the user was using the "Clear filter" button or when removing an option using LfTags.
+
 ## v3.1.1 (Nov 5th, 2025)
 
 - Significantly improve the performance of filter option counts.
