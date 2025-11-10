@@ -93,14 +93,14 @@ We're excited to announce a new major release for Livewire Filters! This update 
 ## v2.3.0 (Nov 6, 2024)
 
 - New filter: Dual Range Filter. A brand new custom build Livewire component that uses a slider to let the user filter entries that fall into the specified values range.
-- More information and documentation: https://livewirefilters.com/docs/v1/dual-range-filter
+- More information and documentation: https://livewirefilters.com/usage/dual-range-filter
 - Fix: The LfRangeFilter was causing double rendering of the LivewireCollection component (#20). This is now fixed and the default property is deprecated. (you can set a default value in the LivewireCollection component itself)
 
 ## v2.2.0 (Nov 2, 2024)
 
 - New feature: Custom URL Query String. Statamic Livewire Filters can now generate easy to read, SEO-friendly URLs when the user is using the filtering system.
-- Read the docs: https://livewirefilters.com/docs/v1/url-query-string#content-using-livewires-url-query-parameters
-- Live demo: https://livewirefilters.com/docs/v1/advanced-example/search/brand/citroen,toyota,vw/categories/crossover-suv/transmission/automaticTransmission
+- Read the docs: https://livewirefilters.com/advanced/url-query-string#using-the-custom-url-query-string
+- Live demo: https://demo.livewirefilters.com/advanced/search/brand/citroen,toyota,vw/categories/crossover-suv/transmission/automaticTransmission
 
 ## v2.1.0 (Oct 28, 2024)
 
