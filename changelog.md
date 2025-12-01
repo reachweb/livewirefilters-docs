@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.3 (Dec 1st, 2025)
+
+- Fixed: Lazyload placeholder view was always the default (the parameter didn't get through).
+
 ## v3.1.2 (Nov 8th, 2025)
 
 - Fixed: Pagination was not reset when the user was using the "Clear filter" button or when removing an option using LfTags.

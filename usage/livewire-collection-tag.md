@@ -85,4 +85,4 @@ You can **lazy load** the `LivewireCollection` component by adding the `lazy="tr
 
 By default, the component uses the `resources/views/livewire/ui/lazyload-placeholder.blade.php` file as a skeleton. Feel free to modify this file to suit your needs.
 
-If you need different skeleton templates for different collections, you can set the `lazyLoadView` parameter in your component to specify a custom template.
+If you need different skeleton templates for different collections, you can set the `lazy-placeholder` parameter in your component to specify a custom template.

@@ -36,7 +36,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Documentation', link: '/overview' },
       {
-        text: '3.1.2',
+        text: '3.1.3',
         items: [
           {
             items: [
