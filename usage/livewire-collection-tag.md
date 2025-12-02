@@ -86,3 +86,18 @@ You can **lazy load** the `LivewireCollection` component by adding the `lazy="tr
 By default, the component uses the `resources/views/livewire/ui/lazyload-placeholder.blade.php` file as a skeleton. Feel free to modify this file to suit your needs.
 
 If you need different skeleton templates for different collections, you can set the `lazy-placeholder` parameter in your component to specify a custom template.
+
+## Passing data to the Livewire template
+
+Since we're using a tag and not a partial your page variables will not be available in the Livewire template. There are times when you might want to pass some one-off parameter to the Livewire view. To do that just pass it using the tag:
+
+```antlers
+{{ livewire-collection:cars view="cars" image_size="large" }}
+``
+
+Then in your `cars.antlers.html` file in the Livewire Filters vendor folder you can access the `image_size` variable inside the `params` array:
+
+```antlers
+{{ params:image_size }}
+``
+
