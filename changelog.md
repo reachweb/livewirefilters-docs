@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.1.4 (Dec 15th, 2025)
+
+- Fixed: Correctly decode URL encoded values
+
 ## v3.1.3 (Dec 1st, 2025)
 
 - Fixed: Lazyload placeholder view was always the default (the parameter didn't get through).
