@@ -290,12 +290,7 @@ Source: ${url}`
 
 @media (max-width: 640px) {
   .copy-to-md-wrapper {
-    justify-content: center;
-  }
-
-  .copy-to-md-btn {
-    width: 100%;
-    justify-content: center;
+    justify-content: flex-end;
   }
 }
 </style>
