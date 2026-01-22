@@ -1,0 +1,40 @@
+# Livewire Filters Documentation
+# https://livewirefilters.com
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://livewirefilters.com/sitemap.xml
+
+# LLM-friendly documentation files
+# llms.txt - Index of documentation for AI assistants
+# llms-full.txt - Complete documentation in single file
+
+# AI Crawlers - explicitly allowed
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Cohere-ai
+Allow: /

@@ -7,28 +7,29 @@ const antlersDef = JSON.parse(readFileSync(path.resolve(__dirname, './languages/
 
 
 export default defineConfig({
-  title: "Statamic Livewire Filters - Supercharge your Statamic Collections",
+  title: "Livewire Filters - Real-time Laravel Collection Filtering for Statamic",
   cleanUrls: true,
   sitemap: {
     hostname: 'https://livewirefilters.com/'
   },
-  description: "Livewire Filters is an add-on for Statamic that enables you to use Livewire to create filters for your Statamic entries.",
+  description: "Add real-time filtering to Laravel collections with Livewire. A Statamic addon for dynamic, reactive filtering without page reloads. Perfect for e-commerce, directories, and any filterable content.",
   head: [
     ['link', { rel: 'icon', type: 'image/png', sizes: '32x32', href: '/favicon-32x32.png' }],
     ['link', { rel: 'icon', type: 'image/png', sizes: '16x16', href: '/favicon-16x16.png' }],
     ['link', { rel: 'manifest', href: '/site.webmanifest' }],
     ['meta', { name: 'theme-color', content: '#082F49' }],
+    ['meta', { name: 'keywords', content: 'Laravel collection filtering, Livewire filters, Statamic filters, real-time filtering, reactive filters, Laravel Livewire, collection filtering, dynamic filters, e-commerce filters, product filtering' }],
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:site', content: '@afonic' }],
     ['meta', { name: 'twitter:creator', content: '@afonic' }],
-    ['meta', { name: 'twitter:title', content: 'Livewire Filters - Supercharge your Statamic collections' }],
-    ['meta', { name: 'twitter:description', content: 'Livewire Filters is an add-on for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections' }],
+    ['meta', { name: 'twitter:title', content: 'Livewire Filters - Real-time Laravel Collection Filtering' }],
+    ['meta', { name: 'twitter:description', content: 'Add real-time, reactive filtering to your Laravel/Statamic collections with Livewire. No page reloads, SEO-friendly URLs, and easy to customize.' }],
     ['meta', { name: 'twitter:image', content: 'https://livewirefilters.com/facebook.png' }],
-    ['meta', { property: 'og:title', content: 'Livewire Filters is an add-on for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections' }],
+    ['meta', { property: 'og:title', content: 'Livewire Filters - Real-time Laravel Collection Filtering for Statamic' }],
     ['meta', { property: 'og:type', content: 'website' }],
     ['meta', { property: 'og:url', content: 'https://livewirefilters.com' }],
     ['meta', { property: 'og:image', content: 'https://livewirefilters.com/twitter.png' }],
-    ['meta', { property: 'og:description', content: 'Livewire Filters is an add-on for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections' }],
+    ['meta', { property: 'og:description', content: 'Add real-time, reactive filtering to your Laravel/Statamic collections with Livewire. No page reloads, SEO-friendly URLs, and easy to customize.' }],
   ],
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config

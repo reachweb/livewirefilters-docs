@@ -1,0 +1,534 @@
+# Statamic Livewire Filters - Complete Documentation
+
+> A Laravel Livewire addon for Statamic CMS that enables real-time, reactive filtering of collections without page reloads. Perfect for e-commerce product filtering, directory listings, blog archives, and any Laravel/Statamic project requiring dynamic collection filtering.
+
+**Website**: https://livewirefilters.com
+**Demo**: https://demo.livewirefilters.com
+**GitHub**: https://github.com/reachweb/statamic-livewire-filters
+
+---
+
+## Overview
+
+Statamic Livewire Filters is an addon for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections. It comprises a primary Livewire component and various standard filter components, which are designed to be easily editable to suit your project's needs. It allows you to filter your entries by almost any field you wish and display the results in a "live" manner, using the power of Livewire.
+
+### Key Features
+
+- Collections Livewire component that can seamlessly replace your `collection` tags using the exact same syntax
+- Simple and customizable filters: Text input, Checkboxes, Radio, Select, Range, Date, and Toggle
+- Advanced AlpineJS-powered filters with search functionality
+- Compatibility with most Statamic conditions supported by the collection tag
+- Dynamic sorting capability
+- "Tags" component to display currently selected filters
+- Show available item counts for each filter option
+- Livewire-enabled pagination, prebuilt and ready to use
+- Query scopes support, including a prebuilt query scope for array fields
+- SEO-friendly URL query string support
+- Minimal styling using TailwindCSS
+- Multiple view options for each component
+- No JavaScript required (except for Date and DualRange filters)
+
+### Common Use Cases
+
+- E-commerce product filtering (price, category, attributes)
+- Blog post filtering (tags, categories, dates)
+- Directory listings with multiple criteria
+- Real estate, car dealerships, yacht listings
+- Event filtering by date and location
+- Portfolio filtering by category and tags
+- Any collection that needs real-time, shareable filtering
+
+---
+
+## Installation
+
+### Installing the addon
+
+You can install Statamic Livewire Filters using Composer:
+
+```shell
+composer require reachweb/statamic-livewire-filters
+```
+
+### Configuration
+
+Publish the config file:
+
+```shell
+php artisan vendor:publish --tag statamic-livewire-filters-config
+```
+
+Available config options:
+
+| Option | Description | Default |
+|--------|-------------|---------|
+| `enable_query_string` | Enables Livewire's query string feature | `false` |
+| `validate_filter_values` | Validates that filter values exist in options | `true` |
+| `enable_term_routes` | Preset taxonomy filter values on term routes | `false` |
+| `use_origin_id_for_entries_field` | Use origin IDs for entries field in multi-site | `true` |
+| `enable_filter_values_count` | Show counts for each filter option (resource-intensive) | `false` |
+| `custom_query_string` | Prefix for SEO-friendly URLs | - |
+| `custom_query_string_aliases` | Map filter names to URL-friendly aliases | - |
+
+### Publish the views
+
+```shell
+php artisan vendor:publish --tag statamic-livewire-filters-views
+```
+
+### Publish the language file
+
+```shell
+php artisan vendor:publish --tag=statamic-livewire-filters-translations
+```
+
+### Styling with TailwindCSS
+
+Livewire Filters uses TailwindCSS v4. Publish the theme file:
+
+```shell
+php artisan vendor:publish --tag=statamic-livewire-filters-theme
+```
+
+Include in your main CSS file:
+
+```css
+/* resources/css/site.css */
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+@source "../views";
+@source "../../content";
+@import "./livewire-filters-theme.css";
+```
+
+### JavaScript (for Date and DualRange filters)
+
+Add the prebuilt bundle to your layout:
+
+```html
+<link rel="stylesheet" href="/vendor/statamic-livewire-filters/frontend/css/livewire-filters.css">
+<script src="/vendor/statamic-livewire-filters/frontend/js/livewire-filters.js"></script>
+```
+
+---
+
+## Usage Overview
+
+1. **Replace Collection Tags:** Substitute `{{ collection }}` with `{{ livewire-collection }}`
+2. **Move Your Entry Template:** Transfer to `resources/views/vendor/statamic-livewire-filters/livewire/livewire-collection.antlers.html`
+3. **Add Required Filters:** Add filter components anywhere on your page
+4. **Ready to Go:** Your setup is complete!
+
+---
+
+## Livewire Collection Tag
+
+The `{{ livewire-collection }}` tag is the cornerstone of this addon. It loads the main Livewire component and handles almost all parameters of the original `{{ collection }}` tag.
+
+### Basic Usage
+
+Replace this:
+```antlers
+{{ collection:cars paginate="10" sort="title:asc" }}
+    {{# Your template here #}}
+{{ /collection:cars }}
+```
+
+With this:
+```antlers
+{{ livewire-collection:cars paginate="10" sort="title:asc" }}
+```
+
+### Preset Filters
+
+You can preset filter values directly in the tag:
+
+```antlers
+{{ livewire-collection:cars taxonomy:car_brand:any="toyota" max_passengers:gte="4" }}
+```
+
+### Additional Parameters
+
+- **view**: Use different templates (`view="cars"`)
+- **paginate**: Enable Livewire-compatible pagination
+- **lazy**: Enable lazy loading (`lazy="true"`)
+- **allowed_filters**: Restrict which filters users can apply
+
+### Limiting Allowed Filters
+
+For security, restrict permissible filters:
+
+```antlers
+{{ livewire-collection:cars paginate="6" allowed_filters="taxonomy:car_brand:any|transmission:is" }}
+```
+
+### Pagination
+
+Use `{{ links }}` in your template for pagination controls. Use `{{ pagination_total }}` for total entry count across all pages.
+
+Control scroll behavior with `scrollTo`:
+- `scrollTo="false"` - Disable scroll on page change
+- `scrollTo="#content"` - Scroll to specific element
+
+### Lazy Loading
+
+Enable with `lazy="true"`. Customize placeholder with `lazy-placeholder` parameter.
+
+---
+
+## Filters
+
+All filters require these properties:
+
+- **blueprint**: Collection and blueprint in format `collection.blueprint` (e.g., `cars.car`)
+- **field**: The field handle to filter by
+- **condition**: The filtering condition (e.g., `contains`, `is`, `taxonomy`, `query_scope`)
+
+### TextFilter
+
+Live search text input:
+
+```antlers
+{{ livewire:lf-text-filter
+    blueprint="cars.car"
+    field="title"
+    condition="contains"
+    placeholder="Search cars"
+}}
+```
+
+### RadioFilter
+
+Single-choice radio buttons:
+
+```antlers
+{{ livewire:lf-radio-filter
+    blueprint="cars.car"
+    field="transmission"
+    condition="is"
+}}
+```
+
+### SelectFilter
+
+Dropdown selection:
+
+```antlers
+{{ livewire:lf-select-filter
+    blueprint="cars.car"
+    field="brand"
+    condition="is"
+}}
+```
+
+Advanced version with search:
+
+```antlers
+{{ livewire:lf-select-filter
+    blueprint="cars.car"
+    field="transmission"
+    condition="is"
+    view="lf-select-advanced"
+    searchable="true"
+    placeholder="Transmission"
+}}
+```
+
+### CheckboxFilter
+
+Multiple-choice checkboxes:
+
+```antlers
+{{ livewire:lf-checkbox-filter
+    blueprint="cars.car"
+    field="brand"
+    condition="taxonomy"
+}}
+```
+
+Advanced version:
+
+```antlers
+{{ livewire:lf-checkbox-filter
+    blueprint="cars.car"
+    field="car_brand"
+    condition="taxonomy"
+    view="lf-checkbox-advanced"
+    searchable="true"
+    placeholder="Car brand"
+}}
+```
+
+### DateFilter
+
+Filter by date using Flatpickr:
+
+```antlers
+{{ livewire:lf-date-filter
+    blueprint="cars.car"
+    field="registration_date"
+    condition="is_after"
+}}
+```
+
+### RangeFilter
+
+Single range slider:
+
+```antlers
+{{ livewire:lf-range-filter
+    blueprint="cars.car"
+    field="seats"
+    condition="gte"
+    min="2"
+    max="9"
+    default="2"
+}}
+```
+
+### DualRangeFilter
+
+Min/max range selection:
+
+```antlers
+{{ livewire:lf-dual-range-filter
+    blueprint="cars.car"
+    field="date_of_registration"
+    min="2019"
+    max="2025"
+}}
+```
+
+Options: `min`, `max`, `step`, `minRange`, `format` (integer/float), `modifier`
+
+### ToggleFilter
+
+Boolean toggle:
+
+```antlers
+{{ livewire:lf-toggle-filter
+    blueprint="cars.car"
+    field="date_of_registration"
+    condition="gte"
+    preset_value="2025-01-01"
+    label="Only new vehicles"
+}}
+```
+
+### Sorting Filter Values
+
+Sort options with `sort` property:
+
+```antlers
+{{ livewire:lf-radio-filter
+    blueprint="rooms.room"
+    field="rooms_amenities"
+    condition="taxonomy"
+    sort="slug:desc"
+}}
+```
+
+Options: `key`, `slug`, `label`, `title`, or any blueprint field
+
+---
+
+## Sorting
+
+Enable sorting with the `LfSort` component:
+
+```antlers
+{{ livewire:lf-sort
+    blueprint="cars.cars"
+    fields="title|max_passengers|price"
+}}
+```
+
+---
+
+## Tags Component
+
+Display active filters as removable tags:
+
+```antlers
+{{ livewire:lf-tags blueprint="cars.car" fields="title|car_brand|transmission" }}
+```
+
+---
+
+## Query Scopes
+
+Use custom query scopes for advanced filtering:
+
+```antlers
+{{ livewire:lf-checkbox-filter
+    blueprint="rooms.rooms"
+    field="room_amenities"
+    condition="query_scope"
+    modifier="your_query_scope_name"
+}}
+```
+
+### Multiselect Query Scope
+
+For fields saved as arrays (checkboxes, multi-select):
+
+```antlers
+{{ livewire:lf-checkbox-filter
+    blueprint="cars.cars"
+    field="car_brand"
+    condition="query_scope"
+    modifier="multiselect"
+}}
+```
+
+Note: Statamic v5.64.0+ supports the `overlaps` condition as an alternative.
+
+---
+
+## URL Query String
+
+### Livewire's Native URL Parameters
+
+Enable in config:
+```php
+'enable_query_string' => true
+```
+
+### Custom SEO-Friendly URLs
+
+Configure in config file:
+
+```php
+'custom_query_string' => 'search',
+'custom_query_string_aliases' => [
+    'brand' => 'taxonomy:car_brand:any',
+    'fuel' => 'fuel_type:is',
+],
+```
+
+This generates URLs like: `/search/brand/citroen,fiat,vw/fuel/superUnl`
+
+Add the URL handler component to your layout:
+
+```antlers
+{{ livewire:lf-url-handler }}
+```
+
+---
+
+## Hooks
+
+Modify entries data before display:
+
+```php
+public function boot()
+{
+    \Reach\StatamicLivewireFilters\Http\Livewire\LivewireCollection::hook('livewire-fetched-entries',
+        function ($entries, $next) {
+            $params = $this->params;
+            $entries->each(function ($entry) {
+                // Modify entry data
+            });
+            return $next($entries);
+        }
+    );
+}
+```
+
+---
+
+## Transitions & Animations
+
+### Using wire:loading
+
+```antlers
+<div class="transition-opacity duration-700" wire:loading.class="opacity-40">
+    {{ entries }}
+        {{# Your template #}}
+    {{ /entries }}
+</div>
+```
+
+### Loading Indicators
+
+```antlers
+<div class="absolute z-10 top-0 left-0 w-full h-full flex items-center bg-white bg-opacity-90" wire:loading.flex>
+    <div class="animate-spin">Loading...</div>
+</div>
+```
+
+### Events for Animations
+
+- `filter-updated`: Triggered when filter conditions change
+- `sort-updated`: Triggered when sort conditions change
+- `entries-updated`: Fired when entries are ready for display
+
+---
+
+## Tips & Performance
+
+### Display Total Entries
+
+Use the `LfCount` component:
+
+```antlers
+{{ livewire:lf-count }}
+```
+
+Or with AlpineJS:
+
+```antlers
+<div x-data="{ count: 0 }" x-on:entries-updated.window="count = $event.detail?.count ?? 0">
+    <span x-show="count > 0"><span x-text="count"></span> items found</span>
+</div>
+```
+
+### Clearing All Filters
+
+- Use `wire:click="clearAll()"` in your template
+- Use `LfTags` component with Clear All button
+- With AlpineJS: `collectionComponent.$call('clearAll')`
+
+### Performance Best Practices
+
+- Use pagination
+- Set up Stache indexes
+- Optimize templates (use Glide cache, computed values)
+- Use lazy loading for initial page load
+
+---
+
+## Common Issues
+
+### Blueprint not found
+Check collection/blueprint handle spelling. Blueprint handle is usually singular (e.g., `pages` collection → `page` blueprint).
+
+### Field not found
+Verify field handle and correct blueprint selection.
+
+### Array field filtering not working
+Use `overlaps` condition (Statamic v5.64.0+) or `multiselect` query scope.
+
+### Static caching issues
+Wrap `LivewireCollection` in `{{ nocache }}` tags and disable Livewire auto-injection:
+
+```php
+'inject_assets' => false,
+```
+
+### Globals not persisting
+Use `wire:ignore` or computed values for globals in multi-site setups.
+
+---
+
+## Technical Requirements
+
+- Statamic CMS v3+
+- Laravel Livewire
+- PHP 8.1+
+- TailwindCSS v4 (recommended)
+
+---
+
+*Statamic Livewire Filters is built by Reach Web Agency (https://reach.gr)*
+*Last updated: January 2026*

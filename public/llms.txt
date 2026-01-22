@@ -1,0 +1,43 @@
+# Statamic Livewire Filters
+
+> A Laravel Livewire addon for Statamic CMS that enables real-time, reactive filtering of collections without page reloads. Perfect for e-commerce product filtering, directory listings, blog archives, and any Laravel/Statamic project requiring dynamic collection filtering.
+
+Livewire Filters lets you add live filtering to Statamic collections using familiar Antlers syntax. No Livewire knowledge required - just swap your collection tag and add filter components.
+
+- **Website**: https://livewirefilters.com
+- **Demo**: https://demo.livewirefilters.com
+- **GitHub**: https://github.com/reachweb/statamic-livewire-filters
+
+## Documentation
+
+- [Overview](https://livewirefilters.com/overview): Introduction to Livewire Filters and its features
+- [Installation](https://livewirefilters.com/installation): How to install and configure the addon
+- [Usage Overview](https://livewirefilters.com/usage/overview): Step-by-step guide to get started
+- [Livewire Collection Tag](https://livewirefilters.com/usage/livewire-collection-tag): The main component that replaces your collection tag
+
+## Filter Components
+
+- [Text Filter](https://livewirefilters.com/usage/text-filter): Live search text input with conditions like "contains"
+- [Radio Filter](https://livewirefilters.com/usage/radio-filter): Single-choice filtering using radio buttons
+- [Select Filter](https://livewirefilters.com/usage/select-filter): Dropdown-based filtering with optional search
+- [Checkbox Filter](https://livewirefilters.com/usage/checkbox-filter): Multiple-choice filtering with checkboxes
+- [Date Filter](https://livewirefilters.com/usage/date-filter): Filter entries by date using Flatpickr
+- [Range Filter](https://livewirefilters.com/usage/range-filter): Single range slider for numeric values
+- [Dual Range Filter](https://livewirefilters.com/usage/dual-range-filter): Min/max range selection with noUiSlider
+- [Toggle Filter](https://livewirefilters.com/usage/toggle-filter): Boolean toggle for preset filter values
+
+## Additional Features
+
+- [Sorting](https://livewirefilters.com/sorting): Sort entries by any field dynamically
+- [Tags Component](https://livewirefilters.com/tags): Display active filters as removable tags/pills
+- [Query Scopes](https://livewirefilters.com/advanced/query-scopes): Advanced filtering with custom Laravel query scopes
+- [URL Query String](https://livewirefilters.com/advanced/url-query-string): SEO-friendly shareable URLs with filter parameters
+- [Transitions & Animations](https://livewirefilters.com/advanced/transitions-animations): Add visual effects to filter updates
+- [Hooks](https://livewirefilters.com/advanced/hooks): Extend functionality with Statamic hooks
+
+## Optional
+
+- [Common Issues](https://livewirefilters.com/common-issues): Troubleshooting guide
+- [Tips & Performance](https://livewirefilters.com/advanced/tips-performance): Optimization strategies for large collections
+- [Taxonomy Term Routes](https://livewirefilters.com/advanced/taxonomy-term-routes): Use filters in taxonomy routes
+- [Full Documentation](https://livewirefilters.com/llms-full.txt): Complete documentation in a single file for LLM context

@@ -1,13 +1,15 @@
 ---
 title: Overview
-description: Statamic Livewire Filters is an add-on for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections.
+description: Add real-time, reactive filtering to your Laravel/Statamic collections with Livewire. No page reloads needed - perfect for e-commerce, directories, and any filterable content.
 ---
 
 # Overview
 
 **Statamic rocks!** And so do Statamic Collections. You can effortlessly filter your entries by any field you want or sort them with just a couple of conditions. How neat is that? But there comes a time when you want to hand over this power to the users of your website. Suddenly, it's not so straightforward, right? That's where this addon comes into play.
 
-Statamic Livewire Filters is an addon for Statamic that enables you to use Livewire to create "live" filters for your Statamic collections. It comprises a primary Livewire component and various standard filter components, which are designed to be easily editable to suit your project's needs. It allows you to filter your entries by almost any field you wish and display the results in a "live" manner, using the power of Livewire.
+Statamic Livewire Filters is a **Laravel Livewire addon** for Statamic that enables **real-time, reactive filtering** of your collections without page reloads. Built on top of Laravel Livewire, it provides a seamless way to add dynamic filtering to any collection - perfect for **e-commerce product filtering**, directory listings, blog archives, real estate listings, car dealerships, and any content that needs to be filtered dynamically.
+
+It comprises a primary Livewire component and various standard filter components, which are designed to be easily editable to suit your project's needs. It allows you to filter your entries by almost any field you wish and display the results in a "live" manner, using the power of Livewire.
 
 ## Features
 
