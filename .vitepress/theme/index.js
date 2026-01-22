@@ -3,12 +3,14 @@ import DefaultTheme from 'vitepress/theme'
 import { h } from 'vue'
 import Image from '../components/Image.vue'
 import ResrvBanner from '../components/ResrvBanner.vue'
+import CopyToMd from '../components/CopyToMd.vue'
 import './custom.css'
 
 export default {
   extends: DefaultTheme,
   Layout: () => {
     return h(DefaultTheme.Layout, null, {
+      'doc-before': () => h(CopyToMd),
       'doc-after': () => h(ResrvBanner),
       'home-features-after': () => h(ResrvBanner)
     })
