@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.0.0 (Dec 15th, 2025)
+
+- Statamic 6 support
+- Livewire 4 support
+- Fix pagination ?page query string when using custom query sting.
+
 ## v3.1.4 (Dec 15th, 2025)
 
 - Fixed: Correctly decode URL encoded values
