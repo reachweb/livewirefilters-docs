@@ -1,5 +1,10 @@
 # Changelog
 
+
+## v4.1.0 (Feb 21st, 2026)
+
+- Added Laravel Boost guidelines
+
 ## v4.0.0 (Dec 15th, 2025)
 
 - Statamic 6 support
