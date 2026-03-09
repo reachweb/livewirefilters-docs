@@ -1,5 +1,8 @@
 # Changelog
 
+## v4.1.1 (Mar 9th, 2026)
+
+- Fix: Using sort on a taxonomy filter in a multisite setup displayed terms in mixed/incorrect languages instead of the current site's locale.
 
 ## v4.1.0 (Feb 21st, 2026)
 
