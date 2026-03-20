@@ -37,7 +37,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Documentation', link: '/overview' },
       {
-        text: '4.1.1',
+        text: '4.3.0',
         items: [
           {
             items: [
@@ -103,7 +103,7 @@ export default defineConfig({
       },
     ],
     footer: {
-      copyright: 'Copyright © 2025 Reach Web Agency'
+      copyright: 'Copyright © 2026 Reach Web Agency'
     },
     siteTitle: false,
     socialLinks: [

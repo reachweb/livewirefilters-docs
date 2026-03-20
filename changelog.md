@@ -1,5 +1,41 @@
 # Changelog
 
+## v4.3.0 (Mar 20th, 2026)
+
+- Laravel 13 support
+
+## v4.2.0 (Mar 20th, 2026)
+
+**Performance**
+- **Shared count queries** — filters with the same base parameters share a single query instead of each running their own.
+- **Eloquent optimization** — on sites using the Eloquent driver, counts pull only the needed field values directly from the database instead of hydrating full entry objects.
+- **Request-level caching** — taxonomy terms, collection entries, dictionary options, and blueprint lookups are cached within the request so duplicate lookups are avoided.
+
+**Bug Fixes**
+
+- **Custom query string URL matching** — /myfilters/ no longer incorrectly matches a filters prefix. Matching is now segment-exact.
+- **Query scope count parameters** — fixed incorrect count results when using scoped filters.
+- **Livewire request detection** — now uses the X-Livewire header instead of checking for the livewire/update path, fixing issues with custom Livewire endpoints.
+- **Multisite path handling** — correctly resolves the current page path from the Referer header during Livewire requests.
+
+**View Template Changes**
+
+Only relevant if you've published views with `php artisan vendor:publish`
+
+There are two changes in `lf-checkbox-advanced.blade.php` & `lf-select-advanced.blade.php` :
+
+The Alpine counts property is now initialized with PHP rendered data (keys with null values) instead of an empty object, so Alpine knows which filter options exist from the start:
+
+Change: `counts: {},`
+
+To: `counts: @js($this->counts),`
+
+The visibility check has been simplified since the keys are now always present:
+
+You can change: `x-show="counts && counts[value] !== undefined"`
+
+To: `x-show="counts[value] != null"`
+
 ## v4.1.1 (Mar 9th, 2026)
 
 - Fix: Using sort on a taxonomy filter in a multisite setup displayed terms in mixed/incorrect languages instead of the current site's locale.

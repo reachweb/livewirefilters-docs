@@ -525,10 +525,11 @@ Use `wire:ignore` or computed values for globals in multi-site setups.
 
 - Statamic CMS v3+
 - Laravel Livewire
+- Laravel up to v13
 - PHP 8.1+
 - TailwindCSS v4 (recommended)
 
 ---
 
 *Statamic Livewire Filters is built by Reach Web Agency (https://reach.gr)*
-*Last updated: January 2026*
+*Last updated: March 2026*
