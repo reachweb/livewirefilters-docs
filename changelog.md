@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.3.1 (Mar 24th, 2026)
+
+- Preserve existing (non-filter) query parameters when rewriting custom filter URLs
+- Avoid pushing browser history when the computed URL is unchanged.
+
 ## v4.3.0 (Mar 20th, 2026)
 
 - Laravel 13 support
