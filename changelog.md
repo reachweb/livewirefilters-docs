@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.3.2 (Mar 25th, 2026)
+
+- Fix counts for custom options array.
+
 ## v4.3.1 (Mar 24th, 2026)
 
 - Preserve existing (non-filter) query parameters when rewriting custom filter URLs
