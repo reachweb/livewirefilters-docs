@@ -90,6 +90,7 @@ export default defineConfig({
           { text: 'Transitions & animations', link: '/advanced/transitions-animations' },
           { text: 'Use in taxonomy term routes', link: '/advanced/taxonomy-term-routes' },
           { text: 'Hooks', link: '/advanced/hooks' },
+          { text: 'Static Caching', link: '/advanced/static-caching' },
           { text: 'Tips & Performance', link: '/advanced/tips-performance' },
         ]
       },

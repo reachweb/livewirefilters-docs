@@ -31,29 +31,7 @@ Clear and warm your Content Stache from Utilities -> Cache. Sometimes the Stache
 
 ## The add-on doesn't work correctly when using static caching
 
-Due to the way Statamic Livewire Filters work, certain features, such as the URL Query String, may not function correctly with static caching by default. This occurs because some filter values are preset on page load, and these values are then saved in the cached HTML response as Livewire's snapshot.
-
-To prevent this, you need to enclose the `LivewireCollection` component in a `nocache` tag, for example:
-
-```antlers
-{{ nocache }}
-    {{ livewire-collection:cars paginate="6" }}
-{{ /nocache }}
-```
-
-However this will cause the Livewire assets to load twice and will create further problems. To prevent that, publish Livewire's config file:
-
-```shell
-php artisan livewire:publish --config
-```
-
-And edit the config file to disable auto-injection of the frontend assets:
-
-```php
-'inject_assets' => false,
-```
-
-Finally you need to add the <code v-pre>{{ livewire:scripts }}</code> and <code v-pre>{{ livewire:styles }}</code> tags in your layout file. Read more [here](https://github.com/jonassiewertsen/statamic-livewire?tab=readme-ov-file#livewire-scripts-and-styles).
+Static caching needs a small amount of setup to work correctly with Livewire Filters. See the dedicated [Static Caching](./advanced/static-caching) page for the full guide.
 
 ## Globals do not persist between Livewire Filters updates
 
