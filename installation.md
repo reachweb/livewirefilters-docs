@@ -54,7 +54,11 @@ The remaining strings are located within the views, which you will likely edit a
 
 ## Livewire assets
 
-We are using the `marcorieser/statamic-livewire` package under the hood, which injects Livewire styles and scripts automatically into the page. If you are using static caching, please check the [common issues page](/common-issues) in order to configure everything correctly.
+We are using the `marcorieser/statamic-livewire` package under the hood, which injects Livewire styles and scripts automatically into the page. 
+
+Sometimes it may be useful to manually add the assets in your layout file, especially if you have pages that use AlpineJS but don't load Livewire components. To do so follow the instructions on the [upstream documentation](https://github.com/marcorieser/statamic-livewire#manually-including-livewires-frontend-assets).
+
+If you are using static caching, please check the [relevant page](/advanced/static-caching) in order to configure everything correctly.
 
 ## Styling with TailwindCSS
 
