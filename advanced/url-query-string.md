@@ -48,7 +48,7 @@ Not so pretty, right? Don't worry—we've created a custom URL query string that
 
 ## Using the Custom URL Query String
 
-To enable this feature, configure two additional keys in your config file: `custom_query_string` and `custom_query_string_aliases`. Also make sure `enable_query_string` is set to `false`.
+To enable this feature, configure two additional keys in your config file: `custom_query_string` and `custom_query_string_aliases`. Also make sure `enable_query_string` is set to `false` — only one URL mode can be active at a time, and if `enable_query_string` is `true` the custom query string is ignored.
 
 - `custom_query_string` should be set to a string that will act as the prefix for the generated URL, such as `filters`, `search`, or `params`. Ensure this slug is unique across your site to avoid `404` errors.
 - `custom_query_string_aliases` is an associative array mapping original filter names to new, readable strings. Original filter names should match the ones used in a Collection tag.

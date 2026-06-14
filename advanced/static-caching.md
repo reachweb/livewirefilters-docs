@@ -6,19 +6,19 @@ Static caching introduces some challenges for Livewire Filters. Each has a diffe
 
 If you **don't** use the [URL query string](/advanced/url-query-string) feature generally everything works for both full and half measure static caching as it should with one small exception:
 
-- Full measure **requires** the <code v-pre>{{ livewire-filters:head }}</code> tag in your layout (before <code v-pre>{{ livewire:scripts }}</code>) to avoid 419 errors on the first interaction. See [Page Expired errors](#page-expired-errors-on-the-first-filter-interaction) below.
+- Full measure **requires** the <code v-pre>{{ livewire-filters:head }}</code> tag in your layout (before <code v-pre>{{ livewire:scripts }}</code>) to avoid 419 errors on the first interaction. See [Page Expired errors](#page-expired-errors-on-the-first-filter-interaction-or-other-console-errors) below.
 
 ## Configuration cheat sheet
 
-Besides the required prequisitiy above to get the addon working correctly when you use the URL query string feature you need to either change some config flags or add <code v-pre>{{ nocache }}</code> tags.
+Besides the required prerequisite above, to get the addon working correctly when you use the URL query string feature you need to either change some config flags or add <code v-pre>{{ nocache }}</code> tags.
 
 | Setup | <code v-pre>{{ nocache }}</code> required? |
 |---|---|
-| Full measure + `enable_query_string` + `ignore_query_strings: false` (default) | No |
-| Full measure, any other combination | Yes |
-| Half measure (with URL query string) | Yes |
+| Full or half measure + `enable_query_string` + `ignore_query_strings: false` (default) | No |
+| Full or half measure + `enable_query_string` + `ignore_query_strings: true` (or filter params in `disallowed_query_strings`) | Yes |
+| Full or half measure + `custom_query_string` | Yes |
 
-- Half measure when using the URL query string also **requires** `inject_assets: false` in Livewire's config **and** using a <code v-pre>{{ nocache }}</code> tag. Read more [here](#detected-multiple-instances-of-livewire-running-error).
+- When half measure is combined with <code v-pre>{{ nocache }}</code> tags, you also **need** `inject_assets: false` in Livewire's config. Read more [here](#detected-multiple-instances-of-livewire-running-error).
 
 ## Filter values getting cached in the HTML
 
@@ -28,21 +28,21 @@ When a page is statically cached, the rendered HTML, including filter chrome sta
 
 Filter URLs look like `/cars?params[taxonomy:car_brand:any]=audi`. You have two valid approaches:
 
-**Option A — Cache each query string variant (Statamic default).** 
+**Option A — Cache each query string variant (Statamic default).**
 
-With `ignore_query_strings: false` (the default), Statamic writes a separate static file for every distinct URL, so each filter combination serves its own correct state without any extra work. No <code v-pre>{{ nocache }}</code> needed.
+With `ignore_query_strings: false` (the default), Statamic caches every distinct URL separately — full measure writes a separate static file, half measure stores a separate response in the application cache — so each filter combination serves its own correct state without any extra work. No <code v-pre>{{ nocache }}</code> needed on either measure.
 
-::: warning Watch your disk usage
-With `ignore_query_strings: false`, Statamic writes a separate static file for **every** filtered URL a visitor lands on. On a collection with many filters and combinations, that can grow into thousands of files on disk. Plan your cache invalidation and disk usage accordingly, or use Option B below if this is a concern.
+::: warning Watch your disk and cache usage
+With `ignore_query_strings: false`, Statamic creates a separate static file (full measure) or cache entry (half measure) for **every** filtered URL a visitor lands on. On a collection with many filters and combinations, that can grow into thousands of files on disk or entries in your application cache. Plan your cache invalidation and storage accordingly, or use Option B below if this is a concern.
 :::
 
-**Option B — Share a single cache shell with <code v-pre>{{ nocache }}</code>.** 
+**Option B — Share a single cache shell with <code v-pre>{{ nocache }}</code>.**
 
-Wrap the filter components and the `livewire-collection` tag in <code v-pre>{{ nocache }}</code> blocks (same pattern as the custom query string section below). The add-on's middleware rehydrates the original URL's query string onto the `/!/nocache` request so Livewire's `queryString` trait picks up the params and components mount with the correct state. This is required when you set `ignore_query_strings: true` or list your filter params under `disallowed_query_strings`, because Statamic would otherwise collapse every filter variant into the same cached HTML.
+Wrap the filter components and the `livewire-collection` tag in <code v-pre>{{ nocache }}</code> blocks (same pattern as the custom query string section below). On full measure, the addon's middleware rehydrates the original URL's query string onto the `/!/nocache` request so Livewire's `queryString` trait picks up the params and components mount with the correct state; on half measure, the nocache regions re-render server-side on every request, so the params are picked up from the request directly. This is required when you set `ignore_query_strings: true` or list your filter params under `disallowed_query_strings`, because Statamic would otherwise collapse every filter variant into the same cached HTML.
 
 ### Custom query string mode (`custom_query_string`)
 
-Filter URLs look like `/cars/search/brand/audi`. The add-on rewrites these to the underlying entry path (`/cars`) so the route resolver can find the page; this rewrite happens before Statamic's static cache decides on a cache key, which means **every filter combination would otherwise overwrite the same cache entry as the unfiltered page**.
+Filter URLs look like `/cars/search/brand/audi`. The addon rewrites these to the underlying entry path (`/cars`) so the route resolver can find the page; this rewrite happens before Statamic's static cache decides on a cache key, which means **every filter combination would otherwise overwrite the same cache entry as the unfiltered page**.
 
 Wrap **both** the `livewire-collection` tag and the filter components in <code v-pre>{{ nocache }}</code> tags:
 
@@ -63,7 +63,7 @@ A single <code v-pre>{{ nocache }}</code> block can wrap multiple tags, so two b
 
 - The cached HTML is just a shell with placeholders.
 - Filter chrome state and entries are rendered fresh per request via Statamic's `/!/nocache` endpoint.
-- The unfiltered URL (`/cars`) and every filter combination share the same cached shell and produce the correct dynamic content because the add-on's middleware sets filter params on the `/!/nocache` request from the URL segments.
+- The unfiltered URL (`/cars`) and every filter combination share the same cached shell and produce the correct dynamic content because the addon's middleware sets filter params on the `/!/nocache` request from the URL segments.
 
 Trying to use an `exclude.urls` pattern like `*/search/*` to skip caching filter URLs does **not** work in this mode — by the time Statamic evaluates exclusions, the URL has already been rewritten to the canonical path. If you really want to skip caching for a filter page entirely, exclude the canonical path itself (e.g. `'/cars*'`).
 
@@ -104,5 +104,5 @@ php artisan vendor:publish --tag=livewire:config
 
 and set `'inject_assets' => false`.
 
-Make sure your layout includes both <code v-pre>{{ livewire:styles }}</code> in the head and <code v-pre>{{ livewire:scripts }}</code> at the end of the body like mentioned [here](https://github.com/marcorieser/statamic-livewire#manually-including-livewires-frontend-assets) otherwise Livewire's runtime won't load on cached pages. With `inject_assets` left at the default (`true`), the `nocache` tags needed for the addon to work would cause Livewire assets to load twice on the second load of a cached page created an error.
+Make sure your layout includes both <code v-pre>{{ livewire:styles }}</code> in the head and <code v-pre>{{ livewire:scripts }}</code> at the end of the body like mentioned [here](https://github.com/marcorieser/statamic-livewire#manually-including-livewires-frontend-assets) otherwise Livewire's runtime won't load on cached pages. With `inject_assets` left at the default (`true`), the `nocache` tags needed for the addon to work would cause Livewire assets to load twice on the second load of a cached page, creating an error.
 
