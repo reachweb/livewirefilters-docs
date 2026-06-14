@@ -8,8 +8,8 @@ Improves Livewire Filters' support for statically cached pages (full and half me
 
 **New**
 
-- `{{ livewire-filters:head }}` tag — add it to your layout before `{{ livewire:scripts }}` to prevent 419 "Page Expired" errors on the first filter interaction under full-measure caching. Outputs nothing when caching is off, so it's safe to leave in permanently.
-- Better `{{ nocache }}` handling across all URL modes — filter state is rehydrated on Statamic's `/!/nocache` requests, so filters resolve correctly on a shared cache shell in both the Livewire and custom query string modes (no more stale or "poisoned" filtered pages).
+- <code v-pre>{{ livewire-filters:head }}</code> tag — add it to your layout before <code v-pre>{{ livewire:scripts }}</code> to prevent 419 "Page Expired" errors on the first filter interaction under full-measure caching. Outputs nothing when caching is off, so it's safe to leave in permanently.
+- Better <code v-pre>{{ nocache }}</code> handling across all URL modes — filter state is rehydrated on Statamic's `/!/nocache` requests, so filters resolve correctly on a shared cache shell in both the Livewire and custom query string modes (no more stale or "poisoned" filtered pages).
 
 **Changed**
 
