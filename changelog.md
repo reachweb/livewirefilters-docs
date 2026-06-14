@@ -1,5 +1,26 @@
 # Changelog
 
+## v4.4.0 (Jun 14th, 2026)
+
+**Static Caching Support**
+
+Improves Livewire Filters' support for statically cached pages (full and half measure).
+
+**New**
+
+- `{{ livewire-filters:head }}` tag — add it to your layout before `{{ livewire:scripts }}` to prevent 419 "Page Expired" errors on the first filter interaction under full-measure caching. Outputs nothing when caching is off, so it's safe to leave in permanently.
+- Better `{{ nocache }}` handling across all URL modes — filter state is rehydrated on Statamic's `/!/nocache` requests, so filters resolve correctly on a shared cache shell in both the Livewire and custom query string modes (no more stale or "poisoned" filtered pages).
+
+**Changed**
+
+- Query string modes are now mutually exclusive — when `enable_query_string` (Livewire) is on, `custom_query_string` is ignored.
+
+**Fixed**
+
+- Taxonomy terms with numeric slugs are no longer dropped from filter options and counts.
+
+📖 Full guide: [https://livewirefilters.com/advanced/static-caching](https://livewirefilters.com/advanced/static-caching)
+
 ## v4.3.2 (Mar 25th, 2026)
 
 - Fix counts for custom options array.
