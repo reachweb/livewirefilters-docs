@@ -82,7 +82,7 @@ Alternatively, you can specify a custom scroll target by setting `scrollTo` to a
 
 ## Infinite scroll (load more)
 
-Instead of numbered page links, a paginated collection can pull more entries into the same page — either when the visitor clicks a button, or automatically as they scroll (true infinite scroll).
+Instead of numbered page links, a paginated collection can pull more entries into the same page, either when the visitor clicks a button, or automatically as they scroll (true infinite scroll).
 
 Enable it with `infinite_scroll="true"`:
 
@@ -98,7 +98,7 @@ Then render the trigger in your view with the <code v-pre>{{ livewire-filters:lo
 ```
 
 - Without `auto`, it renders a **"Load more"** button the visitor clicks.
-- With `auto="true"`, it additionally wires up Alpine's `x-intersect` so the next page loads automatically as the trigger scrolls into view. Alpine ships with Livewire, so there's **no build step**. It still renders a real `<button>`, so it keeps working as a manual button if JavaScript is unavailable.
+- With `auto="true"`, it additionally wires up Alpine's `x-intersect` so the next page loads automatically as the trigger scrolls into view.
 
 Each load grows the page size by the initial `paginate` value (so the example above loads 12 more entries at a time), and the size resets automatically whenever a filter or sort changes. The tag **hides itself** once there are no more pages, so you don't need to wrap it in a condition.
 
@@ -106,7 +106,7 @@ Each load grows the page size by the initial `paginate` value (so the example ab
 Infinite scroll builds on pagination, so `paginate` must be set. If it's missing (or `0`), `infinite_scroll` is ignored and the collection renders normally.
 :::
 
-The default view already includes the tag, so the basic setup works out of the box. You only add it yourself when using a **custom view**.
+The default view already includes the tag, so the basic setup works out of the box. You only have to add it yourself when using a **custom view**.
 
 ### Customizing the trigger
 
