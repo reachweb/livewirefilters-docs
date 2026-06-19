@@ -48,6 +48,7 @@ The <code v-pre>{{ livewire-collection }}</code> also accepts the following para
 - **view**: Select a different view (template) for the entries, enabling the use of varied templates for different collections. For example, `view="cars"` will search for the template at `resources/views/vendor/statamic-livewire-filters/livewire/cars.antlers.html`.
 - **paginate**: While this is a parameter of the original collection tag, here it replaces the pagination with a pre-built Livewire-compatible one. Use the <code v-pre>{{ links }}</code> variable in your template for pagination (read more below).
 - **lazy**: Set this to true to enable lazy loading (also read more below).
+- **infinite_scroll**: Enable incremental "load more" pagination instead of numbered links, rendered with the <code v-pre>{{ livewire-filters:load_more }}</code> tag (read more below). Requires `paginate` to be set.
 
 ## Limiting Allowed Filters
 
@@ -78,6 +79,52 @@ For situations where you need to display the total number of entries (e.g., "Sho
 By default, pagination scrolls back to the top of the page when changing pages. You can disable this behavior by setting the `scrollTo` property on `LivewireCollection` to `false`.
 
 Alternatively, you can specify a custom scroll target by setting `scrollTo` to a relevant **class** or **ID**. For example `scrollTo="#content"`.
+
+## Infinite scroll (load more)
+
+Instead of numbered page links, a paginated collection can pull more entries into the same page — either when the visitor clicks a button, or automatically as they scroll (true infinite scroll).
+
+Enable it with `infinite_scroll="true"`:
+
+```antlers
+{{ livewire-collection:cars paginate="12" infinite_scroll="true" }}
+```
+
+Then render the trigger in your view with the <code v-pre>{{ livewire-filters:load_more }}</code> tag — think of it as the "load more" counterpart to <code v-pre>{{ links }}</code>:
+
+```antlers
+{{ livewire-filters:load_more }}              {{# manual "Load more" button #}}
+{{ livewire-filters:load_more auto="true" }}  {{# auto-loads on scroll #}}
+```
+
+- Without `auto`, it renders a **"Load more"** button the visitor clicks.
+- With `auto="true"`, it additionally wires up Alpine's `x-intersect` so the next page loads automatically as the trigger scrolls into view. Alpine ships with Livewire, so there's **no build step**. It still renders a real `<button>`, so it keeps working as a manual button if JavaScript is unavailable.
+
+Each load grows the page size by the initial `paginate` value (so the example above loads 12 more entries at a time), and the size resets automatically whenever a filter or sort changes. The tag **hides itself** once there are no more pages, so you don't need to wrap it in a condition.
+
+::: info Requires `paginate`
+Infinite scroll builds on pagination, so `paginate` must be set. If it's missing (or `0`), `infinite_scroll` is ignored and the collection renders normally.
+:::
+
+The default view already includes the tag, so the basic setup works out of the box. You only add it yourself when using a **custom view**.
+
+### Customizing the trigger
+
+The <code v-pre>{{ livewire-filters:load_more }}</code> tag accepts:
+
+| Parameter | Description |
+|-----------|-------------|
+| `auto` | Set to `true` to auto-load on scroll. Defaults to a click-to-load button. |
+| `text` | Override the button label. Defaults to the translatable `statamic-livewire-filters::ui.load_more` string. |
+| `class` | CSS classes for the `<button>` element. |
+
+`text` and `class` are output as-is, like any Antlers variable. If you bind either to untrusted input (e.g. a request value), sanitize it at the call site — <code v-pre>text="{{ value | sanitize }}"</code>.
+
+For full control over the markup, publish and edit the template at `vendor/statamic-livewire-filters/livewire/ui/load-more.antlers.html`.
+
+::: warning State lives in the component, not the URL
+The "loaded more" state is kept in the Livewire component rather than the URL. A full page reload therefore resets the list back to the first page — so infinite scroll is best suited to discovery-style listings rather than deep-linkable, shareable result sets.
+:::
 
 ## Lazy loading
 

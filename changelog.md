@@ -1,5 +1,18 @@
 # Changelog
 
+## v4.5.0 (Jun 19th, 2026)
+
+**New**
+
+- **Infinite scroll / "Load more" pagination** — add `infinite_scroll="true"` to the <code v-pre>{{ livewire-collection }}</code> tag to enable incremental loading, then render the trigger with the new <code v-pre>{{ livewire-filters:load_more }}</code> tag. Use `auto="true"` for true infinite scroll or omit it for a manual "Load more" button; either way it degrades to a real button without JavaScript. Each load grows the page by the initial `paginate` value and resets on filter/sort change. The trigger is a publishable partial with translatable labels.
+
+**Fixed**
+
+- Duplicate browser history entries when paginating in custom query string mode, plus more reliable browser **Back** button behaviour.
+- Static caching on multisite installs: correct site resolution and subdirectory handling.
+
+📖 Full guide: [https://livewirefilters.com/usage/livewire-collection-tag#infinite-scroll-load-more](https://livewirefilters.com/usage/livewire-collection-tag#infinite-scroll-load-more)
+
 ## v4.4.0 (Jun 14th, 2026)
 
 **Static Caching Support**
