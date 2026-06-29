@@ -1,5 +1,11 @@
 # Changelog
 
+## v4.5.1 (Jun 29th, 2026)
+
+**Fixed**
+
+-Fix browser-history behavior when using the addon's custom query string mode
+
 ## v4.5.0 (Jun 19th, 2026)
 
 **New**
