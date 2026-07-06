@@ -28,10 +28,23 @@ The available config options at the time are:
 |--------|-------------|---------|
 | `enable_query_string` | Enables Livewire's [query string feature](./advanced/url-query-string). | `false` |
 | `validate_filter_values` | When using fields that have predefined options, the addon will validate that the value the user wants to filter by actually exists in the options array. | `true` |
+| `blocked_query_params` | A blocklist of Statamic query control keys (`status`, `from`, `site`, `limit`, `paginate`, `since`/`until`, `filter`, …) stripped from filter state sent by the client before the query runs, so a tampered request can't change which entries are returned. Covers both the entries query and the count queries. [Read more](./usage/livewire-collection-tag#securing-parameters). | *(populated list)* |
 | `enable_term_routes` | When enabled, the addon will preset the value of any Taxonomy filters when in [term routes](./advanced/taxonomy-term-routes). | `false` |
 | `use_origin_id_for_entries_field` | Set to false to use the IDs of the localized entries when using multi-site. Read more [here](./advanced/tips-performance#filtering-entries-field-in-multi-site-setups). | `true` |
 | `enable_filter_values_count` | When enabled, Livewire Filters calculates and displays counts for each option in checkboxes, radio, and select fields next to their labels. This feature is resource-intensive, as it performs a query for each filter on the page and repeats these queries after each user action to update the counts. Therefore, it should be used cautiously, especially with very large data sets (1000+ entries). | `false` |
 | `custom_query_string` & `custom_query_string_aliases` | These are used to control the [custom URL query string feature](./advanced/url-query-string#using-the-custom-url-query-string). | - |
+
+### Upgrading and the config file
+
+When a new version adds a config option (such as `blocked_query_params`), the addon merges its defaults on top of your file, so any key you haven't defined is filled in automatically, even if you published the config long ago. You get new security defaults without editing your published config.
+
+::: warning Rebuild your config cache
+Laravel skips the merge when the config is cached. After upgrading, clear or rebuild the cache (`php artisan config:clear`, or re-run `php artisan config:cache`), otherwise new keys stay unset and defaults like the parameter blocklist stay off.
+:::
+
+::: info Keys you already define are not deep merged
+The merge is shallow. If your published config already contains a key, your value replaces the package default for that key completely, so keeping `blocked_query_params` in your file means you won't pick up keys added later (such as `since`/`until`). To stay current, either remove that key from your published config, or re-copy the latest list from the [package config](https://github.com/reachweb/statamic-livewire-filters/blob/master/config/config.php) when you upgrade.
+:::
 
 
 ## Publish the views

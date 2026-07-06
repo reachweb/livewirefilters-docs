@@ -50,21 +50,56 @@ The <code v-pre>{{ livewire-collection }}</code> also accepts the following para
 - **lazy**: Set this to true to enable lazy loading (also read more below).
 - **infinite_scroll**: Enable incremental "load more" pagination instead of numbered links, rendered with the <code v-pre>{{ livewire-filters:load_more }}</code> tag (read more below). Requires `paginate` to be set.
 
-## Limiting Allowed Filters
+## Securing parameters
 
-Given that this addon leverages Laravel Livewire, it's important to note that all server requests can *potentially* be modified by a malicious user. This could lead to unintended conditions being applied, such as listing draft entries. While this may not be a significant concern since the data being filtered is public, you might still wish to restrict the filters users can apply for enhanced security.
+Livewire keeps the active filter state in a public property, so like any Livewire request it can be tampered with. The risk isn't the filter *values* (the data is public), but Statamic query control keys. Statamic's collection query reads keys like `from`, `status`, `limit`, `site` and `since`/`until` as instructions that change which entries are returned, not as filters. Left open, a crafted request could inject them to surface draft entries or query a different collection.
 
-To specify which filters are permissible, you can set the `allowed_filters` parameter that defines the allowed conditions. This is achieved by passing a pipe-separated list of permissible filters. For example:
+The addon guards against this in two layers: a blocklist that is always on, and an optional allowlist for stricter control.
+
+### The blocklist (`blocked_query_params`)
+
+This is the default protection and needs no configuration. The `blocked_query_params` config option lists the query control keys that are stripped from filter state sent by the client before the entries query and the count queries run:
+
+- **Safe by default.** The list ships populated with the known Statamic control keys (`status`, `published`, `show_future`, `show_past`, `since`, `until`, `from`, `in`, `folder`, `use`, `collection`, their `not_*` variants, `site`, `locale`, `limit`, `offset`, `paginate`, `chunk`, `filter`). Publish the config only if you want to add or remove keys.
+- **Matches the key, not the condition.** A blocked key is matched against the segment before the first colon, so `status` blocks both `status` and `status:is`, while ordinary filter params like `transmission:is` pass through.
+- **Covers URL state too.** Filter state provided through the URL (`params[...]` in either query string mode) passes through the same blocklist when the page loads. Parameters that configure the tag itself (`from`, `view`, `paginate`, `allowed_filters` and the other collection aliases) are never read from the URL at all, since they can only be set on the tag.
+- **Trusts your tag.** Parameters set directly on the <code v-pre>{{ livewire-collection }}</code> tag are always kept, even if blocked. So this preset still works, and only a copy injected by the client is dropped:
+
+```antlers
+{{ livewire-collection:events from="events" status="draft" paginate="12" }}
+```
+
+::: info Fields named like a control key
+Because matching is on the part before the colon, a real filter on a field named `status`, `from`, `site`, etc. (param key `status:is`) is stripped too. This is uncommon, but if you have one, allow it back through with `allowed_filters` (below).
+:::
+
+### The allowlist (`allowed_filters`)
+
+The `allowed_filters` tag parameter does the opposite of the blocklist: when set, only the keys you name are allowed and everything else is dropped. It is optional, stricter, and scoped to a single tag. Pass the keys separated by `|`:
 
 ```antlers
 {{ livewire-collection:cars paginate="6" allowed_filters="taxonomy:car_brand:any|transmission:is" }}
 ```
 
-When using with `query_scopes` you need to allow both parameters:
+When using [query scopes](/advanced/query-scopes) you need to allow both parameters:
 
 ```antlers
 {{ livewire-collection:cars paginate="8" allowed_filters="taxonomy:car_brand:any|query_scope:multiselect|multiselect:special_categories" }}
 ```
+
+Any key you list is also exempt from the blocklist, which is how you allow a control key you legitimately need, such as letting visitors change the page size:
+
+```antlers
+{{ livewire-collection:cars paginate="6" allowed_filters="transmission:is|limit" }}
+```
+
+### Which should I use?
+
+For most sites the blocklist already covers you and you need nothing else. Add `allowed_filters` when you want to:
+
+- Restrict a tag to an exact allowlist instead of trusting the blocklist to name every risky key.
+- Secure query scopes. The addon builds the `query_scope` key itself, so it can't be added to the blocklist without breaking scoped filters. If your app registers scopes that are sensitive or expensive, list them explicitly with `query_scope:<scope>` entries, the only option that fully resists tampering.
+- Allow a specific blocked key on a single tag, such as a `limit` visitors can change or a filter on a field named like a control key.
 
 ## Pagination
 

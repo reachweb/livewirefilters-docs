@@ -1,5 +1,26 @@
 # Changelog
 
+## v4.6.0 (Jul 6th, 2026)
+
+**Security: query parameter hardening**
+
+Livewire keeps the active filter state in a public property, so a crafted request can inject any key into it, including Statamic query controls like `from`, `status`, `limit` and `site` that change which entries are returned rather than filtering them. This release blocks that by default, with no configuration needed.
+
+**New**
+
+- **`blocked_query_params` config option:** a blocklist of query control keys (`status`, `from`, `site`, `limit`, `paginate`, `since`/`until`, `filter`, and more) stripped from filter state sent by the client before the query runs. It covers both the entries query and the count queries, and ships populated so there is nothing to set up. Parameters set directly on the <code v-pre>{{ livewire-collection }}</code> tag are always kept, and `allowed_filters` can let a specific key back through (a value sent by the client then overrides the one set on the tag). See [Securing parameters](./usage/livewire-collection-tag#securing-parameters).
+
+**Changed**
+
+- Filter identity properties (`field`, `condition`, `modifier`, `collection`, `blueprint`, `statamic_field`) are now `#[Locked]`, so a tampered request can no longer change what a filter points at.
+- `setParameters()` on the `LivewireCollection` component is now `protected`. Livewire exposes every public method as an action the client can call, and this one writes trusted state such as the collection and `allowed_filters`. If you were calling it from custom code, pass the parameters through the tag instead.
+- Filter state arriving through the URL (`params[...]`, in both query string modes) is sanitized before it reaches the component: blocked keys are stripped, and parameters that configure the tag itself (`from`, `view`, `paginate`, `allowed_filters` and the other collection aliases) are never read from the URL, since they can only be set on the tag. If you relied on a URL `limit` with legacy `paginate="true"` pagination, allow it back with `allowed_filters="limit"`.
+- Query control parameters written by a server `init` hook keep working: anything the hook adds, changes or removes during mount is treated as trusted, the same as parameters set on the tag, since hooks are registered in your own application code.
+- Control parameters set on the tag (such as `status` or `site`) now scope the count queries too, so counts always match the entries query.
+- The count listener now exits early when `enable_filter_values_count` is off, so no queries run when the feature is disabled.
+
+📖 Full guide: [https://livewirefilters.com/usage/livewire-collection-tag#securing-parameters](https://livewirefilters.com/usage/livewire-collection-tag#securing-parameters)
+
 ## v4.5.1 (Jun 29th, 2026)
 
 **Fixed**
