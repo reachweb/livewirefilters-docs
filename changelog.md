@@ -13,27 +13,31 @@ Livewire keeps the active filter state in a public property, so a crafted reques
 
 **Changed**
 
-- Removing a filter from the tags, or clicking "Clear all", now updates the collection in a single Livewire round trip instead of waiting for each filter to relay the change back. The `clear-option` and `clear-all-filters` events still reach filter components with the same payloads, so custom filters keep working. Parameters set on the tag or by an `init` hook are still only cleared by their own filter component, and Resrv's availability filter keeps its dates.
-- A `filter-updated` event whose payload matches the current state on page 1 no longer re-renders the collection. If you dispatched it to force a refresh, use `$refresh` instead.
-- Filter identity properties (`field`, `condition`, `modifier`, `collection`, `blueprint`, `statamic_field`) are now `#[Locked]`, so a tampered request can no longer change what a filter points at.
+- Removing a filter from the tags, or clicking "Clear all", now updates the collection in a single Livewire round trip instead of waiting for each filter to relay the change back. The `clear-option` and `clear-all-filters` events still reach filter components with the same payloads, so custom filters keep working. On "Clear all", parameters set on the tag or by an `init` hook are still only cleared by their own filter component, and Resrv's availability filter keeps its dates.
+- A `filter-updated`, `clear-filter` or `clear-option` event that changes nothing (on page 1) no longer re-renders the collection. If you dispatched `filter-updated` to force a refresh, call Livewire's `$refresh` on the collection component instead.
+- Filter identity properties (`field`, `condition`, `modifier`, `collection`, `blueprint`, `statamic_field`), and the `collection`, `blueprint` and `fields` properties of the sort component, are now `#[Locked]`, so a tampered request can no longer change what a filter points at.
 - `setParameters()` on the `LivewireCollection` component is now `protected`. Livewire exposes every public method as an action the client can call, and this one writes trusted state such as the collection and `allowed_filters`. If you were calling it from custom code, pass the parameters through the tag instead.
 - Filter state keys starting with `:` are rejected. Statamic evaluates a `:key` parameter as an Antlers expression, so a crafted request could have one evaluated inside the entries or count query.
 - Filter state arriving through the URL (`params[...]`, in both query string modes) is sanitized before it reaches the component: blocked keys are stripped, and parameters that configure the tag itself (`from`, `view`, `paginate`, `allowed_filters` and the other collection aliases) are never read from the URL, since they can only be set on the tag. If you relied on a URL `limit` with legacy `paginate="true"` pagination, allow it back with `allowed_filters` (for example `allowed_filters="transmission:is|limit"`).
 - Query control parameters written by a server `init` hook keep working: anything the hook adds, changes or removes during mount is treated as trusted, the same as parameters set on the tag, since hooks are registered in your own application code.
-- Counts are calculated from the same filtered state as the entries query, so control parameters set on the tag (such as `status` or `site`) scope the counts too, and the first counts on page load include parameters added by `init` hooks.
+- Counts are calculated from the same hardened parameters as the entries query, so the blocklist and `allowed_filters` apply to them too, and the first counts on page load include parameters added by `init` hooks.
+- The `params-updated` event carries the hardened parameters instead of the raw filter state, gains a second argument (the encrypted bounds query) and also fires when only dynamic bounds are on. Listeners that take one argument keep working.
 - The count listener now exits early when `enable_filter_values_count` is off, so no queries run when the feature is disabled, and it always counts within the filter's own collection.
 
 **Fixed**
 
 - Moving a range slider back to its default value now clears the filter instead of leaving it in the URL and the tags.
 - Toggle filters with a numeric or boolean `preset_value` now show as on when restored from the URL or a preset.
-- Removing a tag for a parameter that has no filter component on the page now removes it. Previously the click did nothing.
+- Removing a tag for a condition, taxonomy or query scope parameter that has no filter component on the page now removes it. Previously the click did nothing.
+- With `allowed_filters`, an active query scope is now allowed when its own `query_scope:<scope>` entry is listed. Previously the whole scope list had to match one entry, so two active scope filters dropped both scopes.
 
 **Upgrading**
 
 - **Config cache:** If you cache your config, run `php artisan config:clear` or rebuild it with `php artisan config:cache` after updating, otherwise the blocklist stays unset. See [Upgrading and the config file](./installation#upgrading-and-the-config-file).
 - **Published range views:** If you published `lf-range.blade.php` or `lf-dual-range.blade.php`, merge in the new `range-bounds-updated` listener (the range view also reads `$dynamicMin`, `$dynamicMax` and `$boundsDisabled`) or re-publish them, otherwise the sliders won't update when dynamic bounds are on. See the [Range](./usage/range-filter#custom-views) and [Dual Range](./usage/dual-range-filter#custom-views) filter pages.
-- **Custom filter components:** "Clear all" now removes every filter parameter added after page load, including those from custom components that don't listen for `clear-all-filters`. If such a component should reset its own controls too, listen for that event.
+- **Fields named like a control key:** a filter on a field whose handle is a blocked key (such as `status`, `site` or `from`) is now stripped. See [Fields named like a control key](./usage/livewire-collection-tag#the-blocklist-blocked-query-params).
+- **Sensitive query scopes:** `query_scope` isn't blocked, since the addon builds it for scope filters. Lock scopes down with `query_scope:<scope>` entries in `allowed_filters`. See [Which should I use?](./usage/livewire-collection-tag#which-should-i-use).
+- **Custom filter components:** "Clear all" now removes every filter parameter except those set on the tag or by an `init` hook, including those from custom components that don't listen for `clear-all-filters`. If such a component should reset its own controls too, listen for that event.
 - **Overridden methods:** `filterUpdated()` and `clearFilter()` on the `LivewireCollection` component, and `clearFilters()` on the filter components, have a new optional `$boundsSelection` parameter. If you extend one of these components and override any of these methods, add `$boundsSelection = null` to its signature, otherwise PHP throws a fatal "must be compatible" error.
 
 📖 Full guide: [https://livewirefilters.com/usage/livewire-collection-tag#securing-parameters](https://livewirefilters.com/usage/livewire-collection-tag#securing-parameters)
