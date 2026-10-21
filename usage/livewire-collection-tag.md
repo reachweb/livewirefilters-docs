@@ -58,11 +58,12 @@ The addon guards against this in two layers: a blocklist that is always on, and 
 
 ### The blocklist (`blocked_query_params`)
 
-This is the default protection and needs no configuration. The `blocked_query_params` config option lists the query control keys that are stripped from filter state sent by the client before the entries query and the count queries run:
+This is the default protection and needs no configuration. The `blocked_query_params` config option lists the query control keys that are stripped from filter state sent by the client before the entries query runs:
 
 - **Safe by default.** The list ships populated with the known Statamic control keys (`status`, `published`, `show_future`, `show_past`, `since`, `until`, `from`, `in`, `folder`, `use`, `collection`, their `not_*` variants, `site`, `locale`, `limit`, `offset`, `paginate`, `chunk`, `filter`). Publish the config only if you want to add or remove keys.
 - **Matches the key, not the condition.** A blocked key is matched against the segment before the first colon, so `status` blocks both `status` and `status:is`, while ordinary filter params like `transmission:is` pass through.
 - **Covers URL state too.** Filter state provided through the URL (`params[...]` in either query string mode) passes through the same blocklist when the page loads. Parameters that configure the tag itself (`from`, `view`, `paginate`, `allowed_filters` and the other collection aliases) are never read from the URL at all, since they can only be set on the tag.
+- **Counts follow the same state.** Filter value counts are calculated from the same filtered state as the entries query. The count listener doesn't apply the blocklist again to events sent to it directly, so a forged request can at most change the count numbers it gets back. It can't return entries or count another collection.
 - **Trusts your tag.** Parameters set directly on the <code v-pre>{{ livewire-collection }}</code> tag are always kept, even if blocked. So this preset still works, and only a copy injected by the client is dropped:
 
 ```antlers
