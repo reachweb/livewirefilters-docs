@@ -36,6 +36,30 @@ If there is a preset condition specified in the `livewire-collection` tag, it wi
 
 <Image src="/demo/rangefilter.webp" alt="The Range Filter example." />
 
+## Range list
+
+To let visitors pick from predefined numeric ranges ("Under 100", "100 to 200", "Over 200") instead of dragging a slider, use the Radio Filter with a `buckets` parameter. Each bucket becomes a radio option with its own entry count, and an **All** option clears the selection.
+
+```antlers
+{{ livewire:lf-radio-filter
+    blueprint="cars.car"
+    field="price"
+    buckets="0-12000|12000-16000|16000-20000|20000-"
+}}
+```
+
+Separate buckets with `|`. Each bucket is `min-max`; leave a side empty for an open-ended range (`20000-` or `-12000`). Labels are generated from the bounds: `0-100` and `-100` read "Under 100", `100-200` reads "100 to 200" and `200-` reads "Over 200". You can change the wording with the `range_under`, `range_between` and `range_over` keys of the [language file](../installation#publish-the-language-file).
+
+Selecting a bucket filters the field the same way as the [Dual Range Filter](./dual-range-filter): with `gte` and `lte` by default, so the URL and the [tags](../tags) show `price:gte` and `price:lte`. An open side sets only one of them. Because both ends are inclusive, an entry on a shared edge (a price of exactly `12000` above) matches both neighbouring buckets. To make the upper end exclusive, set `modifier="gte|lt"`; the counts follow the same comparisons.
+
+With `enable_filter_values_count` turned on, the counts come from a single query of the field's values, bucketed in PHP, and ignore the filter's own selection like the other filters' counts.
+
+::: info Ideal for
+Numeric fields, such as an `integer` price. A range list allows one bucket at a time; date fields aren't supported, use the Dual Range Filter for those.
+:::
+
+The view is `lf-range-list.blade.php`. Pass `view` to use your own.
+
 ## Dynamic bounds
 
 With `enable_dynamic_range_bounds` turned on in the [config file](../installation#configuration), the slider narrows to the lowest and highest values among the entries that still match the other active filters, instead of always spanning `min` to `max`. It's off by default.
