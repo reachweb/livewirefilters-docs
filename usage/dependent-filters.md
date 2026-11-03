@@ -47,14 +47,14 @@ Without `enable_dependent_filters` the collection doesn't send its filter state 
 After every filter change, the collection sends its filter state to the filters. A filter with `depends_on`:
 
 - **Narrows its options.** When the parent has a value, the filter only shows the options that appear in the entries that match the active filters, apart from its own. The option you have selected always stays visible.
-- **Clears its selection when the parent changes.** If the new parent value doesn't offer the selected option, that option is unselected: a radio or select filter is cleared, and a checkbox filter keeps only the values that are still available. A change to any other filter never clears the selection.
+- **Clears its selection when the parent changes.** If the new parent value doesn't offer the selected option, that option is unselected: a radio or select filter is cleared, and a checkbox filter keeps only the values that are still available. A change to any other filter never clears the selection, and neither does loading a page: a selection from the URL or the tag is kept, even when its parent doesn't offer it.
 - **Shows every option when the parent is cleared.** The selection is kept.
 
 The options are narrowed by the other active filters too, so with *Diesel* selected the model filter only lists the brand's diesel models.
 
 ## Hide or disable unavailable options
 
-By default, the options that don't go with the parent are hidden. Set `unavailable="disable"` to show them disabled instead:
+By default, the options that don't go with the parent are hidden. Set `unavailable="disable"` to show them disabled instead (any other value throws an exception):
 
 ```antlers
 {{ livewire:lf-select-filter
