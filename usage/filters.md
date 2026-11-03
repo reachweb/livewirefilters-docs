@@ -48,6 +48,7 @@ The available options for sorting are as follows:
 
 - `key` or `slug` will sort by the array key or the term slug, respectively.
 - `label` or `title` will sort by the array label or the term title field, respectively.
+- `count` will sort by the number of entries for each value, for example `sort="count:desc"` to show the most common values first. It needs [filter value counts](../installation#configuration) (`enable_filter_values_count`). The values are sorted again every time the counts update, as other filters change. Values with the same count are sorted by their label, and until the counts arrive (or when counts are disabled) all values are sorted by their label in ascending order.
 - For taxonomies, you can use any field from its blueprint to sort. For example, `sort="order:asc"` will sort the options by an `order` field. This allows you to create a custom order for your taxonomy terms or sort them by any additional value.
 
 ## Available filters
