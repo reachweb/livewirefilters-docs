@@ -16,7 +16,7 @@ Besides the required prerequisite above, to get the addon working correctly when
 |---|---|
 | Full or half measure + `enable_query_string` + `ignore_query_strings: false` (default) | No |
 | Full or half measure + `enable_query_string` + `ignore_query_strings: true` (or filter params in `disallowed_query_strings`) | Yes |
-| Full or half measure + `custom_query_string` | Yes |
+| Full or half measure + `custom_query_string` | No, each filter URL is cached on its own ([optional](#custom-query-string-mode-custom-query-string)) |
 
 - When half measure is combined with <code v-pre>{{ nocache }}</code> tags, you also **need** `inject_assets: false` in Livewire's config. Read more [here](#detected-multiple-instances-of-livewire-running-error).
 
@@ -42,7 +42,32 @@ Wrap the filter components and the `livewire-collection` tag in <code v-pre>{{ n
 
 ### Custom query string mode (`custom_query_string`)
 
-Filter URLs look like `/cars/search/brand/audi`. The addon rewrites these to the underlying entry path (`/cars`) so the route resolver can find the page; this rewrite happens before Statamic's static cache decides on a cache key, which means **every filter combination would otherwise overwrite the same cache entry as the unfiltered page**.
+Filter URLs look like `/cars/search/brand/audi`. The addon registers a route for any URL containing the `custom_query_string` prefix as a path segment. That route renders the base page (`/cars`) with the filters from the URL, and the request keeps its own URL. The static cache therefore sees `/cars/search/brand/audi` as a page of its own. You have two valid approaches, like the Livewire query string mode above:
+
+**Option A — Cache each filter URL (no <code v-pre>{{ nocache }}</code>).**
+
+Every filter combination gets its own static file (full measure) or cache entry (half measure) with the correct results. Full measure serves a filtered URL straight from the web server, without booting PHP. This is the fastest setup, but plan for invalidation and storage.
+
+Statamic invalidates `/cars` and its query string variants, not `/cars/search/...`. Add a wildcard rule so that saving an entry clears the filtered pages too. For filters on the home page (`/search/brand/audi`), add `/search/*`:
+
+```php
+// config/statamic/static_caching.php
+'invalidation' => [
+    'rules' => [
+        'collections' => [
+            'cars' => [
+                'urls' => ['/cars', '/cars/*'],
+            ],
+        ],
+    ],
+],
+```
+
+As with `ignore_query_strings: false` above, every filter URL a visitor lands on creates a file or cache entry, so watch your disk and cache usage.
+
+To skip caching for filtered pages entirely, exclude the pretty URLs: `'exclude' => ['urls' => ['/cars/search/*']]`. The unfiltered `/cars` is still cached.
+
+**Option B — Render the filters fresh with <code v-pre>{{ nocache }}</code>.**
 
 Wrap **both** the `livewire-collection` tag and the filter components in <code v-pre>{{ nocache }}</code> tags:
 
@@ -61,11 +86,15 @@ Wrap **both** the `livewire-collection` tag and the filter components in <code v
 
 A single <code v-pre>{{ nocache }}</code> block can wrap multiple tags, so two blocks are usually enough no matter how many filters you have. With this in place:
 
-- The cached HTML is just a shell with placeholders.
-- Filter chrome state and entries are rendered fresh per request via Statamic's `/!/nocache` endpoint.
-- The unfiltered URL (`/cars`) and every filter combination share the same cached shell and produce the correct dynamic content because the addon's middleware sets filter params on the `/!/nocache` request from the URL segments.
+- Each cached page is a shell with placeholders, so the filters and results inside it never go stale.
+- Filter chrome state and entries are rendered fresh per request: on full measure through Statamic's `/!/nocache` endpoint, on half measure server-side when the cached page is served.
+- The nocache regions of every filter URL are stored on the base page (`/cars`), and the addon fills in the filters from the URL.
 
-Trying to use an `exclude.urls` pattern like `*/search/*` to skip caching filter URLs does **not** work in this mode — by the time Statamic evaluates exclusions, the URL has already been rewritten to the canonical path. If you really want to skip caching for a filter page entirely, exclude the canonical path itself (e.g. `'/cars*'`).
+Each filter URL still gets its own cached shell, so this costs the same disk space as Option A while rendering the filters on every request. Use it when you can't set up invalidation rules for the filter URLs.
+
+::: tip Upgrading
+Before this change the addon rewrote every filter URL to its base page, so all filter combinations shared the base page's cache entry and <code v-pre>{{ nocache }}</code> was required. Existing <code v-pre>{{ nocache }}</code> setups keep working. Clear the static cache after upgrading (`php please static:clear`).
+:::
 
 ### Preset values and presets in `livewire-collection`
 
