@@ -92,7 +92,7 @@ Place it near the top of your `<head>`, **before** your stylesheets and scripts 
 </body>
 ```
 
-The tag loads a small inline script that defers `Livewire.start()` until Statamic has replaced the CSRF token. Browsers hold back inline scripts that come after a stylesheet until it loads, so placing the tag first lets it start Livewire as early as possible. It also starts Livewire when the token was already replaced by the time it runs, so older layouts with the tag after the stylesheets keep working. The tag outputs nothing when full-measure caching is disabled, so it's safe to leave in the layout permanently.
+The tag loads a small inline script that defers `Livewire.start()` until Statamic has replaced the CSRF token and the page has finished parsing (`DOMContentLoaded`, when Livewire would start on its own), so `alpine:init` listeners anywhere in the page, including ones after <code v-pre>{{ livewire:scripts }}</code> that register `Alpine.store` or `Alpine.data`, run before Alpine starts. Browsers hold back inline scripts that come after a stylesheet until it loads, so placing the tag first lets it run before Statamic replaces the token. It also starts Livewire when the token was already replaced by the time it runs, so older layouts with the tag after the stylesheets keep working. The tag outputs nothing when full-measure caching is disabled, so it's safe to leave in the layout permanently.
 
 ## Detected multiple instances of Livewire running error
 
