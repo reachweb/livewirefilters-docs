@@ -63,7 +63,7 @@ A single <code v-pre>{{ nocache }}</code> block can wrap multiple tags, so two b
 
 - The cached HTML is just a shell with placeholders.
 - Filter chrome state and entries are rendered fresh per request via Statamic's `/!/nocache` endpoint.
-- The unfiltered URL (`/cars`) and every filter combination share the same cached shell and produce the correct dynamic content because the addon's middleware sets filter params on the `/!/nocache` request from the URL segments.
+- The unfiltered URL (`/cars`) and every filter combination share the same cached shell and produce the correct dynamic content because the addon's middleware sets filter params on the `/!/nocache` request from the URL segments, along with the page URL's query string, such as `?page=2`.
 
 Trying to use an `exclude.urls` pattern like `*/search/*` to skip caching filter URLs does **not** work in this mode — by the time Statamic evaluates exclusions, the URL has already been rewritten to the canonical path. If you really want to skip caching for a filter page entirely, exclude the canonical path itself (e.g. `'/cars*'`).
 

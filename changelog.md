@@ -1,5 +1,25 @@
 # Changelog
 
+## v4.6.3 (Nov 4th, 2026)
+
+**Changed**
+
+- Filters and `lf-sort` read the URL's filter parameters when they mount, so on a filtered URL the page shows ticked checkboxes, selected options and filled inputs straight away, in both [URL query string](./advanced/url-query-string) modes. Before, controls rendered empty and filled in after a second Livewire request, and <code v-pre>{{ nocache }}</code> regions returned empty controls. Filters set from presets on the <code v-pre>{{ livewire-collection }}</code> tag still arrive through `preset-params`, which now only carries filter parameters and `sort`.
+
+**Fixed**
+
+- With full-measure static caching, <code v-pre>{{ livewire-filters:head }}</code> waits for `DOMContentLoaded` before starting Livewire, so `alpine:init` listeners placed after <code v-pre>{{ livewire:scripts }}</code>, such as ones that register `Alpine.store`, run in time. See [Static Caching](./advanced/static-caching).
+- With `custom_query_string` and full-measure static caching, filter changes no longer sometimes leave the browser URL unchanged.
+- With `custom_query_string` and <code v-pre>{{ nocache }}</code> regions on full measure, a paginated URL such as `/cars/search/brand/audi?page=2` now opens on that page instead of page 1.
+
+**Upgrading**
+
+Sites that use the bundled views need no changes. Check these if they apply:
+
+- **Custom filter components** that relied on `preset-params` for a URL parameter no longer receive it. Read `CustomQueryString::urlParams()` at mount; filters that use the `IsLivewireFilter` trait and define `setPresetValues()` get this automatically.
+- **Published filter views** keep working but only show the selection once Livewire starts. Copy the new `@checked`, `@selected` and `value` attributes from the bundled views to show it in the server HTML.
+- **Published `livewire/utility/url-handler.blade.php`:** re-publish it or merge in the new script to get the URL fix.
+
 ## v4.6.2 (Nov 4th, 2026)
 
 **Performance**
