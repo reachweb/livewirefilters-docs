@@ -6,7 +6,7 @@ Static caching introduces some challenges for Livewire Filters. Each has a diffe
 
 If you **don't** use the [URL query string](/advanced/url-query-string) feature generally everything works for both full and half measure static caching as it should with one small exception:
 
-- Full measure **requires** the <code v-pre>{{ livewire-filters:head }}</code> tag in your layout (before <code v-pre>{{ livewire:scripts }}</code>) to avoid 419 errors on the first interaction. See [Page Expired errors](#page-expired-errors-on-the-first-filter-interaction-or-other-console-errors) below.
+- Full measure **requires** the <code v-pre>{{ livewire-filters:head }}</code> tag near the top of your layout's `<head>` (before your stylesheets and scripts) to avoid 419 errors on the first interaction. See [Page Expired errors](#page-expired-errors-on-the-first-filter-interaction-or-other-console-errors) below.
 
 ## Configuration cheat sheet
 
@@ -77,13 +77,13 @@ When using **full measure** static caching, Statamic serves a cached HTML file i
 
 To fix add the <code v-pre>{{ livewire-filters:head }}</code> tag to your layout file.
 
-If you are manually bundling the assets, add it **before** <code v-pre>{{ livewire:scripts }}</code>:
+Place it near the top of your `<head>`, **before** your stylesheets and scripts (and before <code v-pre>{{ livewire:scripts }}</code> if you bundle the assets manually):
 
 ```antlers
 <head>
+    {{ livewire-filters:head }}
     ...
     {{ livewire:styles }}
-    {{ livewire-filters:head }}
 </head>
 
 <body>
@@ -92,7 +92,7 @@ If you are manually bundling the assets, add it **before** <code v-pre>{{ livewi
 </body>
 ```
 
-The tag loads a small inline script that defers `Livewire.start()` until Statamic's `statamic:csrf.replaced` event fires. The tag outputs nothing when full-measure caching is disabled, so it's safe to leave in the layout permanently.
+The tag loads a small inline script that defers `Livewire.start()` until Statamic has replaced the CSRF token. Browsers hold back inline scripts that come after a stylesheet until it loads, so placing the tag first lets it start Livewire as early as possible. It also starts Livewire when the token was already replaced by the time it runs, so older layouts with the tag after the stylesheets keep working. The tag outputs nothing when full-measure caching is disabled, so it's safe to leave in the layout permanently.
 
 ## Detected multiple instances of Livewire running error
 
