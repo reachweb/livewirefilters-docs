@@ -11,13 +11,15 @@ On this page, you can find some useful tips for better utilizing Livewire Filter
 
 ## Displaying Total Entries / Active Filters
 
-Quite often, you'll need to display the total number of entries after filtering (e.g., X items available) or show how many filters are active. The `LivewireCollection` component fires the `entries-updated` event after filtering is done. This event contains the `count` and `active` variables, which contain the number of entries and active filters, respectively.
+Quite often, you'll need to display the total number of entries after filtering (e.g., X items available) or show how many filters are active. The `LivewireCollection` component fires the `entries-updated` event after filtering is done. This event contains the `count` and `active` variables, which contain the number of entries and active filters, respectively, and `entriesLabel`, the translated text that follows the count (for example "entries" or "entry").
 
 Livewire Filters include a helper component called `LfCount` that you can use to display the count of entries:
 
 ```antlers
 {{ livewire:lf-count }}
 ```
+
+The bundled `LfCount` view updates in the browser from that event, so it costs no Livewire request. A published `count.blade.php` or a custom `view` keeps updating through the server.
 
 Alternatively, you can use AlpineJS to listen to that event and update these numbers like so:
 
@@ -49,6 +51,10 @@ Sometimes it's helpful to let the user clear all the enabled filters. The [LfTag
     <button x-show="collectionComponent.$get('activeFilters') > 0" x-on:click="collectionComponent.$call('clearAll')">Clear all filters</button>
 </div>
 ```
+
+::: info Custom filter components
+`clearAll()` removes the filter parameters itself and then fires `clear-all-filters`, so filters don't need to send anything back. Since v4.6.2 the event carries two arguments: the condition keys the collection kept (set on the tag or by an `init` hook) and the parameters it removed. A custom component that listens for it without parameters keeps working; one that declares parameters receives them in that order.
+:::
 
 ## Filtering Entries Field in Multi-Site Setups
 

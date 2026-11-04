@@ -1,5 +1,63 @@
 # Changelog
 
+## v4.6.2 (Nov 4th, 2026)
+
+**Performance**
+
+A performance release: faster counts, range bounds and filter options, smaller Livewire responses and fewer Livewire requests. Results, counts and bounds are the same as before.
+
+**Requirements**
+
+- Statamic 5 sites need **5.29 or later**. On an older 5.x, `composer update` keeps you on 4.6.1, so nothing breaks. Statamic 6 is unchanged. See [Requirements](./installation#requirements).
+
+**Changed**
+
+- Faceted counts and dynamic range bounds find the matching entries once per filter state per request and read each field straight from the Stache index, instead of running one sorted query per filter. On a 5,000-entry collection with 8 filters, the counts request after page load drops from about 1 s to 300 ms. The Eloquent driver is unchanged.
+- Term and entry option labels are read from the Stache indexes instead of loading every term and entry, so filters over a large taxonomy or collection mount several times faster. Option lists are no longer written to the cache store on every page view, so `lw_computed` cache files stop piling up.
+- Filters no longer send HTML the browser throws away, and with `enable_filter_values_count` off their snapshots no longer carry an empty counts array.
+- Fewer Livewire requests: the bundled checkbox view sends its update to the collection from the browser, the bundled `lf-count` view updates from the `entries-updated` event, the collection skips the tags update on page load when there's nothing to show, and "Clear all" only asks a filter to send a change back when it needs to. On the demo site a filtering session makes 8–26% fewer requests and receives up to 27% less data.
+- `entries-updated` also carries `entriesLabel`, the translated count text. `clear-all-filters` from the collection carries two arguments: the condition keys it kept and the parameters it removed. See [Clearing All Filters](./advanced/tips-performance#clearing-all-filters).
+- `validate_filter_values` still shows an error for an invalid checkbox value, but no longer stops the bundled checkbox view from applying it. Use `allowed_filters` and `blocked_query_params` to control which parameters the collection accepts. See [Configuration](./installation#configuration).
+
+**Fixed**
+
+- With full-measure static caching, <code v-pre>{{ livewire-filters:head }}</code> now starts Livewire even when its script runs after Statamic has replaced the CSRF token. Before, filters could stay unresponsive on slow networks. Place the tag before your stylesheets. See [Static Caching](./advanced/static-caching#page-expired-errors-on-the-first-filter-interaction-or-other-console-errors).
+- A selection made while "Clear all" was on its way no longer stays applied after the filter resets.
+
+**Upgrading**
+
+Sites that use the bundled views, or published copies of them, need no changes. Check these if they apply:
+
+- **Custom views that read `$statamic_field['counts']`:** with counts off the key is no longer set. Use `$this->counts[$value]`, which works with counts on or off.
+- **Subclasses of `LfCheckboxFilter`** that define `payload()`, `updatedSelected()` or `dispatchFilterUpdated()` keep updating through the server and work as before.
+- **Published `lf-checkbox.blade.php` or `ui/count.blade.php`:** both keep working through the server. Re-publish `lf-checkbox.blade.php`, or delete a published `count.blade.php`, to get the saved requests. See [Publish the views](./installation#publish-the-views).
+- **Custom `clear-all-filters` listeners** that declare parameters now receive the kept keys and the removed parameters, in that order.
+
+## v4.6.1 (Nov 2nd, 2026)
+
+**Security**
+
+- Faceted counts now only use the encrypted filter state that the collection sends, the same one dynamic range bounds use. A crafted `params-updated` event could previously put query controls into the count query and reveal whether matching draft, future or other-site entries exist.
+- The `view` property of every filter component is now `#[Locked]`, so a tampered request can't switch a filter to another view. Setting `view` on the tag still works.
+
+**Changed**
+
+- `params-updated` always carries its second argument, the encrypted query, when `enable_filter_values_count` or `enable_dynamic_range_bounds` is on. Custom code that dispatches `params-updated` to refresh counts must pass it.
+- The bundled filters now extend a new abstract `LivewireFilter` class. Subclasses of a bundled filter that define `payload()`, `emptyValue()`, `applyPreset()` or `dispatchFilterUpdated()` must match the new signatures.
+
+**Fixed**
+
+- A dual-range filter on a date field no longer crashes after a URL or tag preset, and removing a dual-range tag resets only the bound it names.
+- With dynamic range bounds on, "Clear all" keeps range sliders within the full-collection bounds.
+- Pretty URLs with several `query_scope` aliases now apply every scope.
+- `condition="taxonomy"` on a field whose handle isn't the taxonomy handle now throws a clear exception at mount.
+- Faceted counts no longer crash on fields holding nested arrays or objects, and multi-collection and multi-taxonomy counts now match the entries.
+- Localized term routes now filter by the default-locale term slug.
+
+**Upgrading**
+
+- If you published `tags.blade.php`, pass `$tag['condition']` as the third argument of `removeOption`.
+
 ## v4.6.0 (Oct 21st, 2026)
 
 **Security: query parameter hardening**

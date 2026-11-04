@@ -5,6 +5,13 @@ description: How to install Statamic Livewire Filters and configure it for your 
 
 # Installation
 
+## Requirements
+
+- Statamic **5.29** or later, or Statamic 6
+- Laravel 11, 12 or 13
+
+On an older Statamic 5, Composer keeps you on Livewire Filters 4.6.1 until you update Statamic.
+
 ## Installing the addon
 
 You can install Statamic Livewire Filters using Composer:
@@ -27,7 +34,7 @@ The available config options at the time are:
 | Option | Description | Default |
 |--------|-------------|---------|
 | `enable_query_string` | Enables Livewire's [query string feature](./advanced/url-query-string). | `false` |
-| `validate_filter_values` | When using fields that have predefined options, the addon will validate that the value the user wants to filter by actually exists in the options array. | `true` |
+| `validate_filter_values` | When using fields that have predefined options, the addon will validate that the value the user wants to filter by actually exists in the options array, and show an error if it doesn't. It's a usability check, not a security boundary: the bundled checkbox view sends its update from the browser, so an invalid value still reaches the collection. Use [`allowed_filters` and `blocked_query_params`](./usage/livewire-collection-tag#securing-parameters) to control which parameters the collection accepts. | `true` |
 | `blocked_query_params` | A blocklist of Statamic query control keys (`status`, `from`, `site`, `limit`, `paginate`, `since`/`until`, `filter`, …) stripped from filter state sent by the client before the query runs, so a tampered request can't change which entries are returned. Counts are calculated from the same filtered state. [Read more](./usage/livewire-collection-tag#securing-parameters). | *(populated list)* |
 | `enable_term_routes` | When enabled, the addon will preset the value of any Taxonomy filters when in [term routes](./advanced/taxonomy-term-routes). | `false` |
 | `use_origin_id_for_entries_field` | Set to false to use the IDs of the localized entries when using multi-site. Read more [here](./advanced/tips-performance#filtering-entries-field-in-multi-site-setups). | `true` |
@@ -55,6 +62,15 @@ To publish the views use the `vendor:publish` command:
 ```shell
 php artisan vendor:publish --tag statamic-livewire-filters-views
 ```
+
+::: tip Keeping published views up to date
+Published views keep working when you update the addon, but some releases make the bundled views cheaper to run, and you only get that by merging in the new markup or re-publishing:
+
+- **`lf-checkbox.blade.php`:** since v4.6.2 the bundled view sends its update to the collection from the browser, saving one Livewire request per tick. An older published copy still works through the server.
+- **`ui/count.blade.php`:** since v4.6.2 the bundled count updates from the `entries-updated` browser event without a request. Any published copy keeps the server listener and works as before; delete it if you don't need to change it.
+
+In your own views, read option counts from `$this->counts[$value]`, not `$statamic_field['counts']`. Since v4.6.2 the latter isn't set when `enable_filter_values_count` is off.
+:::
 
 ## Publish the language file
 
