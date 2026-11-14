@@ -9,7 +9,7 @@ description: Narrow a filter's options to the values that go with another filter
 
 A **dependent filter** only offers the options that go with the value of another filter, its *parent*. Pick a car brand and the model filter only lists that brand's models. With no brand selected, every model is listed.
 
-Dependent filters work with the [Checkbox](./checkbox-filter), [Radio](./radio-filter) and [Select](./select-filter) filters, including their advanced views.
+Dependent filters work with the [Checkbox](./checkbox-filter), [Radio](./radio-filter) and [Select](./select-filter) filters, including their advanced views. A range list (a radio filter with `buckets`) can't use `depends_on` and throws an exception.
 
 ## Syntax
 
@@ -47,14 +47,35 @@ Without `enable_dependent_filters` the collection doesn't send its filter state 
 After every filter change, the collection sends its filter state to the filters. A filter with `depends_on`:
 
 - **Narrows its options.** When the parent has a value, the filter only shows the options that appear in the entries that match the active filters, apart from its own. The option you have selected always stays visible.
-- **Clears its selection when the parent changes.** If the new parent value doesn't offer the selected option, that option is unselected: a radio or select filter is cleared, and a checkbox filter keeps only the values that are still available. A change to any other filter never clears the selection, and neither does loading a page: a selection from the URL or the tag is kept, even when its parent doesn't offer it.
+- **Clears its selection when the parent changes.** If no entry has the selected option together with the new parent value, that option is unselected: a radio or select filter is cleared, and a checkbox filter keeps the values the parent still offers. The other filters don't count here. With *VW* and *Diesel* active, a selected *Polo* that only comes with petrol stays selected, because VW still has a Polo. A change to any other filter never clears the selection, and neither does loading a page: a selection from the URL or the tag is kept, even when its parent doesn't offer it.
 - **Shows every option when the parent is cleared.** The selection is kept.
 
 The options are narrowed by the other active filters too, so with *Diesel* selected the model filter only lists the brand's diesel models.
 
+## Chains of filters
+
+A filter can depend on several parents. Separate their field handles with `|`. This is how you build a chain such as brand, model and fuel type, where the last filter lists both filters above it:
+
+```antlers
+{{ livewire:lf-checkbox-filter blueprint="cars.car" field="car_brand" condition="taxonomy" }}
+
+{{ livewire:lf-checkbox-filter blueprint="cars.car" field="car_model" condition="in" depends_on="car_brand" }}
+
+{{ livewire:lf-select-filter
+    blueprint="cars.car"
+    field="fuel_type"
+    condition="is"
+    depends_on="car_brand|car_model"
+}}
+```
+
+The filter narrows its options while any of its parents has a value, and a change to any of them unselects what their values together no longer offer. When a new brand clears the model, the fuel type is cleared too, and it then lists the fuel types of the new brand.
+
+If the last filter only named `car_model`, a cleared model would leave it with no parent value, so it would show every fuel type again.
+
 ## Hide or disable unavailable options
 
-By default, the options that don't go with the parent are hidden. Set `unavailable="disable"` to show them disabled instead (any other value throws an exception):
+By default, the options that don't go with the parent are hidden. Set `unavailable="disable"` to show them disabled instead (any other value throws an `InvalidUnavailableModeException`):
 
 ```antlers
 {{ livewire:lf-select-filter
@@ -70,12 +91,12 @@ By default, the options that don't go with the parent are hidden. Set `unavailab
 
 If you have published the filter views, add the dependent options to your copies:
 
-- **Blade views** (`lf-checkbox`, `lf-radio`, `lf-select`): call `$this->optionIsAvailable($value)` for each option and skip it when it returns `false` and `$unavailable === 'hide'`, or add the `disabled` attribute otherwise.
-- **Alpine views** (`lf-checkbox-advanced`, `lf-select-advanced`): start from `@js($this->availableOptions)` and listen for the `available-options-updated` event, whose first value is the list of available option keys as strings, or `null` when every option is available.
+- **Blade views** (`lf-checkbox`, `lf-radio`, `lf-select`): loop over `$this->visible_options` instead of `$this->filter_options`, and add the `disabled` attribute to the options whose key is in `$this->disabled_options`. Both already include the options that [`zero_count`](./checkbox-filter) hides or disables.
+- **Alpine views** (`lf-checkbox-advanced`, `lf-select-advanced`): start from `@js($availableOptions)` and `@js($unavailable)`, and listen for the `available-options-updated` event, whose first value is the list of available option keys as strings, or `null` when every option is available.
 
 ## Performance
 
-A dependent filter runs one query after every filter change, collecting its field's values from the matching entries. It is the same query the [filter value counts](../installation#configuration) run, so with `enable_filter_values_count` on it doesn't add a query. Filters that have nothing to update skip their re-render.
+A dependent filter runs one query after every filter change, collecting its field's values from the matching entries. It is the same query the [filter value counts](../installation#configuration) run, so with `enable_filter_values_count` on it doesn't add a query. When a parent changes while another filter hides a selected option, it runs one more query to see what the parent alone offers. Filters that have nothing to update skip their re-render.
 
 ## Static caching
 
