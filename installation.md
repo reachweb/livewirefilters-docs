@@ -42,6 +42,9 @@ The available config options at the time are:
 | `enable_dynamic_range_bounds` | When enabled, the [Range](./usage/range-filter#dynamic-bounds) and [Dual Range](./usage/dual-range-filter#dynamic-bounds) filters narrow their slider to the lowest and highest values among the entries that match the other active filters. Like the counts, this performs a query for each range filter on the page and repeats it after each user action, so use it cautiously with very large data sets. | `false` |
 | `enable_dependent_filters` | Turn this on to use [dependent filters](./usage/dependent-filters) (`depends_on`), which only offer the options that go with their parent filter's value. Each dependent filter runs one query per change, the same one the filter value counts use, so with `enable_filter_values_count` on it adds none. | `false` |
 | `custom_query_string` & `custom_query_string_aliases` | These are used to control the [custom URL query string feature](./advanced/url-query-string#using-the-custom-url-query-string). | - |
+| `seo_indexable_filters` | Filters whose single-value first pages stay indexable with the [SEO tag](./advanced/seo#keeping-some-filters-indexable). Use a field handle, a parameter key or a custom query string alias. | `[]` |
+| `seo_filter_headers` | In the custom query string mode, sends `X-Robots-Tag` and canonical `Link` headers for filter URLs. [Read more](./advanced/seo#custom-query-string-mode). | `false` |
+| `seo_page_names` | The query strings that carry the page number for the [SEO tag](./advanced/seo#custom-page-names). | `['page']` |
 
 ### Upgrading and the config file
 
