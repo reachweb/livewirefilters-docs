@@ -23,6 +23,7 @@ If your conditions are not applicable, it may result in unexpected behavior. Whi
 
 #### Additional Properties for Specific Filters
 
+- **Checkbox, Radio and Select filters:** These take a `zero_count` property that hides or disables options without results. See [Options without results](#options-without-results).
 - **Taxonomy filters:** These can utilize the `modifier` property to set the relationship as `any`, `all`, or `not`.
 - **Query scope filters:** You need to use the `modifier` property to set the query scope to use.
 - **Range Filter:** This filter uses the `max` and `min` properties to define the range of available values.
@@ -52,10 +53,10 @@ The available options for sorting are as follows:
 
 ## Options without results
 
-When [`enable_filter_values_count`](../installation.md#configuration) is on, each option of the `checkbox`, `radio` and `select` filters shows how many entries match it together with the other active filters. Use the `zero_count` property to choose what happens to options whose count drops to zero:
+Since v4.7.0, the Checkbox, Radio and Select filters take a `zero_count` property. It sets what happens to an option whose count drops to zero:
 
 - `show` (default): keep the option, with its `(0)` count.
-- `hide`: remove the option until other filter changes give it matching entries again.
+- `hide`: remove the option until it has matching entries again.
 - `disable`: keep the option but disable it, so it can't be selected.
 
 ```antlers
@@ -67,15 +68,12 @@ When [`enable_filter_values_count`](../installation.md#configuration) is on, eac
 }}
 ```
 
-It works the same with the advanced views (`lf-checkbox-advanced` and `lf-select-advanced`), which apply it in the browser whenever the counts update.
+- **Counts must be on.** `zero_count` only works with [`enable_filter_values_count`](../installation#configuration) turned on. The counts load right after the page, so every option shows on the first render.
+- **Selected options always stay.** A selected option is never hidden or disabled, so visitors can still see and clear it.
+- **Advanced views.** `lf-checkbox-advanced` and `lf-select-advanced` follow `zero_count` too. When no option is left, they show "No results found", with or without `searchable`.
+- **Published views.** Copies of the checkbox, radio and select views published before v4.7.0 ignore `zero_count`. Re-publish them or merge in the new markup.
 
-A few things to keep in mind:
-
-- **Selected options always stay.** An option that is already selected is never hidden or disabled, even when the other filters bring its count to zero, so visitors can still see and clear it.
-- **Counts must be enabled.** Without `enable_filter_values_count`, there are no counts to go by and `zero_count` has no effect.
-- **Nothing changes until the counts load.** Counts are calculated after the page loads, so every option is shown on the first render and the rule applies as soon as the counts arrive.
-
-Any value other than `show`, `hide` or `disable` throws an exception, so a typo is caught on the first render.
+Any value other than `show`, `hide` or `disable` throws an `InvalidZeroCountModeException`.
 
 ## Available filters
 
