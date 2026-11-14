@@ -50,9 +50,29 @@ To let visitors pick from predefined numeric ranges ("Under 100", "100 to 200", 
 
 Separate buckets with `|`. Each bucket is `min-max`; leave a side empty for an open-ended range (`20000-` or `-12000`). Labels are generated from the bounds: `0-100` and `-100` read "Under 100", `100-200` reads "100 to 200" and `200-` reads "Over 200". You can change the wording with the `range_under`, `range_between` and `range_over` keys of the [language file](../installation#publish-the-language-file).
 
-Selecting a bucket filters the field the same way as the [Dual Range Filter](./dual-range-filter): with `gte` and `lte` by default, so the URL and the [tags](../tags) show `price:gte` and `price:lte`. An open side sets only one of them. Because both ends are inclusive, an entry on a shared edge (a price of exactly `12000` above) matches both neighbouring buckets. To make the upper end exclusive, set `modifier="gte|lt"`; the counts follow the same comparisons.
+To set a label yourself, for example to add a currency, pass `options` keyed by bucket. A bucket you leave out keeps its generated label:
 
-With `enable_filter_values_count` turned on, the counts come from a single query of the field's values, bucketed in PHP, and ignore the filter's own selection like the other filters' counts.
+```antlers
+{{ price_labels = [
+    '0-12000' => 'Up to €12,000',
+    '12000-16000' => '€12,000 to €16,000',
+    '16000-20000' => '€16,000 to €20,000',
+    '20000-' => '€20,000 and up'
+] }}
+
+{{ livewire:lf-radio-filter
+    blueprint="cars.car"
+    field="price"
+    buckets="0-12000|12000-16000|16000-20000|20000-"
+    :options="price_labels"
+}}
+```
+
+Selecting a bucket filters the field the same way as the [Dual Range Filter](./dual-range-filter): with `gte` and `lte` by default, so the URL and the [tags](../tags) show `price:gte` and `price:lte`. An open side sets only one of them. Because both ends are inclusive, an entry on a shared edge (a price of exactly `12000` above) matches both neighbouring buckets. To make the upper end exclusive, set `modifier="gte|lt"`; the counts follow the same comparisons. The modifier takes `gt` or `gte` for the lower end, then `lt` or `lte` for the upper end.
+
+A bucket that isn't `min-max`, `min-` or `-max`, a bucket whose min is above its max, and any other modifier throw an exception, so a typo is caught on the first render.
+
+With `enable_filter_values_count` turned on, the counts come from a single query of the field's values, bucketed in PHP, and ignore the filter's own selection like the other filters' counts. The [`zero_count`](./filters#options-without-results) property works on buckets as on any other radio option: `zero_count="hide"` removes the buckets without matching entries and `zero_count="disable"` disables them. The selected bucket and the **All** option always stay.
 
 ::: info Ideal for
 Numeric fields, such as an `integer` price. A range list allows one bucket at a time; date fields aren't supported, use the Dual Range Filter for those.
