@@ -73,6 +73,7 @@ export default defineConfig({
           { text: 'Range Filter', link: '/usage/range-filter' },
           { text: 'Dual Range Filter', link: '/usage/dual-range-filter' },
           { text: 'Toggle Filter 🆕', link: '/usage/toggle-filter' },
+          { text: 'Dependent Filters 🆕', link: '/usage/dependent-filters' },
         ]
       },
       {

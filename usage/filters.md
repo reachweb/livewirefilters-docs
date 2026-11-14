@@ -30,6 +30,7 @@ If your conditions are not applicable, it may result in unexpected behavior. Whi
 - **Radio and Select filters:** A `buckets` property turns them into a list of number ranges. See [Range list](./range-filter#range-list).
 - **Dual Range Filter:** This filter supports the `min` and `max` properties as well as the `step` property that sets the step between values as well as a `minRange` property that sets the minimum range between min and max. The `condition` is not needed here as it's predefined but you can pass it along as a `modifier`.
 - **Toggle Filter:** This filter needs a `preset_value` variable that sets the value to apply and a `label` filter that is the text for the toggle field label.
+- **Dependent filters:** A Checkbox, Radio or Select filter takes `depends_on` to only offer the options that go with another filter's value, and `unavailable` to hide or disable the rest. See [Dependent filters](./dependent-filters).
 
 ## Sorting filter values
 
