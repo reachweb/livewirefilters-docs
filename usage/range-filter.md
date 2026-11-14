@@ -36,65 +36,6 @@ If there is a preset condition specified in the `livewire-collection` tag, it wi
 
 <Image src="/demo/rangefilter.webp" alt="The Range Filter example." />
 
-## Range list
-
-To let visitors pick from predefined numeric ranges ("Under 100", "100 to 200", "Over 200") instead of dragging a slider, use the Radio Filter with a `buckets` parameter. Each bucket becomes a radio option with its own entry count, and an **All** option clears the selection.
-
-```antlers
-{{ livewire:lf-radio-filter
-    blueprint="cars.car"
-    field="price"
-    buckets="0-12000|12000-16000|16000-20000|20000-"
-}}
-```
-
-The [Select Filter](./select-filter) takes `buckets` too and shows the same ranges as options, in both the `lf-select` and `lf-select-advanced` views. Its placeholder option, **All** or your `placeholder` text, clears the range. Everything below applies to both filters.
-
-```antlers
-{{ livewire:lf-select-filter
-    blueprint="cars.car"
-    field="price"
-    buckets="0-12000|12000-16000|16000-20000|20000-"
-    placeholder="Any price"
-}}
-```
-
-Separate buckets with `|`. Each bucket is `min-max`; leave a side empty for an open-ended range (`20000-` or `-12000`). Labels are generated from the bounds: `0-100` and `-100` read "Under 100", `100-200` reads "100 to 200" and `200-` reads "Over 200". You can change the wording with the `range_under`, `range_between` and `range_over` keys of the [language file](../installation#publish-the-language-file).
-
-To set a label yourself, for example to add a currency, pass `options` keyed by bucket. A bucket you leave out keeps its generated label:
-
-```antlers
-{{ price_labels = [
-    '0-12000' => 'Up to €12,000',
-    '12000-16000' => '€12,000 to €16,000',
-    '16000-20000' => '€16,000 to €20,000',
-    '20000-' => '€20,000 and up'
-] }}
-
-{{ livewire:lf-radio-filter
-    blueprint="cars.car"
-    field="price"
-    buckets="0-12000|12000-16000|16000-20000|20000-"
-    :options="price_labels"
-}}
-```
-
-Selecting a bucket filters the field the same way as the [Dual Range Filter](./dual-range-filter): with `gte` and `lte` by default, so the URL and the [tags](../tags) show `price:gte` and `price:lte`. An open side sets only one of them. Because both ends are inclusive, an entry on a shared edge (a price of exactly `12000` above) matches both neighbouring buckets. To make the upper end exclusive, set `modifier="gte|lt"`; the counts follow the same comparisons. The modifier takes `gt` or `gte` for the lower end, then `lt` or `lte` for the upper end.
-
-A bucket that isn't `min-max`, `min-` or `-max`, a bucket whose min is above its max, and any other modifier throw an exception, so a typo is caught on the first render.
-
-A bucket is selected when the bounds in the URL, or in a preset on the [`livewire-collection` tag](./livewire-collection-tag), match its bounds exactly. Bounds that match no bucket still filter the collection, for example an old link from before you changed `buckets`, a link made with the Dual Range Filter or a hand-edited URL. The radio list then checks no option, and choosing **All** clears the bounds. The select shows "Custom range" as its value without offering it in the list, and choosing its placeholder option, or the clear icon in `lf-select-advanced`, clears the bounds. Choosing a bucket replaces them in either filter. You can change the label with the `range_custom` key of the [language file](../installation#publish-the-language-file).
-
-With `enable_filter_values_count` turned on, the counts come from a single query of the field's values, bucketed in PHP, and ignore the filter's own selection like the other filters' counts. The [`zero_count`](./filters#options-without-results) property works on buckets as on any other option: `zero_count="hide"` removes the buckets without matching entries and `zero_count="disable"` disables them. The selected bucket and the **All** or placeholder option always stay.
-
-::: info Ideal for
-Numeric fields, such as an `integer` price. A range list allows one bucket at a time; date fields aren't supported, use the Dual Range Filter for those.
-:::
-
-The Radio Filter's view is `lf-range-list.blade.php`, and the Select Filter keeps `lf-select` or `lf-select-advanced`. Pass `view` to use your own. While the bounds match no bucket, `$selected` holds `LfRadioFilter::UNMATCHED_RANGE` (`'custom'`), a value no bucket has. A range list view should check its **All** option only when `$selected` is empty, as the bundled view does: the browser sends no change for a radio that is already checked, so a checked **All** couldn't clear the bounds.
-
-The select views take the "Custom range" label from `$this->unmatched_range_option`, which maps `UNMATCHED_RANGE` to the label and is empty without buckets. `lf-select` renders it as a hidden, disabled option, so choosing the empty option is still a change. A published copy of `lf-select` or `lf-select-advanced` needs this new markup: without it, the plain select shows its empty option for such bounds and can't clear them.
-
 ## Dynamic bounds
 
 With `enable_dynamic_range_bounds` turned on in the [config file](../installation#configuration), the slider narrows to the lowest and highest values among the entries that still match the other active filters, instead of always spanning `min` to `max`. It's off by default.
@@ -154,3 +95,75 @@ The `lf-range.blade.php` view changed in v4.6.0. If you published it before that
 ```
 
 The event's payload has `min`, `max`, `selected` and `disabled`. See [Custom views](./dual-range-filter#custom-views) on the Dual Range Filter page for details.
+
+## Range list
+
+Since v4.7.0, the Radio and Select filters can offer a list of number ranges, such as "Under 100", "100 to 200" and "Over 200", instead of a slider. Add a `buckets` parameter. No `condition` is needed:
+
+```antlers
+{{ livewire:lf-radio-filter
+    blueprint="cars.car"
+    field="price"
+    buckets="0-12000|12000-16000|16000-20000|20000-"
+}}
+```
+
+The Radio Filter shows each bucket as a radio option, plus an **All** option that clears the selection. The [Select Filter](./select-filter) takes `buckets` too, in both its `lf-select` and `lf-select-advanced` views. Its empty option (**All** or your `placeholder`), or the clear icon in `lf-select-advanced`, clears the selection.
+
+```antlers
+{{ livewire:lf-select-filter
+    blueprint="cars.car"
+    field="price"
+    buckets="0-12000|12000-16000|16000-20000|20000-"
+    placeholder="Any price"
+}}
+```
+
+::: info Ideal for
+Number fields, such as an `integer` price. Visitors pick one bucket at a time. Buckets take numbers only, so use the [Dual Range Filter](./dual-range-filter) for dates.
+:::
+
+### Buckets and labels
+
+Separate buckets with `|`. Each bucket is `min-max`. Leave a side empty for an open range, such as `20000-` or `-12000`. The labels are generated: `0-100` and `-100` read "Under 100", `100-200` reads "100 to 200" and `200-` reads "Over 200". Change the wording with the `range_under`, `range_between` and `range_over` keys of the [language file](../installation#publish-the-language-file).
+
+To write a label yourself, for example to add a currency, pass `options` keyed by bucket. A bucket you leave out keeps its generated label:
+
+```antlers
+{{ price_labels = [
+    '0-12000' => 'Up to €12,000',
+    '12000-16000' => '€12,000 to €16,000',
+    '16000-20000' => '€16,000 to €20,000',
+    '20000-' => '€20,000 and up'
+] }}
+
+{{ livewire:lf-radio-filter
+    blueprint="cars.car"
+    field="price"
+    buckets="0-12000|12000-16000|16000-20000|20000-"
+    :options="price_labels"
+}}
+```
+
+A bucket filters the field like the [Dual Range Filter](./dual-range-filter), with `gte` and `lte`, so the URL and the [tags](../tags) show `price:gte` and `price:lte`. An open side sets only one of them. Both ends are inclusive, so a price of exactly `12000` matches two of the buckets above. Set `modifier="gte|lt"` so a bucket stops just below its max. The modifier takes `gt` or `gte`, then `lt` or `lte`.
+
+A malformed bucket, or one whose min is above its max, throws an `InvalidRangeListBucketException`. Any other modifier throws an `InvalidRangeListModifierException`.
+
+### Counts
+
+With `enable_filter_values_count` turned on, each bucket shows how many entries it matches. [`zero_count`](./filters#options-without-results) works on buckets like on any other option. The selected bucket and the **All** option always stay.
+
+### Bounds that match no bucket
+
+A bucket is selected when the bounds in the URL, or a preset on the [`livewire-collection` tag](./livewire-collection-tag), match it exactly. Other bounds still filter the entries, for example from an old link made before you changed `buckets`. Then:
+
+- **Radio Filter:** no option is checked. Choosing **All** clears the bounds.
+- **Select Filter:** it shows "Custom range". Its empty option, or the clear icon in `lf-select-advanced`, clears the bounds. Change the label with the `range_custom` key of the [language file](../installation#publish-the-language-file).
+
+Choosing a bucket replaces the bounds in both filters.
+
+### Range list views
+
+The Radio Filter uses the `lf-range-list.blade.php` view and the Select Filter keeps its own views. Pass `view` to use your own. While the bounds match no bucket, `$selected` holds `'custom'` (`LfRadioFilter::UNMATCHED_RANGE`). Check your **All** option only when `$selected` is empty, as the bundled view does, or it can't clear such bounds. The select views get the "Custom range" label from `$this->unmatched_range_option`.
+
+If you published `lf-select` or `lf-select-advanced` before v4.7.0, merge in the new markup or re-publish them. Without it, the plain select shows its empty option for such bounds and can't clear them.

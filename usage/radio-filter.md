@@ -27,6 +27,8 @@ Fields that have options, like a `radio` or `select` field as well as `taxonomy`
 
 <Image src="/demo/radiofilter.webp" alt="The Radio Filter example." />
 
+To filter a number field by ranges, such as "Under 100" or "100 to 200", add `buckets`. See [Range list](./range-filter#range-list).
+
 <br>
 
 ::: warning Be careful
