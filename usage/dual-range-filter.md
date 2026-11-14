@@ -26,6 +26,7 @@ You can set the following options:
 - **step**: The steps that the value of each handle will change between when moved. *(Default: 1)*
 - **minRange**: The minimum allowed distance between the handles *(Default: 1)*
 - **format**: By default the range slider uses integer values. You can set this to **float** to enable more accuracy if needed.
+- **histogram**: The maximum number of bars to draw behind the slider (up to 100), showing how many matching entries fall in each part of the range. Needs [dynamic bounds](#dynamic-bounds). See [Histogram](#histogram). *(Default: off)*
 - **modifier**: This filter uses by default the `gte` and `lte` [conditions](https://statamic.dev/conditions) for numbers and the `is_after` and `is_before` conditions for date fields. You can pass a pipe separated modifier in order to change that, for example `gt|lt`.
 
 ## Syntax
@@ -116,6 +117,7 @@ After each bounds update the filter dispatches a `range-bounds-updated` event wi
 | `selectedMin`, `selectedMax` | Dual Range Filter only: the handle positions. |
 | `selected` | Range Filter only: the value to show on the handle. |
 | `disabled` | `true` when the slider should be disabled. |
+| `bins` | Dual Range Filter with `histogram` only: the [histogram bars](#histogram), a list of `{from, to, count}` counting the values from `from` up to, but not including, `to`. |
 
 The noUiSlider element is `wire:ignore`d, so `lf-dual-range.blade.php` updates it from the event, next to the existing `dual-range-preset-values` listener:
 
@@ -135,6 +137,33 @@ $wire.on('range-bounds-updated', (bounds) => {
 Keep the `false` arguments: they update the slider without firing its `set` event, which would send the new positions back to the server as a filter.
 
 For `lf-range.blade.php`, see [Custom views](./range-filter#custom-views) on the Range Filter page.
+
+## Histogram
+
+The Dual Range Filter can draw a histogram behind the slider: a row of bars showing how many of the matching entries fall in each part of the range, so users can see where most of the results are before they move the handles. Set `histogram` to the number of bars you want:
+
+```antlers
+{{ livewire:lf-dual-range-filter
+    blueprint="cars.car"
+    field="price"
+    min="8000"
+    max="27000"
+    step="500"
+    minRange="500"
+    histogram="20"
+}}
+```
+
+The histogram needs [dynamic bounds](#dynamic-bounds) turned on, because the bars are counted from the same values: the slider's field across the entries that match the other active filters. They're counted in the same pass as the bounds, so a histogram adds no extra query, only a little work per matching entry. The bars update with the bounds after each filter change, and the bars between the handles are drawn in the slider's connect color (`--noui-connect`).
+
+- **The bars follow the slider.** They span the slider's current bounds, so they narrow and widen along with it.
+- **Whole steps.** Each bar counts a whole number of the slider's stops (`step`s), starting at its lower bound, and is drawn around those stops, so the handles sit over the bars they select. The upper bound is a stop too and always gets counted. Because the bars are rounded up to whole steps, you can get fewer bars than you asked for: with the 20 bars above and other filters narrowing the slider to 14000–17000, there are 7 stops 500 apart and each gets a bar of its own. At most 100 bars are drawn.
+- **Dates count by year.** On a [date field](#usage-with-date-fields) each entry counts in the bar of its year.
+- **No matches, no bars.** When no entries match the other filters, the histogram is hidden while the slider shows the full `min`–`max`.
+
+::: tip Published views
+The bars are part of `lf-dual-range.blade.php` since v4.7.0. If you published the view before that, re-publish it or copy the histogram markup and the `bins` handling from the new view. Without them, `histogram` only adds the `bins` to the event.
+:::
 
 ## Styling
 
