@@ -23,6 +23,7 @@ If your conditions are not applicable, it may result in unexpected behavior. Whi
 
 #### Additional Properties for Specific Filters
 
+- **Checkbox, Radio and Select filters:** These take a `zero_count` property that hides or disables options without results. See [Options without results](#options-without-results).
 - **Taxonomy filters:** These can utilize the `modifier` property to set the relationship as `any`, `all`, or `not`.
 - **Query scope filters:** You need to use the `modifier` property to set the query scope to use.
 - **Range Filter:** This filter uses the `max` and `min` properties to define the range of available values.
@@ -49,6 +50,30 @@ The available options for sorting are as follows:
 - `key` or `slug` will sort by the array key or the term slug, respectively.
 - `label` or `title` will sort by the array label or the term title field, respectively.
 - For taxonomies, you can use any field from its blueprint to sort. For example, `sort="order:asc"` will sort the options by an `order` field. This allows you to create a custom order for your taxonomy terms or sort them by any additional value.
+
+## Options without results
+
+Since v4.7.0, the Checkbox, Radio and Select filters take a `zero_count` property. It sets what happens to an option whose count drops to zero:
+
+- `show` (default): keep the option, with its `(0)` count.
+- `hide`: remove the option until it has matching entries again.
+- `disable`: keep the option but disable it, so it can't be selected.
+
+```antlers
+{{ livewire:lf-checkbox-filter
+  blueprint="cars.car"
+  field="car_brand"
+  condition="taxonomy"
+  zero_count="hide"
+}}
+```
+
+- **Counts must be on.** `zero_count` only works with [`enable_filter_values_count`](../installation#configuration) turned on. The counts load right after the page, so every option shows on the first render.
+- **Selected options always stay.** A selected option is never hidden or disabled, so visitors can still see and clear it.
+- **Advanced views.** `lf-checkbox-advanced` and `lf-select-advanced` follow `zero_count` too. When no option is left, they show "No results found", with or without `searchable`.
+- **Published views.** Copies of the checkbox, radio and select views published before v4.7.0 ignore `zero_count`. Re-publish them or merge in the new markup.
+
+Any value other than `show`, `hide` or `disable` throws an `InvalidZeroCountModeException`.
 
 ## Available filters
 
