@@ -73,6 +73,23 @@ The filter narrows its options while any of its parents has a value, and a chang
 
 If the last filter only named `car_model`, a cleared model would leave it with no parent value, so it would show every fuel type again.
 
+## Tell the visitor what was cleared
+
+When a parent change unselects something, the filter fires a `dependent-selection-cleared` browser event. Its detail has the filter's `field`, the removed option `values` and their `labels`. Listen for it to show a notice:
+
+```antlers
+<div
+    x-data="{ cleared: [] }"
+    x-on:dependent-selection-cleared.window="cleared = $event.detail.labels"
+    x-show="cleared.length > 0"
+    x-cloak
+>
+    Removed <span x-text="cleared.join(', ')"></span>: not available for your new selection.
+</div>
+```
+
+The event is not fired when the visitor clears the filter themselves.
+
 ## Hide or disable unavailable options
 
 By default, the options that don't go with the parent are hidden. Set `unavailable="disable"` to show them disabled instead (any other value throws an `InvalidUnavailableModeException`):
