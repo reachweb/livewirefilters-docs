@@ -87,6 +87,7 @@ export default defineConfig({
         items: [
           { text: 'Query scopes', link: '/advanced/query-scopes' },
           { text: 'URL Query String', link: '/advanced/url-query-string' },
+          { text: 'SEO for filtered pages 🆕', link: '/advanced/seo' },
           { text: 'Transitions & animations', link: '/advanced/transitions-animations' },
           { text: 'Use in taxonomy term routes', link: '/advanced/taxonomy-term-routes' },
           { text: 'Hooks', link: '/advanced/hooks' },
