@@ -23,6 +23,8 @@ This filter will automatically load the available options of the field you are u
 
 <Image src="/demo/selectfilter.webp" alt="The Select Filter example." />
 
+To filter a number field by ranges, such as "Under 100" or "100 to 200", add `buckets`. See [Range list](./range-filter#range-list).
+
 ## Advanced Select Filter
 
 Livewire Filters also includes a more advanced version of the Select Filter that uses `Alpine JS` in order to allow for

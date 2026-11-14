@@ -37,7 +37,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Documentation', link: '/overview' },
       {
-        text: '4.6.3',
+        text: '4.7.0',
         items: [
           {
             items: [
@@ -73,6 +73,7 @@ export default defineConfig({
           { text: 'Range Filter', link: '/usage/range-filter' },
           { text: 'Dual Range Filter', link: '/usage/dual-range-filter' },
           { text: 'Toggle Filter 🆕', link: '/usage/toggle-filter' },
+          { text: 'Dependent Filters 🆕', link: '/usage/dependent-filters' },
         ]
       },
       {
@@ -87,6 +88,7 @@ export default defineConfig({
         items: [
           { text: 'Query scopes', link: '/advanced/query-scopes' },
           { text: 'URL Query String', link: '/advanced/url-query-string' },
+          { text: 'SEO for filtered pages 🆕', link: '/advanced/seo' },
           { text: 'Transitions & animations', link: '/advanced/transitions-animations' },
           { text: 'Use in taxonomy term routes', link: '/advanced/taxonomy-term-routes' },
           { text: 'Hooks', link: '/advanced/hooks' },

@@ -1,5 +1,22 @@
 # Changelog
 
+## v4.7.0 (Nov 14th, 2026)
+
+**Added**
+
+- **Hide or disable empty options:** checkbox, radio and select filters take `zero_count="hide"` or `zero_count="disable"` for options with no results. It needs `enable_filter_values_count` on. See [Options without results](./usage/filters#options-without-results).
+- **Range lists:** radio and select filters can offer ranges such as "Under 100", "100 to 200" and "Over 200" with `buckets="0-100|100-200|200-"`. See [Range list](./usage/range-filter#range-list).
+- **Dependent filters:** add `depends_on="car_brand"` to a filter so it only offers the options that go with the parent filter, such as the models of the chosen brand. See [Dependent Filters](./usage/dependent-filters).
+- **SEO tag:** add <code v-pre>{{ livewire-filters:seo }}</code> to your layout's `<head>` so search engines index your listing pages but not every filter combination. See [SEO for filtered pages](./advanced/seo).
+
+**Fixed**
+
+- In custom query string mode, a `0` in the URL, such as `/search/price-from/0`, is no longer lost when the page loads.
+
+**Upgrading**
+
+No changes are needed. If you published the filter views, re-publish them or copy in the new markup to use `zero_count` and dependent filters, and to show "Custom range" in the select views.
+
 ## v4.6.3 (Nov 4th, 2026)
 
 **Changed**

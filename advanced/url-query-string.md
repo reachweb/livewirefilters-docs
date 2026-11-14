@@ -85,4 +85,8 @@ Much cleaner, right? The replacement string for each original parameter key can 
 - **Query scopes require special handling.** You'll need to include `query_scope:` before the parameter's value. For example: `'categories' => 'query_scope:multiselect:car_categories'`.
 - **Unset filter parameters are ignored.** Your filters will still work, but any parameter not defined in the configuration won't be parsed on page load or generated during user interaction.
 
-The [demo site](https://demo.livewirefilters.com) uses the custom URL query string, so feel free to explore them to get a better understanding of how this feature works. 
+The [demo site](https://demo.livewirefilters.com) uses the custom URL query string, so feel free to explore them to get a better understanding of how this feature works.
+
+## SEO
+
+Once your filters are in the URL, search engines can crawl every filter combination. See [SEO for filtered pages](/advanced/seo) to control which of these URLs get indexed.
