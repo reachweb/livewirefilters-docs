@@ -83,7 +83,7 @@ Selecting a bucket filters the field the same way as the [Dual Range Filter](./d
 
 A bucket that isn't `min-max`, `min-` or `-max`, a bucket whose min is above its max, and any other modifier throw an exception, so a typo is caught on the first render.
 
-A bucket is selected when the bounds in the URL, or in a preset on the [`livewire-collection` tag](./livewire-collection-tag), match its bounds exactly. Bounds that match no bucket still filter the collection, for example an old link from before you changed `buckets`, a link made with the Dual Range Filter or a hand-edited URL. The radio list then checks no option, and choosing **All** clears the bounds.
+A bucket is selected when the bounds in the URL, or in a preset on the [`livewire-collection` tag](./livewire-collection-tag), match its bounds exactly. Bounds that match no bucket still filter the collection, for example an old link from before you changed `buckets`, a link made with the Dual Range Filter or a hand-edited URL. The radio list then checks no option, and choosing **All** clears the bounds. The select shows "Custom range" as its value without offering it in the list, and choosing its placeholder option, or the clear icon in `lf-select-advanced`, clears the bounds. Choosing a bucket replaces them in either filter. You can change the label with the `range_custom` key of the [language file](../installation#publish-the-language-file).
 
 With `enable_filter_values_count` turned on, the counts come from a single query of the field's values, bucketed in PHP, and ignore the filter's own selection like the other filters' counts. The [`zero_count`](./filters#options-without-results) property works on buckets as on any other option: `zero_count="hide"` removes the buckets without matching entries and `zero_count="disable"` disables them. The selected bucket and the **All** or placeholder option always stay.
 
@@ -91,7 +91,9 @@ With `enable_filter_values_count` turned on, the counts come from a single query
 Numeric fields, such as an `integer` price. A range list allows one bucket at a time; date fields aren't supported, use the Dual Range Filter for those.
 :::
 
-The Radio Filter's view is `lf-range-list.blade.php`. Pass `view` to use your own. While the bounds match no bucket, `$selected` holds `LfRadioFilter::UNMATCHED_RANGE` (`'custom'`), a value no option has. A published or custom view should check its **All** option only when `$selected` is empty, as the bundled view does: the browser sends no change for a radio that is already checked, so a checked **All** couldn't clear the bounds.
+The Radio Filter's view is `lf-range-list.blade.php`, and the Select Filter keeps `lf-select` or `lf-select-advanced`. Pass `view` to use your own. While the bounds match no bucket, `$selected` holds `LfRadioFilter::UNMATCHED_RANGE` (`'custom'`), a value no bucket has. A range list view should check its **All** option only when `$selected` is empty, as the bundled view does: the browser sends no change for a radio that is already checked, so a checked **All** couldn't clear the bounds.
+
+The select views take the "Custom range" label from `$this->unmatched_range_option`, which maps `UNMATCHED_RANGE` to the label and is empty without buckets. `lf-select` renders it as a hidden, disabled option, so choosing the empty option is still a change. A published copy of `lf-select` or `lf-select-advanced` needs this new markup: without it, the plain select shows its empty option for such bounds and can't clear them.
 
 ## Dynamic bounds
 
